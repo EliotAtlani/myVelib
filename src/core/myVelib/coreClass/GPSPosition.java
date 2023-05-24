@@ -3,7 +3,7 @@ package coreClass;
 public class GPSPosition {
 	protected Double longitude;
 	protected Double latitude;
-	
+
 	public GPSPosition(Double longitude, Double latitue) {
 		super();
 		this.longitude = longitude;
@@ -28,9 +28,7 @@ public class GPSPosition {
 
 	@Override
 	public String toString() {
-		return "longitude is " + longitude + " and latitude is" + latitue ;
+		return "longitude is " + longitude + " and latitude is" + latitude;
 	}
-	
-	
 
 }
