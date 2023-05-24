@@ -1,4 +1,4 @@
-package coreClass;
+package Classes;
 
 import Enums.*;
 import Cards.*;
@@ -63,11 +63,10 @@ public class User {
 	
 	public double rideCost(BicycleType type, LocalDateTime rentDateTime, LocalDateTime returnDateTime) {
         int rideDuration = (int) ChronoUnit.MINUTES.between(rentDateTime,returnDateTime);
-        double rideCost = this.getRegistrationCard().computeRideCost(rideDurationInMinutes, bicycleType, this);
+        double rideCost = this.getRegistrationCard().computeRideCost(rideDuration, type, this);
         this.addCharge(rideCost);
         return rideCost;
     }
-
 
 	public String getName() {
 		return name;
