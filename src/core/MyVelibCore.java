@@ -1,12 +1,30 @@
 package core;
 
+import core.coreComponents.*;
+import core.types.*;
+
 public class MyVelibCore {
     // Define necessary data structures and variables to represent the bike sharing system
     
     public MyVelibCore() {
         // Initialize the necessary data structures and variables
     }
+    public static void main(String[] args) {
+    	
+    	
+    	
     
+    	
+    	User user1 = new User("Eliot",1.3,1.4,"349HD","EIHD");
+
+    	user1.addCharges(10);
+    	
+    	
+    
+    	
+    	System.out.println(user1);
+    	
+    }
     // Implement methods to handle the operations required by the CLUI commands
     
     public void setup(String velibnetworkName) {
