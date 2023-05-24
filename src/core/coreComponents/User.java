@@ -28,7 +28,17 @@ public class User {
         usedIds.add(tempId);
         return tempId;
     }
-	
+	 @Override
+	    public String toString() {
+	        String baseString = "User " + name + " [id:" + id + "]\n" +
+	                "Location : (latitude : " + latitude + "\u00B0, longitude : " + longitude + "\u00B0) \n" +
+	                "Credit card : " + creditCardNumber + ", total charges : " + totalCharges + "\n" + "rented " + "\n";
+	        // if the user has no registration card
+	       
+	            return baseString + "No registration card.";
+	      
+
+	    }
 	/**
      * Instantiates a new User with a registration card
      *
@@ -39,7 +49,7 @@ public class User {
      * @param registrationCard the registration that the user has
      * @throws Exception the exception
      */
-    public User(String name, double latitude, double longitude, String creditCardNumber,String registrationCard) throws Exception {
+    public User(String name, double latitude, double longitude, String creditCardNumber,String registrationCard) {
         this.name = name;
         // check the values of latitude and longitude
         this.setLatitude(latitude);
