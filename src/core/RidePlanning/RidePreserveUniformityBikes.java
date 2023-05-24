@@ -1,34 +1,32 @@
 package RidePlanning;
 
-import core.myVelib.coreClass.GPSPosition;
-import core.myVelib.coreClass.*;
+import Enums.*;
+import Classes.*;
 
 import java.util.ArrayList;
 
 import Enums.BicycleType;
-import core.myVelib.Enums.*;
 
 public class RidePreserveUniformityBikes extends NormalRide {
 
-	public RidePreserveUniformityBikes(GPSPosition startPosition, GPSPosition endPosition) {
-		super(startPosition, endPosition);
-		// TODO Auto-generated constructor stub
-	}
-	
-	public DockingStation findStartStation(ArrayList<DockingStation> stations, BicycleType typeOfBicycle) {
-		DockingStation startStation = null;
+    public RidePreserveUniformityBikes(GPSPosition startPosition, GPSPosition endPosition) {
+        super(startPosition, endPosition);
+        // TODO Auto-generated constructor stub
+    }
+
+    public DockingStation findStartStation(ArrayList<DockingStation> stations, BicycleType typeOfBicycle) {
+        DockingStation startStation = null;
         Double minDistance = Double.POSITIVE_INFINITY;
         DockingStation startStationWithMoreBicycle = stations.get(0);
         Double minDistanceWithMoreBicycle = getDistance(super.startPosition, stations.get(0).getPosition());
-        for (DockingStation station : stations) { 
-            if (station.getStationStatus() == DockingStationStatus.ONLINE) { 
-                if (station.hasBike(typeOfBicycle)) { 
+        for (DockingStation station : stations) {
+            if (station.getStationStatus() == DockingStationStatus.ONLINE) {
+                if (station.hasBike(typeOfBicycle)) {
                     Double distance = getDistance(super.startPosition, station.getPosition());
-                    if (distance < minDistance) { 
+                    if (distance < minDistance) {
                         startStation = station;
                         minDistance = distance;
-                    }
-                    else if (distance <= minDistance*1.05) { // To find the closest station with more bicycle
+                    } else if (distance <= minDistance * 1.05) { // To find the closest station with more bicycle
                         startStationWithMoreBicycle = station;
                         minDistanceWithMoreBicycle = distance;
                     }
@@ -37,16 +35,14 @@ public class RidePreserveUniformityBikes extends NormalRide {
         }
         if (startStationWithMoreBicycle.getnumberOfBike(typeOfBicycle) > startStation.getnumberOfBike(typeOfBicycle)) {
             return startStationWithMoreBicycle;
-        }
-        else {
+        } else {
             return startStation;
         }
     }
 
-  
     @Override
     public DockingStation findEndStation(ArrayList<DockingStation> stations) {
-    	DockingStation destinationStation = null;
+        DockingStation destinationStation = null;
         Double minDistance = Double.POSITIVE_INFINITY;
         DockingStation destinationStationWithMoreBicycle = stations.get(0);
         Double minDistanceWithMoreBicycle = getDistance(super.endPosition, stations.get(0).getPosition());
@@ -57,18 +53,17 @@ public class RidePreserveUniformityBikes extends NormalRide {
                     if (distance <= minDistance) { // To find the closest station
                         destinationStation = station;
                         minDistance = distance;
-                    }
-                    else if (distance <= minDistance*1.05) { // To find the closest station with more bicycle
+                    } else if (distance <= minDistance * 1.05) { // To find the closest station with more bicycle
                         destinationStationWithMoreBicycle = station;
                         minDistanceWithMoreBicycle = distance;
                     }
                 }
             }
         }
-        if (destinationStationWithMoreBicycle.getnumberOfFreeParkingSlot() > destinationStation.getnumberOfFreeParkingSlot()) {
+        if (destinationStationWithMoreBicycle.getnumberOfFreeParkingSlot() > destinationStation
+                .getnumberOfFreeParkingSlot()) {
             return destinationStationWithMoreBicycle;
-        }
-        else {
+        } else {
             return destinationStation;
         }
     }

@@ -60,7 +60,7 @@ public class MyVelibCLUI {
                 parkingSlots.add(parkingSlot);
             }
         }
-        System.out.println(nameStation);
+
         // Generate numberOfBike randomly distributed index between 0 and
         // numberOfStation*numberOfSlotPerStation
         List<Integer> randomParkingSlot = new ArrayList<>();

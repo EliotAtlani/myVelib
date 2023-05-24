@@ -2,8 +2,8 @@ package RidePlanning;
 
 import java.util.ArrayList;
 
-import core.myVelib.Enums.*;
-import core.myVelib.coreClass.*;
+import Enums.*;
+import Classes.*;
 
 public class RidePreferStreetBike extends NormalRide {
 
@@ -16,13 +16,13 @@ public class RidePreferStreetBike extends NormalRide {
 		Bicycle startingbike = null;
 		Double distance = Double.POSITIVE_INFINITY;
 		for (Bicycle bike : bikes) {
-			if (bike.isInStation()==false & bike.isFree()) {
-					if(getDistance(super.startPosition, bike.getPosition())<distance) {
-						startingbike=bike;
-						distance=getDistance(startPosition, bike.getPosition());
-					}
+			if (bike.isInStation() == false & bike.isFree()) {
+				if (getDistance(super.startPosition, bike.getPosition()) < distance) {
+					startingbike = bike;
+					distance = getDistance(startPosition, bike.getPosition());
 				}
 			}
+		}
 		return startingbike;
 	}
 }
