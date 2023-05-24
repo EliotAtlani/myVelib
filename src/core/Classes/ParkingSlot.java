@@ -22,9 +22,10 @@ public class ParkingSlot {
                 " is " + slot_status + " with " + bike;
     }
 
-    public ParkingSlot(ParkingSlotStatus slot_status, Bicycle bike) {
+    public ParkingSlot(ParkingSlotStatus slot_status, Bicycle bike, DockingStation station) {
         id = uniqueId;
         getNextUniqueId();
+        this.station=station;
         this.slot_status = slot_status;
         if (slot_status == ParkingSlotStatus.Occupied) { // One can only instantiates a bicycle to a parking slot if the
                                                          // parking slot is set Occupied
@@ -37,6 +38,9 @@ public class ParkingSlot {
     // Getters and Setters
     public Integer getId() {
         return id;
+    }
+    public DockingStation getStationId(){
+        return station;
     }
 
     public void setId(Integer Id) {
