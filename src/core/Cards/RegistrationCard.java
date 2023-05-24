@@ -5,7 +5,7 @@ import Classes.*;
 
 public class RegistrationCard {
 	private boolean canHandleTimeCredit;
-	private int timeCreditBalance;
+	private double timeCreditBalance;
 	private int firstHourMechanical;
 	private int nextHourMechanical;
 	private int firstHourElec;
@@ -55,7 +55,7 @@ public class RegistrationCard {
 		return canHandleTimeCredit;
 	}
 
-	public int getTimeCreditBalance() {
+	public double getTimeCreditBalance() {
 		return timeCreditBalance;
 	}
 

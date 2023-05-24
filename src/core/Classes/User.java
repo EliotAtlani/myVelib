@@ -22,9 +22,10 @@ public class User {
 	private static ArrayList<Integer> takenIds = new ArrayList<>();
 	double rideDurationInMinutes;
 	BicycleType bicycleType;
+	public static ArrayList<User> userList = new ArrayList<>();
 
 	private static int getValidId() {
-		int tempId = 0;
+		int tempId = 1;
 		while (takenIds.contains(tempId)) {
 			tempId++;
 		}
@@ -32,7 +33,12 @@ public class User {
 		return tempId;
 	}
 
-	public User(String name, int id, GPSPosition position, String creditCardNumber, RegistrationCard registrationCard) {
+	@Override
+	public String toString() {
+		return "User id is : " + id + "\n User name is : "+ name;
+
+	}
+	public User(String name, GPSPosition position, String creditCardNumber, RegistrationCard registrationCard) {
 		this.name = name;
 		this.id = getValidId();
 		this.position = position;
@@ -45,7 +51,7 @@ public class User {
 		this.rentTotalTime = 0;
 	}
 
-	public User(String name, int id, GPSPosition position, String creditCardNumber) {
+	public User(String name, GPSPosition position, String creditCardNumber) {
 		this.name = name;
 		this.id = getValidId();
 		this.position = position;
@@ -155,6 +161,10 @@ public class User {
 
 	public void setRentTotalTime(int rentTotalTime) {
 		this.rentTotalTime = rentTotalTime;
+	}
+
+	public void addUserToList(User user){
+		userList.add(user);
 	}
 
 }

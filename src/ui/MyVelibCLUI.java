@@ -40,31 +40,31 @@ public class MyVelibCLUI {
                         handleSetupCommand(arguments);
                         break;
                     case "addUser":
-                        handleAddUserCommand(parts);
+                        handleAddUserCommand(arguments);
                         break;
                     case "offline":
-                        handleOfflineCommand(parts);
+                        handleOfflineCommand(arguments);
                         break;
                     case "online":
-                        handleOnlineCommand(parts);
+                        handleOnlineCommand(arguments);
                         break;
                     case "rentBike":
-                        handleRentBikeCommand(parts);
+                        handleRentBikeCommand(arguments);
                         break;
                     case "returnBike":
-                        handleReturnBikeCommand(parts);
+                        handleReturnBikeCommand(arguments);
                         break;
                     case "displayStation":
-                        handleDisplayStationCommand(parts);
+                        handleDisplayStationCommand(arguments);
                         break;
                     case "displayUser":
-                        handleDisplayUserCommand(parts);
+                        handleDisplayUserCommand(arguments);
                         break;
                     case "sortStation":
-                        handleSortStationCommand(parts);
+                        handleSortStationCommand(arguments);
                         break;
                     case "display":
-                        handleDisplayCommand(parts);
+                        handleDisplayCommand(arguments);
                         break;
                     case "exit":
                         running = false;
@@ -165,8 +165,12 @@ public class MyVelibCLUI {
 
     }
 
-    private void handleAddUserCommand(String[] parts) {
+    private void handleAddUserCommand(String[] arguments) {
+        String userName = arguments[0];
+        String registration = arguments[1];
+        String stationName = arguments[2];
 
+        MyVelibFunctions.addUser(userName, registration, stationName);
     }
 
     private void handleOfflineCommand(String[] parts) {
@@ -190,7 +194,9 @@ public class MyVelibCLUI {
     }
 
     private void handleDisplayUserCommand(String[] parts) {
-
+        Integer userId = Integer.parseInt(parts[1].toString());
+     
+        MyVelibFunctions.displayUser(null, userId);
     }
 
     private void handleSortStationCommand(String[] parts) {
@@ -202,7 +208,6 @@ public class MyVelibCLUI {
     }
 
     public static void main(String[] args) {
-        MyVelibCLUI myVelibCLUI = new MyVelibCLUI();
-        myVelibCLUI.start();
+       
     }
 }
