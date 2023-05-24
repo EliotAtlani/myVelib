@@ -1,12 +1,8 @@
 package RidePlanning;
 
-import core.myVelib.coreClass.GPSPosition;
-import core.myVelib.coreClass.*;
-
 import java.util.ArrayList;
-
-import Enums.BicycleType;
-import core.myVelib.Enums.*;
+import Enums.*;
+import Classes.*;
 
 public class RidePreserveUniformityBikes extends NormalRide {
 

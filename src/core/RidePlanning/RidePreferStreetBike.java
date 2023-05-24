@@ -2,8 +2,8 @@ package RidePlanning;
 
 import java.util.ArrayList;
 
-import core.myVelib.Enums.*;
-import core.myVelib.coreClass.*;
+import Enums.*;
+import Classes.*;
 
 public class RidePreferStreetBike extends NormalRide {
 

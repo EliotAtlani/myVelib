@@ -2,9 +2,9 @@ package RidePlanning;
 
 import java.util.ArrayList;
 
-import core.*;
-import core.myVelib.Enums.*;
-import core.myVelib.coreClass.*;
+
+import Enums.*;
+import Classes.*;
 
 
 

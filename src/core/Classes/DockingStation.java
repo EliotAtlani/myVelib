@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import core.myVelib.Enums.*;
+import Enums.*;
 
 
 public class DockingStation {

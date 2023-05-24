@@ -1,6 +1,6 @@
 package Classes;
 
-import core.myVelib.Enums.*;
+import Enums.*;
 
 public class Bicycle {
     private static Integer uniqueId = 0;

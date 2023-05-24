@@ -2,10 +2,9 @@ package RidePlanning;
 
 import java.util.ArrayList;
 
-import core.myVelib.Enums.DockingStationStatus;
-import core.myVelib.Enums.DockingStationType;
-import core.myVelib.coreClass.DockingStation;
-import core.myVelib.coreClass.GPSPosition;
+import Enums.*;
+import Classes.*;
+
 
 public class RidePreferPlusStation extends NormalRide{
 
