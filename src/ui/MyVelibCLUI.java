@@ -11,69 +11,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import ui.MyVelibFunctions;
 
 import Classes.*;
 
 public class MyVelibCLUI {
-
-    /**
-     * Get random type of bicycle.
-     *
-     * @return the random type of bicycle
-     */
-    public BicycleType getRandomBicycleType() {
-        if (Math.random() < 0.5) {
-            return BicycleType.MECHANICAL;
-        } else {
-            return BicycleType.ELECTRIC;
-        }
-    }
-
-    /**
-     * Setup a myVelib network.
-     *
-     *
-     * @param nameStation the name of station
-     * @param nbOfStation the number of station
-     * @param nbOfSlots   the number of slot per station
-     * @param sideLength  the side length
-     * @param nbOfBikes   the number of bike
-     */
-
-    public void setup(String nameStation, Integer nbOfStation, Integer nbOfSlots, Double sideLength,
-            Integer nbOfBikes) {
-        ArrayList<ParkingSlot> parkingSlots = new ArrayList<>();
-        // Place stations uniformly on a square grid whose the side is of length
-        // sideLength
-        for (int i = 0; i < nbOfStation; i++) {
-            GPSPosition position = new GPSPosition(sideLength, sideLength);
-            position.setLatitude(Math.random());
-            position.setLongitude(Math.random());
-            DockingStation station = new DockingStation(position, DockingStationStatus.ONLINE,
-                    DockingStationType.STANDARD);
-            // stations.add(station);
-            // MyVelibSystem.myVelibRecord.addStationIfNotExists(station);
-            // Create numberOfSlotPerStation free slots per stations
-            for (int j = 0; j < nbOfSlots; j++) {
-                ParkingSlot parkingSlot = new ParkingSlot(ParkingSlotStatus.Free, null);
-                station.addParkingSlot(parkingSlot);
-                parkingSlots.add(parkingSlot);
-            }
-        }
-
-        // Generate numberOfBike randomly distributed index between 0 and
-        // numberOfStation*numberOfSlotPerStation
-        List<Integer> randomParkingSlot = new ArrayList<>();
-        for (int i = 0; i < nbOfSlots * nbOfStation; i++) {
-            randomParkingSlot.add(i);
-        }
-        Collections.shuffle(randomParkingSlot);
-        for (int i = 0; i < nbOfBikes; i++) {
-            parkingSlots.get(randomParkingSlot.get(i)).setParkingSlotStatus(ParkingSlotStatus.Occupied);
-            parkingSlots.get(randomParkingSlot.get(i)).setBike(new Bicycle(getRandomBicycleType(), null));
-        }
-
-    }
 
     public void start() {
         Scanner scanner = new Scanner(System.in);
@@ -146,14 +88,14 @@ public class MyVelibCLUI {
         if (arguments.length == 1) {
             String nameStation = (String) arguments[0];
 
-            setup(nameStation, 10, 10, 4000.0, 75);
+            MyVelibFunctions.setup(nameStation, 10, 10, 4000.0, 75);
         } else if (arguments.length == 5) {
             String nameStation = (String) arguments[0];
             Integer nbStations = Integer.parseInt(arguments[1].toString());
             Integer nbSlots = Integer.parseInt(arguments[2].toString());
             Double s = Double.parseDouble(arguments[3].toString());
             Integer nbBikes = Integer.parseInt(arguments[4].toString());
-            setup(nameStation, nbStations, nbSlots, s, nbBikes);
+            MyVelibFunctions.setup(nameStation, nbStations, nbSlots, s, nbBikes);
         } else {
             System.out.println("You must enter the correct number of arguments. Type 'help' for more information");
         }
