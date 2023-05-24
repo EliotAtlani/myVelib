@@ -65,6 +65,7 @@ public class MyVelibFunctions {
 
                 // Store the station in memory
                 MyVelibIndex.myVelibDatabase.addStation(station);
+                VelibNetwork.setStationToMyVelibNetwork(station);
 
                 // Create nbOfSlots in this station
                 for (int j = 0; j < nbOfSlots; j++) {
@@ -86,7 +87,7 @@ public class MyVelibFunctions {
                 parkingSlots.get(randomParkingSlot.get(i)).setBike(new Bicycle(getRandomBicycleType(),
                         parkingSlots.get(randomParkingSlot.get(i)).getStationId().getPosition()));
             }
-            //
+            //Store the VelibNetwork
             MyVelibIndex.myVelibDatabase.addVelibNetwork(velibNetwork);
         }else{
             // Print
@@ -107,35 +108,99 @@ public class MyVelibFunctions {
     public static void addUser(String userName,String registration, String nameStation){
         User userAdd;
 
+        VelibNetwork velibNetwork = MyVelibIndex.myVelibDatabase.getVelibNetwork(nameStation);
 
+        if (velibNetwork == null){
+            System.out.println("The name of the velibNetwork doesn't exist");
+        } else{
 
-        if (registration.toLowerCase().equals("vlibre")){
-            VLibreCard card = new VLibreCard();
-            userAdd = new User(userName, null, null, card);
-        
-            userAdd.addUserToList(userAdd);
-            System.out.println("Added user "+userAdd.getName() + " with id " + userAdd.getId() + " and card Vlibre" );
-        } else if (registration.toLowerCase().equals("vmax")){
-            VMaxCard card = new VMaxCard();
-            userAdd = new User(userName, null, null, card);
-            userAdd.addUserToList(userAdd);
+            if (registration.toLowerCase().equals("vlibre")) {
+                VLibreCard card = new VLibreCard();
+                userAdd = new User(userName, null, null, card);
+             
+                userAdd.addUserToList(userAdd);
+                System.out.println(
+                        "Added user " + userAdd.getName() + " with id " + userAdd.getId() + " and card Vlibre");
+            } else if (registration.toLowerCase().equals("vmax")) {
+                VMaxCard card = new VMaxCard();
+                userAdd = new User(userName, null, null, card);
+                userAdd.addUserToList(userAdd);
 
-            System.out.println("Added user " + userAdd.getName() + " with id " + userAdd.getId() + " and card Max");
+                System.out.println("Added user " + userAdd.getName() + " with id " + userAdd.getId() + " and card Max");
 
-        } else {
-            userAdd = new User(userName, null, null);
-            userAdd.addUserToList(userAdd);
+            } else {
+                userAdd = new User(userName, null, null);
+                userAdd.addUserToList(userAdd);
 
-            System.out.println("Added user " + userAdd.getName() + " with id " + userAdd.getId() + " and card None");
+                System.out
+                        .println("Added user " + userAdd.getName() + " with id " + userAdd.getId() + " and card None");
 
+            }
+            VelibNetwork.setUserToMyVelibNetwork(userAdd);
+
+            MyVelibIndex.myVelibDatabase.addUser(userAdd);
         }
 
-        MyVelibIndex.myVelibDatabase.addUser(userAdd);
-    }
 
-    public static void offline (String stationName,int stationId){
+
+        
         
     }
+
+    public static void offline (String nameStation,int stationId){
+        VelibNetwork velibNetwork = MyVelibIndex.myVelibDatabase.getVelibNetwork(nameStation);
+
+        if (velibNetwork == null){
+            System.out.println("The name of the velibNetwork doesn't exist");
+
+        }else{
+            //We check if the station exist
+            if ( VelibNetwork.getStations().get(stationId) == null ) {
+                System.out.println("The station doesn't exist");
+            }else{
+                DockingStation station = VelibNetwork.getStation(stationId);
+                
+                // Check if the station status
+                 if (station.getStationStatus() == DockingStationStatus.ONLINE){
+                     station.setStationStatus(DockingStationStatus.OFFLINE);
+
+                     System.out.println("The station n°" + stationId + " from the velibNetwork " + nameStation + " is now offline");
+                 }
+                 else{
+                    System.out.println("The station was already offline");
+                 }
+
+            }
+        }
+    }
+
+    public static void online(String nameStation, int stationId) {
+        VelibNetwork velibNetwork = MyVelibIndex.myVelibDatabase.getVelibNetwork(nameStation);
+
+        if (velibNetwork == null) {
+            System.out.println("The name of the velibNetwork doesn't exist");
+
+        } else {
+            // We check if the station exist
+            if (VelibNetwork.getStations().get(stationId) == null) {
+                System.out.println("The station doesn't exist");
+            } else {
+                DockingStation station = VelibNetwork.getStation(stationId);
+
+                // Check if the station status
+                if (station.getStationStatus() == DockingStationStatus.OFFLINE) {
+                    station.setStationStatus(DockingStationStatus.ONLINE);
+
+                    System.out.println(
+                            "The station n°" + stationId + " from the velibNetwork " + nameStation + " is now online");
+                } else {
+                    System.out.println("The station was already online");
+                }
+
+            }
+        }
+    }
+    
     
     public static void displayUser(String stationName, int userId)  {
        

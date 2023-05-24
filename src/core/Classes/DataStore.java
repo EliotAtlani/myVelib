@@ -117,12 +117,28 @@ public class DataStore {
     }
 
     /**
+     * Gets the station hashmap.
+     *
+     * @return the station hashmap
+     */
+    public HashMap<Integer, DockingStation> getStations() {
+        return stations;
+    }
+
+    
+    /**
      * Gets the users hashmap.
      *
      * @return the users hashmap
      */
-    public HashMap<Integer, VelibNetwork> getVelibNetworks() {
-        return velibNetwork;
+    public VelibNetwork getVelibNetwork(String name) {
+         for (VelibNetwork network : velibNetwork.values()) {
+            if (network.getNameVelibNetwork().equals(name)) {
+                return network;
+            } 
+        }
+        return null;
+        
     }
 
     public boolean VelibNetworksNamePossible(String name){
@@ -133,5 +149,7 @@ public class DataStore {
         }
         return false;
     }
+
+    
 
 }
