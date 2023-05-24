@@ -174,10 +174,18 @@ public class MyVelibCLUI {
     }
 
     private void handleOfflineCommand(String[] parts) {
+        String nameStation = parts[0];
+        int stationId = Integer.parseInt(parts[1].toString());
+
+        MyVelibFunctions.offline(nameStation, stationId);
 
     }
 
     private void handleOnlineCommand(String[] parts) {
+        String nameStation = parts[0];
+        int stationId = Integer.parseInt(parts[1].toString());
+
+        MyVelibFunctions.online(nameStation, stationId);
 
     }
 
