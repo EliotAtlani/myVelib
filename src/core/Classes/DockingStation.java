@@ -1,8 +1,10 @@
-package coreClass;
+package Classes;
 
 import java.util.HashMap;
+
 import java.util.Iterator;
 import java.util.Map;
+
 import Enums.*;
 
 public class DockingStation {
@@ -78,7 +80,7 @@ public class DockingStation {
 		return this.SlotHashMap.size();
 	}
 
-	public Integer getumberOfFreeParkingSlot() {
+	public Integer getnumberOfFreeParkingSlot() {
 		Iterator iterator = SlotHashMap.entrySet().iterator();
 		Integer number = 0;
 		while (iterator.hasNext()) {
@@ -90,7 +92,7 @@ public class DockingStation {
 		return number;
 	}
 
-	public Integer getumberOfBike(BicycleType type) {
+	public Integer getnumberOfBike(BicycleType type) {
 		Iterator iterator = SlotHashMap.entrySet().iterator();
 		Integer number = 0;
 		while (iterator.hasNext()) {

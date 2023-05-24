@@ -1,4 +1,4 @@
-package coreClass;
+package Classes;
 
 import Enums.*;
 import Cards.*;
@@ -6,7 +6,6 @@ import Cards.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.time.temporal.ChronoUnit;
-
 
 public class User {
 	private String name;
@@ -20,16 +19,18 @@ public class User {
 	private Bicycle bike;
 	private LocalDateTime rentDateTime;
 	private int rentTotalTime;
-	private static ArrayList<Integer> takenIds= new ArrayList<>();
-	
-	private static int getValidId(){
-        int tempId=0;
-        while (takenIds.contains(tempId)) {
-            tempId ++;
-        }
-        takenIds.add(tempId);
-        return tempId;
-    }
+	private static ArrayList<Integer> takenIds = new ArrayList<>();
+	double rideDurationInMinutes;
+	BicycleType bicycleType;
+
+	private static int getValidId() {
+		int tempId = 0;
+		while (takenIds.contains(tempId)) {
+			tempId++;
+		}
+		takenIds.add(tempId);
+		return tempId;
+	}
 
 	public User(String name, int id, GPSPosition position, String creditCardNumber, RegistrationCard registrationCard) {
 		this.name = name;
@@ -43,7 +44,7 @@ public class User {
 		this.bike = null;
 		this.rentTotalTime = 0;
 	}
-	
+
 	public User(String name, int id, GPSPosition position, String creditCardNumber) {
 		this.name = name;
 		this.id = getValidId();
@@ -58,16 +59,15 @@ public class User {
 	}
 
 	public void addCharge(double charge) {
-        this.setTotalCharges(this.getTotalCharges() + charge);
-    }
-	
+		this.setTotalCharges(this.getTotalCharges() + charge);
+	}
+
 	public double rideCost(BicycleType type, LocalDateTime rentDateTime, LocalDateTime returnDateTime) {
         int rideDuration = (int) ChronoUnit.MINUTES.between(rentDateTime,returnDateTime);
-        double rideCost = this.getRegistrationCard().computeRideCost(rideDurationInMinutes, bicycleType, this);
+        double rideCost = this.getRegistrationCard().computeRideCost(rideDuration, type, this);
         this.addCharge(rideCost);
         return rideCost;
     }
-
 
 	public String getName() {
 		return name;
@@ -156,12 +156,5 @@ public class User {
 	public void setRentTotalTime(int rentTotalTime) {
 		this.rentTotalTime = rentTotalTime;
 	}
-	
-	
-	
-	
-	
-	
-	
 
 }

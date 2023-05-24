@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import coreClass.*;
+import Classes.*;
 
 public class MyVelibCLUI {
 
@@ -70,7 +70,7 @@ public class MyVelibCLUI {
         Collections.shuffle(randomParkingSlot);
         for (int i = 0; i < nbOfBikes; i++) {
             parkingSlots.get(randomParkingSlot.get(i)).setParkingSlotStatus(ParkingSlotStatus.Occupied);
-            parkingSlots.get(randomParkingSlot.get(i)).setBike(new Bicycle(getRandomBicycleType()));
+            parkingSlots.get(randomParkingSlot.get(i)).setBike(new Bicycle(getRandomBicycleType(), null));
         }
 
     }
@@ -146,7 +146,7 @@ public class MyVelibCLUI {
         if (arguments.length == 1) {
             String nameStation = (String) arguments[0];
 
-            setup(nameStation,10,10,4000.0,75);
+            setup(nameStation, 10, 10, 4000.0, 75);
         } else if (arguments.length == 5) {
             String nameStation = (String) arguments[0];
             Integer nbStations = Integer.parseInt(arguments[1].toString());

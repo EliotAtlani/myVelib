@@ -1,4 +1,4 @@
-package coreClass;
+package Classes;
 
 import Enums.*;
 
