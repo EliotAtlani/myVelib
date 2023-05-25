@@ -31,8 +31,6 @@ public class VelibNetwork {
         return id;
     }
 
-
-
     public void setNameVelibNetwork(String newName){
         this.name =newName;
     }
