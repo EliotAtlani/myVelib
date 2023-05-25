@@ -214,6 +214,7 @@ public class MyVelibFunctions {
 
             DockingStation station = MyVelibIndex.myVelibDatabase.getStations().get(stationId); //Different from null
 
+
             //We check if there is a bike available and that the station is ONLINE
             if ( station.hasBike(BicycleType.MECHANICAL) && type.toLowerCase().equals("mechanical") && station.getStationStatus() == DockingStationStatus.ONLINE){
 
@@ -233,6 +234,23 @@ public class MyVelibFunctions {
             }
 
 
+
+        }
+    }
+    
+    public static void rentbikeGPS(int userId, double latitude,double longitude , String type) {
+
+        GPSPosition position = new GPSPosition(longitude,latitude);
+        if (MyVelibIndex.myVelibDatabase.getUsers().get(userId) == null) {
+            System.out.println("User doesn't exist");
+        } else if (!MyVelibIndex.myVelibDatabase.isBikeGPSExist(position)) {
+            System.out.println("Bike at this position doesn't exist");
+        } else {
+            User user = MyVelibIndex.myVelibDatabase.getUsers().get(userId); // Different from null
+            Bicycle bike = MyVelibIndex.myVelibDatabase.getBikeGPS(position,type); //Get the bike
+        
+            user.rentBikeOutOfStation(bike,LocalDateTime.now());
+            
 
         }
     }
@@ -258,12 +276,12 @@ public class MyVelibFunctions {
 
                 //
                 double beforeCharges = user.getTotalCharges();
-                user.returnBike(parkingSlot, LocalDateTime.now().plus(Duration.ofMinutes(duration)));
+                user.returnBike(parkingSlot, LocalDateTime.now().plus(Duration.ofMinutes(duration)),station);
                 double afterCharges = user.getTotalCharges();
 
                 double finalCost = afterCharges - beforeCharges;
 
-                System.out.println(MyVelibIndex.myVelibDatabase.getUsers().get(userId).getName() + " has dropped his bike in station "+stationId+
+                System.out.println(MyVelibIndex.myVelibDatabase.getUsers().get(userId).getName() + " has dropped his bike in station "+stationId+ " in parking slot n°"+parkingSlot.getId()+
                 "\n\t Cost of the ride: "+finalCost
                 );
 
@@ -272,6 +290,36 @@ public class MyVelibFunctions {
                 System.out.println("No parking place available in the station" + stationId);
             }
            
+        }
+    }
+
+    public static void returnbikeGPS(int userId, double latitude, double longitude,int duration) {
+
+        GPSPosition position = new GPSPosition(longitude, latitude);
+        if (MyVelibIndex.myVelibDatabase.getUsers().get(userId) == null) {
+            System.out.println("User doesn't exist");
+        } else {
+
+            User user = MyVelibIndex.myVelibDatabase.getUsers().get(userId); // Different from null
+
+            if (user.getBike() == null){
+                System.out.println("The user doesn't have a bike yet");
+            }else{
+                       
+                double beforeCharges = user.getTotalCharges();
+                user.returnBikeOutOfStation(position, LocalDateTime.now().plus(Duration.ofMinutes(duration)));
+                double afterCharges = user.getTotalCharges();
+
+                double finalCost = afterCharges - beforeCharges;
+
+                System.out.println(MyVelibIndex.myVelibDatabase.getUsers().get(userId).getName()
+                        + " has dropped his bike out of station " + position.toString() +
+                        "\n\t Cost of the ride: " + finalCost);
+
+            }
+
+
+
         }
     }
     
