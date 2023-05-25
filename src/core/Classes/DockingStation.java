@@ -154,7 +154,7 @@ public class DockingStation {
 		Iterator iterator = SlotHashMap.entrySet().iterator();
 		while (iterator.hasNext()) {
 			Map.Entry<Integer, ParkingSlot> slot = (Map.Entry<Integer, ParkingSlot>) iterator.next();
-			if (slot.getValue().getParkingSlotStatus() == ParkingSlotStatus.Free
+			if (slot.getValue().getParkingSlotStatus() == ParkingSlotStatus.Occupied
 					&& slot.getValue().getBike().getType() == type) {
 				return slot.getValue();
 			}

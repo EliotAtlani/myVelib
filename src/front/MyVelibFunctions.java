@@ -1,4 +1,4 @@
-package ui;
+package front;
 
 import java.util.Scanner;
 
@@ -9,12 +9,13 @@ import Cards.VMaxCard;
 import Classes.*;
 import Enums.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import ui.MyVelibFunctions;
+import front.MyVelibFunctions;
 
 public class MyVelibFunctions {
     /**
@@ -52,7 +53,7 @@ public class MyVelibFunctions {
         // On vérifie que le nom du network n'existe pas déjà.
         boolean existed =  MyVelibIndex.myVelibDatabase.VelibNetworksNamePossible(nameStation);
         if (!existed){
-            VelibNetwork velibNetwork = new VelibNetwork(nameStation);
+            VelibNetwork network = new VelibNetwork(nameStation);
             ArrayList<ParkingSlot> parkingSlots = new ArrayList<>();
             for (int i = 0; i < nbOfStation; i++) {
                 // We generate randomly the position of the docking station
@@ -65,7 +66,7 @@ public class MyVelibFunctions {
 
                 // Store the station in memory
                 MyVelibIndex.myVelibDatabase.addStation(station);
-                velibNetwork.setStationToMyVelibNetwork(station);
+                network.setStationToMyVelibNetwork(station);
 
                 // Create nbOfSlots in this station
                 for (int j = 0; j < nbOfSlots; j++) {
@@ -88,7 +89,7 @@ public class MyVelibFunctions {
                         parkingSlots.get(randomParkingSlot.get(i)).getStationId().getPosition()));
             }
             //Store the VelibNetwork
-            MyVelibIndex.myVelibDatabase.addVelibNetwork(velibNetwork);
+            MyVelibIndex.myVelibDatabase.addVelibNetwork(network);
             System.out.println("velibNetwork "+ nameStation + " has been created");
         }else{
             // Print
@@ -199,6 +200,41 @@ public class MyVelibFunctions {
                 }
 
             }
+        }
+    }
+
+    public static void rentbike(int userId,int stationId,String type){
+        if (MyVelibIndex.myVelibDatabase.getUsers().get(userId) == null){
+            System.out.println("User doesn't exist");
+        } else if (MyVelibIndex.myVelibDatabase.getStations().get(stationId) == null ){
+            System.out.println("Station doesn't exist");
+        }else{
+            User user = MyVelibIndex.myVelibDatabase.getUsers().get(userId); // Different from null
+
+            DockingStation station = MyVelibIndex.myVelibDatabase.getStations().get(stationId); //Different from null
+
+            //We check if there is a bike available and that the station is ONLINE
+            if ( station.hasBike(BicycleType.MECHANICAL) && type.toLowerCase().equals("mechanical") && station.getStationStatus() == DockingStationStatus.ONLINE){
+
+                System.out.println("FREE Place MEC");
+                ParkingSlot parkingSlot = station.getParkingSlotWithBike(BicycleType.MECHANICAL);
+                user.rentBikeUser(parkingSlot,LocalDateTime.now());
+            } else if (station.hasBike(BicycleType.ELECTRIC) && type.toLowerCase().equals("electric")
+                    && station.getStationStatus() == DockingStationStatus.ONLINE) {
+                System.out.println("FREE Place ELEC");
+                ParkingSlot parkingSlot = station.getParkingSlotWithBike(BicycleType.ELECTRIC);
+                user.rentBikeUser(parkingSlot, LocalDateTime.now());
+            } 
+            else if (station.getStationStatus() == DockingStationStatus.OFFLINE){
+                System.out.println("The station is OFFLINE");
+            } else if (!station.hasBike(BicycleType.MECHANICAL) && type.toLowerCase().equals("mechanical")){
+                System.out.println("There is no mechanical bike available ");
+            } else if (!station.hasBike(BicycleType.ELECTRIC) && type.toLowerCase().equals("electric")) {
+                System.out.println("There is no electric bike available ");
+            }
+
+
+
         }
     }
     

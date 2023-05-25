@@ -1,4 +1,4 @@
-package ui;
+package front;
 
 import java.util.Scanner;
 
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import ui.MyVelibFunctions;
+import front.MyVelibFunctions;
 
 import Classes.*;
 
@@ -195,7 +195,12 @@ public class MyVelibCLUI {
     private void handleNetworkCommand(String[] parts) {
         MyVelibFunctions.displayNetworks();
     }
-    private void handleRentBikeCommand(String[] parts) {
+    private void handleRentBikeCommand(String[] arguments) {
+        int userId = Integer.parseInt(arguments[0].toString());
+        int stationId = Integer.parseInt(arguments[1].toString());
+        String type = arguments[2];
+
+        MyVelibFunctions.rentbike(userId, stationId,type);
 
     }
 
