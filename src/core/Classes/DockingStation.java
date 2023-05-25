@@ -9,7 +9,7 @@ import Enums.*;
 
 public class DockingStation {
 	protected Integer id;
-	private static Integer uniqueId = 0;
+	private static Integer uniqueId = 1;
 	protected GPSPosition position;
 	protected DockingStationStatus stationStatus;
 	protected DockingStationType stationType;
@@ -115,6 +115,26 @@ public class DockingStation {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * Get a free parking slot.
+	 *
+	 * @return a free parking slot within the station
+	 */
+	public ParkingSlot getFreeParkingSlot() {
+		Iterator it = SlotHashMap.entrySet().iterator();
+		while (it.hasNext()) {
+			Map.Entry<Integer, ParkingSlot> entry = (Map.Entry) it.next();
+			if (entry.getValue().getParkingSlotStatus() == ParkingSlotStatus.Free) {
+				return entry.getValue();
+			}
+		}
+		return null;
+	}
+	
+	public HashMap<Integer, ParkingSlot>  getAllParking() {
+		return SlotHashMap;
 	}
 
 	public Integer getId() {

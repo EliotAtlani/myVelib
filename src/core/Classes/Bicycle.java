@@ -3,7 +3,7 @@ package Classes;
 import Enums.*;
 
 public class Bicycle {
-	private static Integer uniqueId = 0;
+	private static Integer uniqueId = 1;
 	protected Integer id;
 	private BicycleType type;
 	protected boolean inStation;

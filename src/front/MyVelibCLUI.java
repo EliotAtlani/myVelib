@@ -69,6 +69,9 @@ public class MyVelibCLUI {
                     case "displayVelibnetworks":
                         handleNetworkCommand(arguments);
                         break;
+                    case "displayAllBikes":
+                        handleAllBikesCommand(arguments);
+                        break;
                     case "exit":
                         running = false;
                         break;
@@ -195,17 +198,21 @@ public class MyVelibCLUI {
     private void handleNetworkCommand(String[] parts) {
         MyVelibFunctions.displayNetworks();
     }
-    private void handleRentBikeCommand(String[] arguments) {
-        int userId = Integer.parseInt(arguments[0].toString());
-        int stationId = Integer.parseInt(arguments[1].toString());
-        String type = arguments[2];
+    private void handleRentBikeCommand(String[] parts) {
+        int userId = Integer.parseInt(parts[0].toString());
+        int stationId = Integer.parseInt(parts[1].toString());
+        String type = parts[2];
 
         MyVelibFunctions.rentbike(userId, stationId,type);
 
     }
 
     private void handleReturnBikeCommand(String[] parts) {
+        int userId = Integer.parseInt(parts[0].toString());
+        int stationId = Integer.parseInt(parts[1].toString());
+        int duration = Integer.parseInt(parts[2].toString());
 
+        MyVelibFunctions.returnbike(userId, stationId, duration);
     }
 
     private void handleDisplayStationCommand(String[] parts) {
@@ -224,6 +231,10 @@ public class MyVelibCLUI {
 
     private void handleDisplayCommand(String[] parts) {
 
+    }
+    
+    private void handleAllBikesCommand(String[] parts) {
+        MyVelibFunctions.displayAllBikes();
     }
 
   
