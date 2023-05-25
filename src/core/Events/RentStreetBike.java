@@ -1,8 +1,8 @@
-package Events;
+package core.Events;
 
-import Enums.*;
+import core.Enums.*;
 import core.Classes.GPSPosition;
-import Classes.*;
+import core.Classes.*;
 import java.time.LocalDateTime;
 
 public class RentStreetBike {
@@ -28,7 +28,7 @@ public class RentStreetBike {
 
 
     public void RentBicycle() {
-        if (RentingTypePossible(this.type) && checkOneBicycle(this.user)) {
+        if (RentingPossible() && checkOneBicycle(this.user)) {
             Bicycle bicycle = this.station.getBicycle(this.type);
             this.user.setBicycle(bicycle);
             this.station.removeBicycle(bicycle);

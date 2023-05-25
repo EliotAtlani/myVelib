@@ -1,4 +1,4 @@
-package Cards;
+package core.Cards;
 
 public class VMaxCard extends RegistrationCard {
 	

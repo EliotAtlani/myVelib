@@ -1,24 +1,21 @@
-package Events;
+package core.Events;
 
-import Enums.*;
-import Classes.*;
+import core.Enums.*;
+import core.Classes.*;
 import java.time.LocalDateTime;
 
 
-public class RentStationBike{
+public class RentStationBike extends Events{
     private User user;
     private LocalDateTime eventTime;
     private DockingStation station;
     private BicycleType type;
 
-    public RentStationBike(LocalDateTime eventTime, Station station, User user, BicycleType type) {
-        this.user = user;
-        this.eventTime = eventTime;
-        this.station = station;
-        this.type = type;
+    public RentStationBike(LocalDateTime eventTime, DockingStation station, User user, BicycleType type) {
+        super(eventTime, station, user, type);
     }
 
-    public boolean RentingTypePossible() {
+    public boolean RentingTypePossible(BicycleType type) {
         if (station.hasBike(type)) {
             return true;
         }
@@ -42,15 +39,15 @@ public class RentStationBike{
     public void RentBicycle() {
         if (RentingTypePossible(this.type) && checkOneBicycle(this.user)) {
             Bicycle bicycle = this.station.getBicycle(this.type);
-            this.user.setBicycle(bicycle);
-            this.station.removeBicycle(bicycle);
-            bicycle.setInStation(false);
+            this.user.setBike(bicycle);
+            this.station.removeBike(bicycle);
+            bicycle.setInStation(false, this.station);
             bicycle.setFree(false);
         } else if (RentingOtherTypesPossible() && checkOneBicycle(this.user)) {
             Bicycle bicycle = this.station.getAnyBicycle();
-            this.user.setBicycle(bicycle);
-            this.station.removeBicycle(bicycle);
-            bicycle.setInStation(false);
+            this.user.setBike(bicycle);
+            this.station.removeBike(bicycle);
+            bicycle.setInStation(false, this.station);
             bicycle.setFree(false);
             System.out.println("Different type of bicycle rented");
         } else {
@@ -74,7 +71,7 @@ public class RentStationBike{
         this.eventTime = eventTime;
     }
 
-    public Station getStation() {
+    public DockingStation getStation() {
         return station;
     }
 

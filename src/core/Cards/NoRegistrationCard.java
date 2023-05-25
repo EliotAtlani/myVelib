@@ -1,6 +1,4 @@
-package Cards;
-
-import Enums.*;
+package core.Cards;
 
 public class NoRegistrationCard extends RegistrationCard{
 

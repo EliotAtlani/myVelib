@@ -1,7 +1,7 @@
-package Classes;
+package core.Classes;
 
-import Enums.*;
-import Cards.*;
+import core.Enums.*;
+import core.Cards.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

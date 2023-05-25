@@ -1,24 +1,23 @@
+package core.Events;
 
-import Enums.*;
-import core.Classes.DockingStation;
-import Classes.*;
+import core.Enums.*;
+import core.Classes.*;
 import java.time.LocalDateTime;
 
-public class ReturnStationBike {
+
+public class ReturnStationBike extends Events{
     private User user;
     private LocalDateTime eventTime;
     private DockingStation station;
     private BicycleType type;
     
-    public ReturnStationBike(LocalDateTime eventTime, Station station, User user, BicycleType type) {
-        this.user = user;
-        this.eventTime = eventTime;
-        this.station = station;
-        this.type = type;
+    public ReturnStationBike(LocalDateTime eventTime, DockingStation station, User user, BicycleType type) {
+        super(eventTime, station, user, type);
+
     }
 
     public boolean ReturnPossible() {
-        if (this.station.getnumberOfFreeParkingSlot()>0 && this.station.getStationStatus()==DockingStationStatus.ONLINE) {
+        if (this.station.getNumberOfFreeParkingSlot()>0 && this.station.getStationStatus()==DockingStationStatus.ONLINE) {
             return true;
         }
         return false;
@@ -26,11 +25,11 @@ public class ReturnStationBike {
 
     public void ReturnBicycle() {
         if (ReturnPossible()) {
-            Bicycle bicycle = this.user.getBicycle();
+            Bicycle bicycle = this.user.getBike();
             this.station.addBicycle(bicycle);
-            bicycle.setInStation(true);
+            bicycle.setInStation(true, this.station);
             bicycle.setFree(true);
-            user.setBicycle(null);
+            user.setBike(null);
         } else {
             System.out.println("No parking slot available");
         }
@@ -52,7 +51,7 @@ public class ReturnStationBike {
         this.eventTime = eventTime;
     }
 
-    public Station getStation() {
+    public DockingStation getStation() {
         return station;
     }
 

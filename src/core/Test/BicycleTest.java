@@ -1,7 +1,7 @@
-package Test;
+package core.Test;
 
-import Enums.*;
-import Classes.*;
+import core.Enums.*;
+import core.Classes.*;
 
 import org.junit.jupiter.api.*;
 
@@ -12,8 +12,8 @@ public class BicycleTest {
     @DisplayName("Test of the type of bicycles")
     public void testTypeBicycle() {
 
-        Bicycle mechaBicycle = new Bicycle(BicycleType.MECHANICAL);
-        Bicycle elecBicycle = new Bicycle(BicycleType.ELECTRIC);
+        Bicycle mechaBicycle = new Bicycle(BicycleType.MECHANICAL, new GPSPosition(0.0, 0.0));
+        Bicycle elecBicycle = new Bicycle(BicycleType.ELECTRIC, new GPSPosition(0.0, 0.0));
 
         assertAll(" All types are correct",
                 () -> assertTrue(mechaBicycle.getType() == BicycleType.MECHANICAL),
@@ -26,9 +26,9 @@ public class BicycleTest {
     public void testUniqueID() {
 
         // Two electrical bicycles and one electrical bicycle
-        Bicycle mechaBicycle1 = new Bicycle(BicycleType.MECHANICAL);
-        Bicycle mechaBicycle2 = new Bicycle(BicycleType.MECHANICAL);
-        Bicycle elecBicycle = new Bicycle(BicycleType.ELECTRIC);
+        Bicycle mechaBicycle1 = new Bicycle(BicycleType.MECHANICAL, new GPSPosition(0.0, 0.0));
+        Bicycle mechaBicycle2 = new Bicycle(BicycleType.MECHANICAL, new GPSPosition(0.0, 0.0));
+        Bicycle elecBicycle = new Bicycle(BicycleType.ELECTRIC, new GPSPosition(0.0, 0.0));
 
     
 
@@ -62,7 +62,7 @@ public class BicycleTest {
         Bicycle mechaBicycle = new Bicycle(BicycleType.MECHANICAL, position);
         Bicycle elecBicycle = new Bicycle(BicycleType.ELECTRIC, position);
         DockingStation station = new DockingStation(position1,DockingStationStatus.ONLINE,DockingStationType.STANDARD);
-        elecBicycle.setInStation(station);
+        elecBicycle.setInStation(true,station);
 
         assertAll(" All positions are correct",
                 () -> assertTrue(mechaBicycle.getPosition() == position),

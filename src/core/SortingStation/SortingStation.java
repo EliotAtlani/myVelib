@@ -1,12 +1,18 @@
-package SortingStation;
+package core.SortingStation;
 
-import Classes.*;
-import Events.*;
+import core.Classes.*;
+import core.Events.*;
 import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 
 public abstract class SortingStation {
 
-    public abstract Map<Integer, Double> sortStations(ArrayList<Event> events, HashMap<Integer, Station> stations);
+    public abstract Map<Integer, Double> sortStations(ArrayList<Events> events, HashMap<Integer, DockingStation> stations);
 
     public Map<Integer, Double> sortHashMap(Map<Integer, Double> stationValues, Boolean reversed) {
         List<Map.Entry<Integer, Double>> stationValuesList = new ArrayList<>(stationValues.entrySet());

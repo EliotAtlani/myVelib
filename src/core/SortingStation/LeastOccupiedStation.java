@@ -1,16 +1,17 @@
-package SortingStation;
+package core.SortingStation;
 
-import Classes.*;
-import Events.*;
+import core.Classes.*;
+import core.Events.*;
+import java.util.*;
 
 public class LeastOccupiedStation extends SortingStation {
     
-        public Map<Integer, Double> getStationsOccupation(ArrayList<Event> events, HashMap<Integer, Station> stations) {
+        public Map<Integer, Double> getStationsOccupation(ArrayList<Events> events, HashMap<Integer, DockingStation> stations) {
             Map<Integer, Double> stationValues = new HashMap<>();
-            for (Map.Entry<Integer, Station> entry : stations.entrySet()) {
+            for (Map.Entry<Integer, DockingStation> entry : stations.entrySet()) {
                 stationValues.put(entry.getKey(), 0.0);
             }
-            for (Event event : events) {
+            for (Events event : events) {
                 if (event instanceof RentStationBike) {
                     stationValues.put(event.getStation().getId(), stationValues.get(event.getStation().getId()) - 1);
                 } else if (event instanceof ReturnStationBike) {
@@ -20,7 +21,7 @@ public class LeastOccupiedStation extends SortingStation {
             return stationValues;
         }
     
-        public Map<Integer, Double> sortStations(ArrayList<Event> events, HashMap<Integer, Station> stations) {
+        public Map<Integer, Double> sortStations(ArrayList<Events> events, HashMap<Integer, DockingStation> stations) {
             Map<Integer, Double> stationsScore = getStationsOccupation(events, stations);
             return this.sortHashMap(stationsScore, false);
         };

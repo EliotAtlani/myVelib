@@ -1,6 +1,6 @@
-package Classes;
+package core.Classes;
 
-import Enums.*;
+import core.Enums.*;
 
 public class Bicycle {
 	private static Integer uniqueId = 0;
@@ -47,10 +47,10 @@ public class Bicycle {
 		this.type = type;
 	}
 
-	public void setInStation(DockingStation station) {
-		this.inStation = true;
+	public void setInStation(Boolean inStation, DockingStation station) {
+		this.inStation = inStation;
 		this.position = station.getPosition();
-		this.isFree = true;
+		this.isFree = inStation;
 	}
 
 	public boolean isInStation() {
