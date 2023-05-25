@@ -1,4 +1,4 @@
-package core.Classes;
+package Classes;
 
 public class GPSPosition {
 	protected Double longitude;

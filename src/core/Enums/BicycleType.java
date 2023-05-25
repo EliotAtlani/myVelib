@@ -1,4 +1,4 @@
-package core.Enums;
+package Enums;
 
 public enum BicycleType {
     ELECTRIC,

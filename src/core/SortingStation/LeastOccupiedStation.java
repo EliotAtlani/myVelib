@@ -1,8 +1,13 @@
-package core.SortingStation;
+package SortingStation;
 
-import core.Classes.*;
-import core.Events.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import Classes.DockingStation;
+import Events.Events;
+import Events.RentStationBike;
+import Events.ReturnStationBike;
 
 public class LeastOccupiedStation extends SortingStation {
     

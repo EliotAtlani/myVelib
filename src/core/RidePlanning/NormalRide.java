@@ -1,9 +1,10 @@
-package core.RidePlanning;
+package RidePlanning;
 
 import java.util.ArrayList;
 
-import core.Enums.*;
-import core.Classes.*;
+import Classes.DockingStation;
+import Classes.GPSPosition;
+import Enums.DockingStationStatus;
 
 public class NormalRide {
 	protected GPSPosition startPosition;

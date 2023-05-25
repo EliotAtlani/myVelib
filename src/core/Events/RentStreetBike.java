@@ -1,9 +1,11 @@
-package core.Events;
+package Events;
 
-import core.Enums.*;
-import core.Classes.GPSPosition;
-import core.Classes.*;
 import java.time.LocalDateTime;
+
+import Classes.Bicycle;
+import Classes.GPSPosition;
+import Classes.User;
+import Enums.BicycleType;
 
 public class RentStreetBike {
     private User user;

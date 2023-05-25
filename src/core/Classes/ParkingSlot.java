@@ -1,9 +1,9 @@
-package core.Classes;
+package Classes;
 
-import core.Enums.*;
+import Enums.*;
 
 public class ParkingSlot {
-    private static Integer uniqueId = 0;
+    private static Integer uniqueId = 1;
     protected Integer id;
     private Bicycle bike;
     private DockingStation station;
@@ -17,7 +17,7 @@ public class ParkingSlot {
     @Override
     public String toString() {
         return "Parking slot number " + id +
-                " is " + slot_status + " with " + bike;
+                " is " + slot_status + " with " + bike +" in station" + station.getId();
     }
 
     public ParkingSlot(DockingStation station, Bicycle bike) {

@@ -1,8 +1,11 @@
-package core.Events;
+package Events;
 
-import core.Enums.*;
-import core.Classes.*;
 import java.time.LocalDateTime;
+
+import Classes.Bicycle;
+import Classes.DockingStation;
+import Classes.User;
+import Enums.BicycleType;
 
 
 public class RentStationBike extends Events{

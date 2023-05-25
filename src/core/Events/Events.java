@@ -1,8 +1,10 @@
-package core.Events;
+package Events;
 
 import java.time.LocalDateTime;
-import core.Enums.*;
-import core.Classes.*;
+
+import Classes.DockingStation;
+import Classes.User;
+import Enums.BicycleType;
 
 public class Events {
     private User user;

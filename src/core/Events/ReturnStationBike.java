@@ -1,8 +1,12 @@
-package core.Events;
+package Events;
 
-import core.Enums.*;
-import core.Classes.*;
 import java.time.LocalDateTime;
+
+import Classes.Bicycle;
+import Classes.DockingStation;
+import Classes.User;
+import Enums.BicycleType;
+import Enums.DockingStationStatus;
 
 
 public class ReturnStationBike extends Events{

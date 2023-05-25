@@ -1,9 +1,9 @@
-package core.Classes;
+package Classes;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import core.Enums.*;
+import Enums.*;
 
 /**
  * This class allows to store the list of users, stations and velibNetWork

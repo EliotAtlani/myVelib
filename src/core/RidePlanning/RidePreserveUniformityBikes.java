@@ -1,9 +1,11 @@
-package core.RidePlanning;
-
-import core.Enums.*;
-import core.Classes.*;
+package RidePlanning;
 
 import java.util.ArrayList;
+
+import Classes.DockingStation;
+import Classes.GPSPosition;
+import Enums.BicycleType;
+import Enums.DockingStationStatus;
 
 
 public class RidePreserveUniformityBikes extends NormalRide {

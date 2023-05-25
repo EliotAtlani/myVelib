@@ -1,11 +1,14 @@
-package core.Test;
+package Test;
 
-import core.Enums.*;
-import core.Classes.*;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
-import org.junit.jupiter.api.*;
-
-import static org.junit.jupiter.api.Assertions.*;
+import Classes.Bicycle;
+import Classes.DockingStation;
+import Classes.GPSPosition;
+import Enums.BicycleType;
+import Enums.DockingStationStatus;
+import Enums.DockingStationType;
 
 public class BicycleTest {
     @Test
@@ -17,7 +20,7 @@ public class BicycleTest {
 
         assertAll(" All types are correct",
                 () -> assertTrue(mechaBicycle.getType() == BicycleType.MECHANICAL),
-                () -> assertTrue(elecBicycle.getType() == BicycleType.ELECTRIC)
+                () -> asserletTrue(elecBicycle.getType() == BicycleType.ELECTRIC)
         );
     }
 

@@ -1,11 +1,13 @@
-package core.Classes;
-
-import core.Enums.*;
-import core.Cards.*;
+package Classes;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+
+import Cards.NoRegistrationCard;
+import Cards.RegistrationCard;
+import Enums.BicycleType;
+import Enums.ParkingSlotStatus;
 
 public class User {
 	private String name;
@@ -173,6 +175,21 @@ public class User {
 	}
 
 	/**
+	 * Computes the cost of a ride.
+	 *
+	 * @param bicycleType    the type of the bicycle rented
+	 * @param rentDateTime   the rent datetime
+	 * @param returnDateTime the return datetime
+	 * @return the ride cost
+	 */
+	public double computeCost(BicycleType bicycleType, LocalDateTime rentDateTime, LocalDateTime returnDateTime) {
+		int rideDurationInMinutes = (int) rentDateTime.until(returnDateTime, ChronoUnit.MINUTES);
+		double rideCost = this.getRegistrationCard().computeRideCost(rideDurationInMinutes, bicycleType, this);
+		this.addCharge(rideCost);
+		return rideCost;
+	}
+
+	/**
 	 * Function rentBikeUser which allow a user to rent a bike at a date
 	 * We check if the user doesn't have a bike yet and if the parking slot is occupied.
 	 */
@@ -198,6 +215,42 @@ public class User {
 
 		}else{
 			System.out.println("The user already has a bike");
+		}
+	}
+
+	/**
+	 * Parks a bike
+	 * We check if the user has a bike yet and if the parking slot is
+	 * free.
+	 *
+	 * @param parkingSlot    the parking slot
+	 * @param returnDateTime the return date time
+	 */
+	public void returnBike(ParkingSlot parkingSlot, LocalDateTime returnDateTime) {
+		if (this.bike == null) {
+			System.out.println("The user doesn't have a bike");
+		} else {
+			//Check if the slot is free
+			if (parkingSlot.getParkingSlotStatus() == ParkingSlotStatus.Free) {
+				//Set the parkingslot as occupied
+				parkingSlot.setParkingSlotStatus(ParkingSlotStatus.Occupied);
+				//Give the parking slot the bike
+				parkingSlot.setBike(bike);
+
+				double computeCost = computeCost(bike.getType(), this.rentDateTime, returnDateTime);
+				System.out.println("Bicycle successfully parked.");
+				// update user statistics
+				// time credit and charges are updated when computing cost
+				this.numberOfRides++;
+				// this.+= this.rentDateTime.until(returnDateTime, ChronoUnit.MINUTES);
+
+				// Reset user's data;
+				this.bike = null;
+				this.rentDateTime = null;
+			} else {
+				System.out.println("The parking slot is occupied");
+			}
+
 		}
 	}
 

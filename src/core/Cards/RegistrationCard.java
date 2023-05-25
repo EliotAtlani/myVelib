@@ -1,7 +1,7 @@
-package core.Cards;
+package Cards;
 
-import core.Enums.*;
-import core.Classes.*;
+import Enums.*;
+import Classes.*;
 
 public class RegistrationCard {
 	private boolean canHandleTimeCredit;

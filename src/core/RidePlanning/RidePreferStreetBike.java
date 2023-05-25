@@ -1,8 +1,9 @@
-package core.RidePlanning;
+package RidePlanning;
 
 import java.util.ArrayList;
 
-import core.Classes.*;
+import Classes.Bicycle;
+import Classes.GPSPosition;
 
 public class RidePreferStreetBike extends NormalRide {
 
