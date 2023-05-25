@@ -1,6 +1,7 @@
-package Classes;
+package Events;
 import java.time.LocalDateTime;
 import Enums.*;
+import Classes.*;
 
 public class Event {
   
@@ -8,7 +9,7 @@ public class Event {
     private TypeOfEvent eventType;
     private Station station;
 
-    public Event(LocalDateTime eventTime, EventType eventType, Station station) {
+    public StationEvent(LocalDateTime eventTime, EventType eventType, Station station) {
         this.eventTime = eventTime;
         this.eventType = eventType;
         this.station = station;
