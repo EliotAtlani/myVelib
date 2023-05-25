@@ -66,6 +66,9 @@ public class MyVelibCLUI {
                     case "display":
                         handleDisplayCommand(arguments);
                         break;
+                    case "displayVelibnetworks":
+                        handleNetworkCommand(arguments);
+                        break;
                     case "exit":
                         running = false;
                         break;
@@ -189,6 +192,9 @@ public class MyVelibCLUI {
 
     }
 
+    private void handleNetworkCommand(String[] parts) {
+        MyVelibFunctions.displayNetworks();
+    }
     private void handleRentBikeCommand(String[] parts) {
 
     }
@@ -215,7 +221,5 @@ public class MyVelibCLUI {
 
     }
 
-    public static void main(String[] args) {
-       
-    }
+  
 }

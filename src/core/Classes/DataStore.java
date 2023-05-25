@@ -24,7 +24,7 @@ public class DataStore {
      /**
       * Hash map of { velibNetwork id : velibNetwork object}
       */
-     private HashMap<Integer,VelibNetwork> velibNetwork;
+     private HashMap<String,VelibNetwork> velibNetworks;
 
     /**
      * Instantiates a new Record with empty lists.
@@ -32,7 +32,7 @@ public class DataStore {
     public DataStore() {
         this.users = new HashMap<>();
         this.stations = new HashMap<>();
-        this.velibNetwork = new HashMap<>();
+        this.velibNetworks = new HashMap<>();
        
     }
 
@@ -43,10 +43,10 @@ public class DataStore {
      * @param stations the stations
      * @param events   the events
      */
-    public DataStore(HashMap<Integer, User> users, HashMap<Integer, DockingStation> stations, HashMap<Integer, VelibNetwork> velibNetwork) {
+    public DataStore(HashMap<Integer, User> users, HashMap<Integer, DockingStation> stations, HashMap<String, VelibNetwork> velibNetwork) {
         this.users = users;
         this.stations = stations;
-        this.velibNetwork = velibNetwork;
+        this.velibNetworks = velibNetwork;
        
     }
 
@@ -73,9 +73,9 @@ public class DataStore {
      *
      * @param station the station
      */
-    public void addVelibNetwork(VelibNetwork velibNetworks) {
-        if (!velibNetwork.containsValue(velibNetworks)) {
-        velibNetwork.put(velibNetworks.getId(), velibNetworks);
+    public void addVelibNetwork(VelibNetwork velibNetwork) {
+        if (!velibNetworks.containsValue(velibNetwork)) {
+        velibNetworks.put(velibNetwork.getNameVelibNetwork(), velibNetwork);
         }
     }
     /**
@@ -131,18 +131,13 @@ public class DataStore {
      *
      * @return the users hashmap
      */
-    public VelibNetwork getVelibNetwork(String name) {
-         for (VelibNetwork network : velibNetwork.values()) {
-            if (network.getNameVelibNetwork().equals(name)) {
-                return network;
-            } 
-        }
-        return null;
+    public HashMap<String,VelibNetwork> getVelibNetworks() {
+        return velibNetworks;
         
     }
 
     public boolean VelibNetworksNamePossible(String name){
-        for (VelibNetwork network : velibNetwork.values()) {
+        for (VelibNetwork network : velibNetworks.values()) {
             if (network.getNameVelibNetwork().equals(name)) {
                 return true;
             }
