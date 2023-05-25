@@ -2,8 +2,10 @@ package RidePlanning;
 
 import java.util.ArrayList;
 
-import Enums.*;
-import Classes.*;
+import Classes.DockingStation;
+import Classes.GPSPosition;
+import Enums.DockingStationStatus;
+import Enums.DockingStationType;
 
 public class RideAvoidingPlusStations extends NormalRide {
 

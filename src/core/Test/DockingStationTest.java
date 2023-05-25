@@ -5,7 +5,6 @@ import core.Classes.*;
 
 import org.junit.jupiter.api.*;
 
-import Enums.BicycleType;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -60,13 +59,13 @@ public class DockingStationTest {
         GPSPosition position = new GPSPosition(0.0, 0.0);
         DockingStation station = new DockingStation(position,DockingStationStatus.ONLINE,DockingStationType.STANDARD);
 
-        Bicycle mechaBicycle1 = new Bicycle(BicycleType.MECHANICAL);
-        Bicycle mechaBicycle2 = new Bicycle(BicycleType.MECHANICAL);
-        Bicycle elecBicycle = new Bicycle(BicycleType.ELECTRIC);
+        Bicycle mechaBicycle1 = new Bicycle(BicycleType.MECHANICAL,position);
+        Bicycle mechaBicycle2 = new Bicycle(BicycleType.MECHANICAL,position);
+        Bicycle elecBicycle = new Bicycle(BicycleType.ELECTRIC,position);
 
-        ParkingSlot p1=new ParkingSlot(ParkingSlotStatus.Occupied,mechaBicycle1);
-        ParkingSlot p2=new ParkingSlot(ParkingSlotStatus.Occupied,mechaBicycle2);
-        ParkingSlot p3=new ParkingSlot(ParkingSlotStatus.Occupied,elecBicycle);
+        ParkingSlot p1=new ParkingSlot(station,mechaBicycle1);
+        ParkingSlot p2=new ParkingSlot(station,mechaBicycle2);
+        ParkingSlot p3=new ParkingSlot(station,elecBicycle);
 
         station.addParkingSlot(p1);
         station.addParkingSlot(p2);

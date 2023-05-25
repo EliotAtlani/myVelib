@@ -1,11 +1,12 @@
 package RidePlanning;
 
-import Enums.*;
-import Classes.*;
-
 import java.util.ArrayList;
 
+import Classes.DockingStation;
+import Classes.GPSPosition;
 import Enums.BicycleType;
+import Enums.DockingStationStatus;
+
 
 public class RidePreserveUniformityBikes extends NormalRide {
 
@@ -33,7 +34,7 @@ public class RidePreserveUniformityBikes extends NormalRide {
                 }
             }
         }
-        if (startStationWithMoreBicycle.getnumberOfBike(typeOfBicycle) > startStation.getnumberOfBike(typeOfBicycle)) {
+        if (startStationWithMoreBicycle.getNumberOfBike(typeOfBicycle) > startStation.getNumberOfBike(typeOfBicycle)) {
             return startStationWithMoreBicycle;
         } else {
             return startStation;
@@ -60,8 +61,8 @@ public class RidePreserveUniformityBikes extends NormalRide {
                 }
             }
         }
-        if (destinationStationWithMoreBicycle.getnumberOfFreeParkingSlot() > destinationStation
-                .getnumberOfFreeParkingSlot()) {
+        if (destinationStationWithMoreBicycle.getNumberOfFreeParkingSlot() > destinationStation
+                .getNumberOfFreeParkingSlot()) {
             return destinationStationWithMoreBicycle;
         } else {
             return destinationStation;

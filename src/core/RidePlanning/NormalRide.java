@@ -2,8 +2,9 @@ package RidePlanning;
 
 import java.util.ArrayList;
 
-import Enums.*;
-import Classes.*;
+import Classes.DockingStation;
+import Classes.GPSPosition;
+import Enums.DockingStationStatus;
 
 public class NormalRide {
 	protected GPSPosition startPosition;

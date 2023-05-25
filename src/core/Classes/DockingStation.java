@@ -1,11 +1,13 @@
 package Classes;
 
 import java.util.HashMap;
-
 import java.util.Iterator;
 import java.util.Map;
 
-import Enums.*;
+import Enums.BicycleType;
+import Enums.DockingStationStatus;
+import Enums.DockingStationType;
+import Enums.ParkingSlotStatus;
 
 public class DockingStation {
 	protected Integer id;
@@ -53,6 +55,29 @@ public class DockingStation {
 		}
 	}
 
+	public void addBicycle(Bicycle bicycle) {
+		Iterator iterator = SlotHashMap.entrySet().iterator();
+		while (iterator.hasNext()) {
+			Map.Entry<Integer, ParkingSlot> slot = (Map.Entry<Integer, ParkingSlot>) iterator.next();
+			if (slot.getValue().getParkingSlotStatus() == ParkingSlotStatus.Free) {
+				slot.getValue().setParkingSlotStatus(ParkingSlotStatus.Occupied);
+				slot.getValue().setBike(bicycle);
+			}
+		}
+	}
+
+	public void removeBike(Bicycle bicycle) {
+		Iterator iterator = SlotHashMap.entrySet().iterator();
+		while (iterator.hasNext()) {
+			Map.Entry<Integer, ParkingSlot> slot = (Map.Entry<Integer, ParkingSlot>) iterator.next();
+			if (slot.getValue().getParkingSlotStatus() == ParkingSlotStatus.Occupied
+					&& slot.getValue().getBike().getId() == bicycle.getId()) {
+				slot.getValue().setParkingSlotStatus(ParkingSlotStatus.Free);
+				slot.getValue().setBike(null);
+			}
+		}
+	}
+
 	public Boolean hasBike(BicycleType typeOfBicycle) {
 		Iterator iterator = SlotHashMap.entrySet().iterator();
 		while (iterator.hasNext()) {
@@ -63,6 +88,35 @@ public class DockingStation {
 			}
 		}
 		return false;
+	}
+
+	public Boolean hasAnyBike() {
+		Iterator iterator = SlotHashMap.entrySet().iterator();
+		while (iterator.hasNext()) {
+			Map.Entry<Integer, ParkingSlot> slot = (Map.Entry<Integer, ParkingSlot>) iterator.next();
+			if (slot.getValue().getParkingSlotStatus() == ParkingSlotStatus.Occupied) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public Bicycle getBicycle(BicycleType type) {
+		ParkingSlot slot=getParkingSlotWithBike(type);
+		if (slot!=null) {
+			return slot.getBike();
+		}else{
+			return null;
+		}
+	}
+
+	public Bicycle getAnyBicycle() {
+		ParkingSlot slot=getParkingSlotWitAnyBike();
+		if (slot!=null) {
+			return slot.getBike();
+		}else{
+			return null;
+		}
 	}
 
 	public Boolean HasFreeParkingSlot() {
@@ -80,7 +134,7 @@ public class DockingStation {
 		return this.SlotHashMap.size();
 	}
 
-	public Integer getnumberOfFreeParkingSlot() {
+	public Integer getNumberOfFreeParkingSlot() {
 		Iterator iterator = SlotHashMap.entrySet().iterator();
 		Integer number = 0;
 		while (iterator.hasNext()) {
@@ -92,7 +146,7 @@ public class DockingStation {
 		return number;
 	}
 
-	public Integer getnumberOfBike(BicycleType type) {
+	public Integer getNumberOfBike(BicycleType type) {
 		Iterator iterator = SlotHashMap.entrySet().iterator();
 		Integer number = 0;
 		while (iterator.hasNext()) {
@@ -128,6 +182,17 @@ public class DockingStation {
 			Map.Entry<Integer, ParkingSlot> entry = (Map.Entry) it.next();
 			if (entry.getValue().getParkingSlotStatus() == ParkingSlotStatus.Free) {
 				return entry.getValue();
+			}
+		}
+		return null;
+	}
+	
+	public ParkingSlot getParkingSlotWitAnyBike() {
+		Iterator iterator = SlotHashMap.entrySet().iterator();
+		while (iterator.hasNext()) {
+			Map.Entry<Integer, ParkingSlot> slot = (Map.Entry<Integer, ParkingSlot>) iterator.next();
+			if (slot.getValue().getParkingSlotStatus() == ParkingSlotStatus.Free) {
+				return slot.getValue();
 			}
 		}
 		return null;

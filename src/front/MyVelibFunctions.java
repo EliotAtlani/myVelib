@@ -71,7 +71,7 @@ public class MyVelibFunctions {
 
                 // Create nbOfSlots in this station
                 for (int j = 0; j < nbOfSlots; j++) {
-                    ParkingSlot parkingSlot = new ParkingSlot(ParkingSlotStatus.Free, null, station);
+                    ParkingSlot parkingSlot = new ParkingSlot(station);
                     station.addParkingSlot(parkingSlot);
                     parkingSlots.add(parkingSlot);
                 }

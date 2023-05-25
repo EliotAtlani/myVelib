@@ -8,8 +8,6 @@ public class ParkingSlot {
     private Bicycle bike;
     private DockingStation station;
     private ParkingSlotStatus slot_status;
-    private DockingStationStatus station_status;
-    private DockingStationType type;
 
     private static synchronized Integer getNextUniqueId() {
         return uniqueId++;
@@ -22,18 +20,22 @@ public class ParkingSlot {
                 " is " + slot_status + " with " + bike +" in station" + station.getId();
     }
 
-    public ParkingSlot(ParkingSlotStatus slot_status, Bicycle bike, DockingStation station) {
+    public ParkingSlot(DockingStation station, Bicycle bike) {
         id = uniqueId;
         getNextUniqueId();
         this.station=station;
-        this.slot_status = slot_status;
-        if (slot_status == ParkingSlotStatus.Occupied) { // One can only instantiates a bicycle to a parking slot if the
-                                                         // parking slot is set Occupied
-            this.bike = bike;
-        } else { // Otherwise the bicycle is set to null
-            this.bike = null;
-        }
+        this.slot_status = ParkingSlotStatus.Occupied;
+        this.bike = bike;
     }
+
+    public ParkingSlot(DockingStation station) {
+        id = uniqueId;
+        getNextUniqueId();
+        this.station=station;
+        this.slot_status = ParkingSlotStatus.Free;
+        this.bike = null;
+        }
+    
 
     // Getters and Setters
     public Integer getId() {

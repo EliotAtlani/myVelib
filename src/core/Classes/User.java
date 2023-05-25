@@ -1,11 +1,13 @@
 package Classes;
 
-import Enums.*;
-import Cards.*;
-
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+
+import Cards.NoRegistrationCard;
+import Cards.RegistrationCard;
+import Enums.BicycleType;
+import Enums.ParkingSlotStatus;
 
 public class User {
 	private String name;
@@ -75,6 +77,10 @@ public class User {
         this.addCharge(rideCost);
         return rideCost;
     }
+
+	public boolean hasABike() {
+		return this.bike != null;
+	}
 
 	public String getName() {
 		return name;

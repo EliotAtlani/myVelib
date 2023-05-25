@@ -1,7 +1,5 @@
 package Cards;
 
-import Enums.*;
-
 public class NoRegistrationCard extends RegistrationCard{
 
     public NoRegistrationCard() {

@@ -2,8 +2,8 @@ package RidePlanning;
 
 import java.util.ArrayList;
 
-import Enums.*;
-import Classes.*;
+import Classes.Bicycle;
+import Classes.GPSPosition;
 
 public class RidePreferStreetBike extends NormalRide {
 

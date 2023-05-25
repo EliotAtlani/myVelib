@@ -1,23 +1,26 @@
 package Test;
 
-import Enums.*;
-import Classes.*;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
-import org.junit.jupiter.api.*;
-
-import static org.junit.jupiter.api.Assertions.*;
+import Classes.Bicycle;
+import Classes.DockingStation;
+import Classes.GPSPosition;
+import Enums.BicycleType;
+import Enums.DockingStationStatus;
+import Enums.DockingStationType;
 
 public class BicycleTest {
     @Test
     @DisplayName("Test of the type of bicycles")
     public void testTypeBicycle() {
 
-        Bicycle mechaBicycle = new Bicycle(BicycleType.MECHANICAL);
-        Bicycle elecBicycle = new Bicycle(BicycleType.ELECTRIC);
+        Bicycle mechaBicycle = new Bicycle(BicycleType.MECHANICAL, new GPSPosition(0.0, 0.0));
+        Bicycle elecBicycle = new Bicycle(BicycleType.ELECTRIC, new GPSPosition(0.0, 0.0));
 
         assertAll(" All types are correct",
                 () -> assertTrue(mechaBicycle.getType() == BicycleType.MECHANICAL),
-                () -> assertTrue(elecBicycle.getType() == BicycleType.ELECTRIC)
+                () -> asserletTrue(elecBicycle.getType() == BicycleType.ELECTRIC)
         );
     }
 
@@ -26,9 +29,9 @@ public class BicycleTest {
     public void testUniqueID() {
 
         // Two electrical bicycles and one electrical bicycle
-        Bicycle mechaBicycle1 = new Bicycle(BicycleType.MECHANICAL);
-        Bicycle mechaBicycle2 = new Bicycle(BicycleType.MECHANICAL);
-        Bicycle elecBicycle = new Bicycle(BicycleType.ELECTRIC);
+        Bicycle mechaBicycle1 = new Bicycle(BicycleType.MECHANICAL, new GPSPosition(0.0, 0.0));
+        Bicycle mechaBicycle2 = new Bicycle(BicycleType.MECHANICAL, new GPSPosition(0.0, 0.0));
+        Bicycle elecBicycle = new Bicycle(BicycleType.ELECTRIC, new GPSPosition(0.0, 0.0));
 
     
 
@@ -62,7 +65,7 @@ public class BicycleTest {
         Bicycle mechaBicycle = new Bicycle(BicycleType.MECHANICAL, position);
         Bicycle elecBicycle = new Bicycle(BicycleType.ELECTRIC, position);
         DockingStation station = new DockingStation(position1,DockingStationStatus.ONLINE,DockingStationType.STANDARD);
-        elecBicycle.setInStation(station);
+        elecBicycle.setInStation(true,station);
 
         assertAll(" All positions are correct",
                 () -> assertTrue(mechaBicycle.getPosition() == position),
