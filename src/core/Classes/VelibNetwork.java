@@ -41,23 +41,23 @@ public class VelibNetwork {
         return name;
     }
 
-    public static void setStationToMyVelibNetwork(DockingStation station){
+    public void setStationToMyVelibNetwork(DockingStation station){
         stationList.add(station);
     }
 
-    public static void setUserToMyVelibNetwork(User user){
+    public void setUserToMyVelibNetwork(User user){
         userList.add(user);
     }
 
-    public static ArrayList<DockingStation> getStations(){
+    public ArrayList<DockingStation> getStations(){
         return stationList;
     }
 
-    public static ArrayList<User> getUsers() {
+    public ArrayList<User> getUsers() {
         return userList;
     }
 
-    public static DockingStation getStation(int stationId){
+    public  DockingStation getStation(int stationId){
         return stationList.get(stationId);
     }
 
