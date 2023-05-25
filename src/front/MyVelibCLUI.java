@@ -199,20 +199,42 @@ public class MyVelibCLUI {
         MyVelibFunctions.displayNetworks();
     }
     private void handleRentBikeCommand(String[] parts) {
-        int userId = Integer.parseInt(parts[0].toString());
-        int stationId = Integer.parseInt(parts[1].toString());
-        String type = parts[2];
+        if (parts.length == 3){
+            int userId = Integer.parseInt(parts[0].toString());
+            int stationId = Integer.parseInt(parts[1].toString());
+            String type = parts[2];
 
-        MyVelibFunctions.rentbike(userId, stationId,type);
+            MyVelibFunctions.rentbike(userId, stationId, type);
+        } else if (parts.length==4){
+            int userId = Integer.parseInt(parts[0].toString());
+            double latitude = Double.parseDouble(parts[1].toString());
+            double longitude = Double.parseDouble(parts[2].toString());
+            String type = parts[3];
+
+            MyVelibFunctions.rentbikeGPS(userId,latitude,longitude, type);
+        }else{
+            System.out.println("-> Wrong arugments given");
+        }
+     
 
     }
 
     private void handleReturnBikeCommand(String[] parts) {
-        int userId = Integer.parseInt(parts[0].toString());
-        int stationId = Integer.parseInt(parts[1].toString());
-        int duration = Integer.parseInt(parts[2].toString());
+         if (parts.length == 3){
+            int userId = Integer.parseInt(parts[0].toString());
+            int stationId = Integer.parseInt(parts[1].toString());
+            int duration = Integer.parseInt(parts[2].toString());
 
-        MyVelibFunctions.returnbike(userId, stationId, duration);
+            MyVelibFunctions.returnbike(userId, stationId, duration);
+        } else if (parts.length==4){
+            int userId = Integer.parseInt(parts[0].toString());
+            double latitude = Double.parseDouble(parts[1].toString());
+            double longitude = Double.parseDouble(parts[2].toString());
+            int duration = Integer.parseInt(parts[3].toString());
+
+            MyVelibFunctions.returnbikeGPS(userId, latitude, longitude, duration);
+        }
+       
     }
 
     private void handleDisplayStationCommand(String[] parts) {

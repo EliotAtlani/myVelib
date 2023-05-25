@@ -15,7 +15,7 @@ public class Bicycle {
 		getNextUniqueId();
 		this.type = type;
 		this.position = position;
-		this.inStation = false;
+		this.inStation = true;
 		this.isFree = true;
 	}
 
@@ -49,7 +49,12 @@ public class Bicycle {
 
 	public void setInStation(Boolean inStation, DockingStation station) {
 		this.inStation = inStation;
-		this.position = station.getPosition();
+		if (station != null){
+			this.position = station.getPosition();
+
+		}else{
+			this.position = null;
+		}
 		this.isFree = inStation;
 	}
 

@@ -18,22 +18,21 @@ public class DataStore {
      */
     private HashMap<Integer, DockingStation> stations;
     /**
-     * Array list of events (eg. rent a bike, return a bike, ...)
+     * Array list of Bikes not in DockingStation
      */
-
+    private HashMap<Integer, Bicycle> bikeOutOfStation;
      /**
       * Hash map of { velibNetwork id : velibNetwork object}
       */
      private HashMap<String,VelibNetwork> velibNetworks;
 
-    /**
-     * Instantiates a new Record with empty lists.
-     */
+
+
     public DataStore() {
         this.users = new HashMap<>();
         this.stations = new HashMap<>();
         this.velibNetworks = new HashMap<>();
-       
+        this.bikeOutOfStation = new HashMap<>();       
     }
 
     /**
@@ -143,6 +142,31 @@ public class DataStore {
             }
         }
         return false;
+    }
+
+    public boolean isBikeGPSExist(GPSPosition position){
+        for (Bicycle bike : bikeOutOfStation.values()){
+         
+            if (bike.getPosition().toString().equals(position.toString())){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Bicycle getBikeGPS(GPSPosition position,String type){
+        for (Bicycle bike : bikeOutOfStation.values()) {
+            if (bike.getPosition().toString().equals(position.toString()) && bike.getType().toString().toLowerCase().equals(type.toLowerCase())){
+                return bike;
+            } 
+        }
+        return null;
+    }
+
+    public void setBikeOutOfStation(Bicycle bike){
+        if (!bikeOutOfStation.containsValue(bike)) {
+            bikeOutOfStation.put(bike.getId(), bike);
+        }
     }
 
     

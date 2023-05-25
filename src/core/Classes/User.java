@@ -8,6 +8,7 @@ import Cards.NoRegistrationCard;
 import Cards.RegistrationCard;
 import Enums.BicycleType;
 import Enums.ParkingSlotStatus;
+import front.MyVelibIndex;
 
 public class User {
 	private String name;
@@ -198,9 +199,13 @@ public class User {
 		if (this.bike == null){
 			//Check if the slot is occupied
 			if (parkingSlot.getParkingSlotStatus() == ParkingSlotStatus.Occupied){
+
 				//Give the bike to user
 				this.bike = parkingSlot.getBike();
-				//Set the slot free
+				// Set the bike occupied;
+				this.bike.setFree(false);
+				this.bike.setInStation(false, null);
+				// Set the slot free
 				parkingSlot.setParkingSlotStatus(ParkingSlotStatus.Free);
 				//Set the bicycle of the slot null
 				parkingSlot.setBike(null);
@@ -219,14 +224,40 @@ public class User {
 	}
 
 	/**
-	 * Parks a bike
+	 * Function rentBikeOutOfStation which allow a user to rent a bike at a date which is not in a station.
+	 * We check if the user doesn't have a bike yet and if the parking slot is
+	 * occupied.
+	 */
+	public void rentBikeOutOfStation(Bicycle bike, LocalDateTime rentDateTime) {
+		// Check if the user has already a bike or not
+		if (this.bike == null) {
+		
+			//Give the bike to user
+			this.bike = bike;
+			this.rentDateTime = rentDateTime;
+			bike.setFree(false);
+			bike.setInStation(false, null);
+
+			// Print out the log
+
+			System.out.println("User " + this.id + " rented a bicyle out of the station");
+
+			
+
+		} else {
+			System.out.println("The user already has a bike");
+		}
+	}
+
+	/**
+	 * return a bike
 	 * We check if the user has a bike yet and if the parking slot is
 	 * free.
 	 *
 	 * @param parkingSlot    the parking slot
 	 * @param returnDateTime the return date time
 	 */
-	public void returnBike(ParkingSlot parkingSlot, LocalDateTime returnDateTime) {
+	public void returnBike(ParkingSlot parkingSlot, LocalDateTime returnDateTime,DockingStation station) {
 		if (this.bike == null) {
 			System.out.println("The user doesn't have a bike");
 		} else {
@@ -236,6 +267,8 @@ public class User {
 				parkingSlot.setParkingSlotStatus(ParkingSlotStatus.Occupied);
 				//Give the parking slot the bike
 				parkingSlot.setBike(bike);
+				this.bike.setFree(true);
+				this.bike.setInStation(true,station);
 
 				double computeCost = computeCost(bike.getType(), this.rentDateTime, returnDateTime);
 				System.out.println("Bicycle successfully parked.");
@@ -250,6 +283,42 @@ public class User {
 			} else {
 				System.out.println("The parking slot is occupied");
 			}
+
+		}
+	}
+
+	/**
+	 * return a bike out of a station
+	 * We check if the user has a bike yet and if the parking slot is
+	 * free.
+	 *
+	 * @param parkingSlot    the parking slot
+	 * @param returnDateTime the return date time
+	 */
+	public void returnBikeOutOfStation(GPSPosition position, LocalDateTime returnDateTime) {
+		if (this.bike == null) {
+			System.out.println("The user doesn't have a bike");
+		} else {
+			// Check if the slot is free
+			bike.setFree(true);
+			bike.setInStation(false, null);
+			bike.setPosition(position);
+
+			MyVelibIndex.myVelibDatabase.setBikeOutOfStation(bike);
+
+
+
+			double computeCost = computeCost(bike.getType(), this.rentDateTime, returnDateTime);
+			System.out.println("Bicycle successfully parked out of the station.");
+				// update user statistics
+				// time credit and charges are updated when computing cost
+			this.numberOfRides++;
+				// this.+= this.rentDateTime.until(returnDateTime, ChronoUnit.MINUTES);
+
+			// Reset user's data;
+			this.bike = null;
+			this.rentDateTime = null;
+		
 
 		}
 	}
