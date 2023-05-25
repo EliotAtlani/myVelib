@@ -59,6 +59,4 @@ public class VelibNetwork {
         return stationList.get(stationId);
     }
 
-
-
 }

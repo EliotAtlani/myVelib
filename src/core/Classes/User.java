@@ -75,6 +75,10 @@ public class User {
         return rideCost;
     }
 
+	public boolean hasABike() {
+		return this.bike != null;
+	}
+
 	public String getName() {
 		return name;
 	}
