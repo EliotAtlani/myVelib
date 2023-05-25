@@ -16,7 +16,8 @@ public class User {
 	private double totalCharges;
 	private int numberOfRides;
 	private int timeSpent;
-	private Bicycle bike;
+	
+	private Bicycle bike;/* The bike of the user */
 	private LocalDateTime rentDateTime;
 	private int rentTotalTime;
 	private static ArrayList<Integer> takenIds = new ArrayList<>();
@@ -165,6 +166,35 @@ public class User {
 
 	public void addUserToList(User user){
 		userList.add(user);
+	}
+
+	/**
+	 * Function rentBikeUser which allow a user to rent a bike at a date
+	 * We check if the user doesn't have a bike yet and if the parking slot is occupied.
+	 */
+	public void rentBikeUser(ParkingSlot parkingSlot, LocalDateTime rentDateTime){
+		//Check if the user has already a bike or not
+		if (this.bike == null){
+			//Check if the slot is occupied
+			if (parkingSlot.getParkingSlotStatus() == ParkingSlotStatus.Occupied){
+				//Give the bike to user
+				this.bike = parkingSlot.getBike();
+				//Set the slot free
+				parkingSlot.setParkingSlotStatus(ParkingSlotStatus.Free);
+				//Set the bicycle of the slot null
+				parkingSlot.setBike(null);
+				this.rentDateTime = rentDateTime;
+				//Print out the log
+
+				System.out.println("User "+ this.id + " rented a bicyle");
+
+			}else{
+				System.out.println("The parkingslot doesn't have a bike");
+			}
+
+		}else{
+			System.out.println("The user already has a bike");
+		}
 	}
 
 }

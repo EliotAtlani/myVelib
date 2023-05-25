@@ -1,7 +1,7 @@
-package core.Test;
+package Test;
 
-import core.Enums.*;
-import core.Classes.*;
+import Enums.*;
+import Classes.*;
 
 import org.junit.jupiter.api.*;
 
@@ -29,6 +29,8 @@ public class BicycleTest {
         Bicycle mechaBicycle1 = new Bicycle(BicycleType.MECHANICAL);
         Bicycle mechaBicycle2 = new Bicycle(BicycleType.MECHANICAL);
         Bicycle elecBicycle = new Bicycle(BicycleType.ELECTRIC);
+
+    
 
         assertAll("Assert all ID are unique",
                 () -> assertTrue(mechaBicycle1.getId() != mechaBicycle2.getId()),
