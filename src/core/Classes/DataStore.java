@@ -27,6 +27,8 @@ public class DataStore {
      private HashMap<String,VelibNetwork> velibNetworks;
 
 
+ 
+
 
     public DataStore() {
         this.users = new HashMap<>();
@@ -169,6 +171,41 @@ public class DataStore {
         }
     }
 
+    /**
+     * stationBalance
+     * Show the statistiques of a station
+     * @param station
+     */
+    public void stationBalance(DockingStation station){
+        int nbOfRent = station.getNumberOfRent();
+        int nbOfReturn = station.getNumberOfReturn();
+        int balance = nbOfReturn - nbOfRent;
+        System.out.println(" Station balance: "+ balance +
+        "\n\t number of return: " + nbOfReturn+
+        "\n\t number of rent: "+nbOfRent);
+    }
+
+
+    public void userStatistics(User user){
+        int nbRides = user.getNumberOfRides();
+        int totalRentTime = user.getRentTotalTime();
+        double totalCharges = user.getTotalCharges();
+        double timeCredit = user.getTimeCredit();
+        int userId = user.getId();
+
+        System.out.println(
+            "Statistics of the user" + userId + ":"+
+            "\n--------------------------------"+
+            "Number of rides: "+nbRides +
+               "\n--------------------------------"+
+               "Total Rent Time: "+ totalRentTime+ "min"+
+                  "\n--------------------------------"+
+                  "Total charges: "+totalCharges+
+                     "\n--------------------------------"+
+                     "Time credit: "+timeCredit
+        );
+    }
+    
     
 
 }

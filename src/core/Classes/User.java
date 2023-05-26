@@ -19,7 +19,7 @@ public class User {
 	private double totalCharges;
 	private int numberOfRides;
 	private int timeSpent;
-	
+	private double timeCredit;
 	private Bicycle bike;/* The bike of the user */
 	private LocalDateTime rentDateTime;
 	private int rentTotalTime;
@@ -185,6 +185,7 @@ public class User {
 	 */
 	public double computeCost(BicycleType bicycleType, LocalDateTime rentDateTime, LocalDateTime returnDateTime) {
 		int rideDurationInMinutes = (int) rentDateTime.until(returnDateTime, ChronoUnit.MINUTES);
+		this.rentTotalTime+= rideDurationInMinutes;
 		double rideCost = this.getRegistrationCard().computeRideCost(rideDurationInMinutes, bicycleType, this);
 		this.addCharge(rideCost);
 		return rideCost;
@@ -274,8 +275,9 @@ public class User {
 				System.out.println("Bicycle successfully parked.");
 				// update user statistics
 				// time credit and charges are updated when computing cost
+				
 				this.numberOfRides++;
-				// this.+= this.rentDateTime.until(returnDateTime, ChronoUnit.MINUTES);
+				this.rentDateTime.until(returnDateTime, ChronoUnit.MINUTES);
 
 				// Reset user's data;
 				this.bike = null;
@@ -323,4 +325,11 @@ public class User {
 		}
 	}
 
+	public double getTimeCredit() {
+		return timeCredit;
+	}
+
+	public void setTimeCreditBalance(double timeCredit) {
+		this.timeCredit = timeCredit;
+	}
 }

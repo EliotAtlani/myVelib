@@ -17,6 +17,8 @@ public class DockingStation {
 	protected DockingStationType stationType;
 	protected HashMap<Integer, ParkingSlot> SlotHashMap;
 	private int initialNumberOfBikes;
+	private int numberOfRent;
+	private int numberOfReturn;
 
 	// ToString
 	public String displayHashMap(HashMap<Integer, ParkingSlot> SlotHashMap) {
@@ -244,6 +246,22 @@ public class DockingStation {
 
 	public int getInitialNumberOfBikes() {
 		return initialNumberOfBikes;
+	}
+
+	public void addNumberOfRent(){
+		this.numberOfRent++;
+	}
+	
+	public void addNumberOfReturn() {
+		this.numberOfReturn++;
+	}
+
+	public int getNumberOfRent(){
+		return this.numberOfRent;
+	}
+	
+	public int getNumberOfReturn() {
+		return this.numberOfReturn;
 	}
 
 }
