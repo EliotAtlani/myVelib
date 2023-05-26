@@ -1,22 +1,24 @@
 package front;
 
-import java.util.Scanner;
-
-import Cards.NoRegistrationCard;
-import Cards.RegistrationCard;
-import Cards.VLibreCard;
-import Cards.VMaxCard;
-import Classes.*;
-import Enums.*;
-
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import front.MyVelibFunctions;
+
+import Cards.VLibreCard;
+import Cards.VMaxCard;
+import Classes.Bicycle;
+import Classes.DockingStation;
+import Classes.GPSPosition;
+import Classes.ParkingSlot;
+import Classes.User;
+import Classes.VelibNetwork;
+import Enums.BicycleType;
+import Enums.DockingStationStatus;
+import Enums.DockingStationType;
+import Enums.ParkingSlotStatus;
 
 public class MyVelibFunctions {
     /**
@@ -220,10 +222,15 @@ public class MyVelibFunctions {
 
                 ParkingSlot parkingSlot = station.getParkingSlotWithBike(BicycleType.MECHANICAL);
                 user.rentBikeUser(parkingSlot,LocalDateTime.now());
+                // Add stats
+                station.addNumberOfRent();
+                
             } else if (station.hasBike(BicycleType.ELECTRIC) && type.toLowerCase().equals("electric")
                     && station.getStationStatus() == DockingStationStatus.ONLINE) {
                 ParkingSlot parkingSlot = station.getParkingSlotWithBike(BicycleType.ELECTRIC);
                 user.rentBikeUser(parkingSlot, LocalDateTime.now());
+                // Add stats
+                station.addNumberOfRent();
             } 
             else if (station.getStationStatus() == DockingStationStatus.OFFLINE){
                 System.out.println("The station is OFFLINE");
@@ -281,6 +288,9 @@ public class MyVelibFunctions {
 
                 double finalCost = afterCharges - beforeCharges;
 
+                //Add stats
+                station.addNumberOfReturn();
+
                 System.out.println(MyVelibIndex.myVelibDatabase.getUsers().get(userId).getName() + " has dropped his bike in station "+stationId+ " in parking slot n°"+parkingSlot.getId()+
                 "\n\t Cost of the ride: "+finalCost
                 );
@@ -325,17 +335,28 @@ public class MyVelibFunctions {
     
     
     public static void displayUser(String stationName, int userId)  {
-       
-        User user = MyVelibIndex.myVelibDatabase.getUsers().get(userId);
+        if (MyVelibIndex.myVelibDatabase.getUsers().get(userId) == null){
+            System.out.println("The user doesn't exist");
+        }else{
+            User user = MyVelibIndex.myVelibDatabase.getUsers().get(userId);
+            MyVelibIndex.myVelibDatabase.userStatistics(user);
 
-        System.out.println(user.toString());
+        }
+       
+
       
        
 
     }
 
     public static void displayStation(String nameStation, Integer stationId){
-        DockingStation dockingStation = new DockingStation(null, null, null);
+        if( MyVelibIndex.myVelibDatabase.getStations().get(stationId) == null){
+            System.out.println("The station doesn't exist");
+        }else{
+            DockingStation station = MyVelibIndex.myVelibDatabase.getStations().get(stationId);
+            MyVelibIndex.myVelibDatabase.stationBalance(station);
+        }
+       
     
     }
 

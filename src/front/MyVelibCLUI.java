@@ -238,17 +238,32 @@ public class MyVelibCLUI {
     }
 
     private void handleDisplayStationCommand(String[] parts) {
+        if (parts.length == 2) {
+            String velibNetwork = parts[0];
+            Integer stationId = Integer.parseInt(parts[1].toString());
 
+            MyVelibFunctions.displayStation(velibNetwork, stationId);
+        } else {
+            System.out.println("Wrong number of arguments");
+        }
     }
 
     private void handleDisplayUserCommand(String[] parts) {
-        Integer userId = Integer.parseInt(parts[1].toString());
+        if (parts.length == 2) {
+            String velibNetwork = parts[0];
+            Integer userId = Integer.parseInt(parts[1].toString());
+
+            MyVelibFunctions.displayUser(velibNetwork, userId);
+        } else {
+            System.out.println("Wrong number of arguments");
+        }
+        
      
-        MyVelibFunctions.displayUser(null, userId);
     }
 
     private void handleSortStationCommand(String[] parts) {
-
+       
+      
     }
 
     private void handleDisplayCommand(String[] parts) {
