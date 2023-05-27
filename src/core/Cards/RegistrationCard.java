@@ -10,7 +10,15 @@ public class RegistrationCard {
 	private int nextHourMechanical;
 	private int firstHourElec;
 	private int nextHourElec;
-	
+
+	/**
+	 * 
+	 * @param canHandleTimeCredit
+	 * @param firstHourMechanical
+	 * @param nextHourMechanical
+	 * @param firstHourElec
+	 * @param nextHourElec
+	 */
 	
 	public RegistrationCard(boolean canHandleTimeCredit, int firstHourMechanical,
 			int nextHourMechanical, int firstHourElec, int nextHourElec) {
@@ -23,6 +31,11 @@ public class RegistrationCard {
 		this.nextHourElec = nextHourElec;
 	}
 
+	
+	/** 
+	 * @param type
+	 * @return double
+	 */
 	public double getFirstHourCost(BicycleType type) {
 		if(type==BicycleType.ELECTRIC) {
 			return getFirstHourElec();
@@ -30,6 +43,12 @@ public class RegistrationCard {
 		return getFirstHourMechanical();
 	}
 
+	/**
+	 * 
+	 * @param duration
+	 * @param type
+	 * @return
+	 */
 	public double getNexttHourCost(double duration,BicycleType type) {
 		if (duration<1) {
 			return 0;
@@ -42,7 +61,13 @@ public class RegistrationCard {
 
 		
 
-	public double computeRideCost(double duration,BicycleType type) {
+	/**
+	 * 
+	 * @param duration
+	 * @param type
+	 * @return
+	 */
+	public double giveRideCost(double duration,BicycleType type) {
 		if (duration == 0) {
 			return 0;
 		}
@@ -51,26 +76,46 @@ public class RegistrationCard {
 		return totalCost;
 	}
 	
+	
+	/** 
+	 * @return boolean
+	 */
 	public boolean canHandleTimeCredit() {
 		return canHandleTimeCredit;
 	}
-
+	/**
+	 * 
+	 * @return int
+	 */
 	public double getTimeCreditBalance() {
 		return timeCreditBalance;
 	}
-
+	/**
+	 * 
+	 * @return int
+	 */
 	public int getFirstHourMechanical() {
 		return firstHourMechanical;
 	}
 
+
+	/**
+	 * @return int
+	 */
 	public int getNextHourMechanical() {
 		return nextHourMechanical;
 	}
 
+	/**
+	 * @return int
+	 */
 	public int getFirstHourElec() {
 		return firstHourElec;
 	}
 
+	/**
+	 * @return int
+	 */
 	public int getNextHourElec() {
 		return nextHourElec;
 	}

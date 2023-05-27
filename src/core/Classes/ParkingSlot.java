@@ -9,6 +9,9 @@ public class ParkingSlot {
     private DockingStation station;
     private ParkingSlotStatus slot_status;
 
+    /**
+     * @return
+     */
     private static synchronized Integer getNextUniqueId() {
         return uniqueId++;
     }
@@ -20,6 +23,10 @@ public class ParkingSlot {
                 " is " + slot_status + " with " + bike +" in station" + station.getId();
     }
 
+    /**
+     * @param station
+     * @param bike
+     */
     public ParkingSlot(DockingStation station, Bicycle bike) {
         id = uniqueId;
         getNextUniqueId();
@@ -28,6 +35,9 @@ public class ParkingSlot {
         this.bike = bike;
     }
 
+    /**
+     * @param station
+     */
     public ParkingSlot(DockingStation station) {
         id = uniqueId;
         getNextUniqueId();

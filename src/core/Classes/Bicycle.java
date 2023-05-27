@@ -11,6 +11,10 @@ public class Bicycle {
 	protected boolean isFree;
 	protected boolean fromStreet;
 
+	/**
+	 * @param type
+	 * @param position
+	 */
 	public Bicycle(BicycleType type, GPSPosition position) {
 		this.id = uniqueId;
 		getNextUniqueId();
@@ -21,10 +25,12 @@ public class Bicycle {
 		this.fromStreet=false;
 	}
 
+
 	private static synchronized Integer getNextUniqueId() {
 		return uniqueId++;
 	}
 
+	
 	public Integer getId() {
 		return id;
 	}
@@ -33,22 +39,38 @@ public class Bicycle {
 		return position;
 	}
 
+	/**
+	 * @param position
+	 */
 	public void setPosition(GPSPosition position) {
 		this.position = position;
 	}
 
+	/**
+	 * @param id
+	 */
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
+	/**
+	 * @return
+	 */
 	public BicycleType getType() {
 		return type;
 	}
 
+	/**
+	 * @param type
+	 */
 	public void setType(BicycleType type) {
 		this.type = type;
 	}
 
+	/**
+	 * @param inStation
+	 * @param station
+	 */
 	public void setInStation(Boolean inStation, DockingStation station) {
 		this.inStation = inStation;
 		if (station != null){
@@ -77,10 +99,16 @@ public class Bicycle {
 	}
 
 
+	/**
+	 * @return
+	 */
 	public boolean IsFromStreet() {
 		return this.fromStreet;
 	}
 
+	/**
+	 * @param state
+	 */
 	public void setIsFromStreet(boolean state) {
 		this.fromStreet = state;
 	}

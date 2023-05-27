@@ -22,7 +22,11 @@ public class DockingStation {
 	protected int numberOfReturn;
 	protected int nbOfSlots;
 
-	// ToString
+	
+	/**
+	 * @param SlotHashMap
+	 * @return
+	 */
 	public String displayHashMap(HashMap<Integer, ParkingSlot> SlotHashMap) {
 		String string = "";
 		for (Integer keys : SlotHashMap.keySet()) {
@@ -31,6 +35,10 @@ public class DockingStation {
 		return string;
 	}
 
+	/**
+	 * @param network
+	 * @return
+	 */
 	private int generateUniqueId(String network) {
 		int lastId = lastIdsByNetwork.getOrDefault(network, 0);
 		int newId = lastId + 1;
@@ -48,6 +56,13 @@ public class DockingStation {
 
 	}
 
+	/**
+	 * @param position
+	 * @param stationStatus
+	 * @param stationType
+	 * @param network
+	 * @param nbOfSlots
+	 */
 	public DockingStation(GPSPosition position, DockingStationStatus stationStatus,
 			DockingStationType stationType,String network,int nbOfSlots) {
 		this.id = generateUniqueId(network);
@@ -59,6 +74,9 @@ public class DockingStation {
 		this.nbOfSlots=nbOfSlots;
 	}
 
+	/**
+	 * @param parkingSlot
+	 */
 	public void addParkingSlot(ParkingSlot parkingSlot) {
 		this.SlotHashMap.put(parkingSlot.getId(), parkingSlot);
 		if (parkingSlot.getParkingSlotStatus() != ParkingSlotStatus.Free) {
@@ -66,6 +84,9 @@ public class DockingStation {
 		}
 	}
 
+	/**
+	 * @param bicycle
+	 */
 	public void addBicycle(Bicycle bicycle) {
 		Iterator iterator = SlotHashMap.entrySet().iterator();
 		while (iterator.hasNext()) {
@@ -77,6 +98,9 @@ public class DockingStation {
 		}
 	}
 
+	/**
+	 * @param bicycle
+	 */
 	public void removeBike(Bicycle bicycle) {
 		Iterator iterator = SlotHashMap.entrySet().iterator();
 		while (iterator.hasNext()) {
@@ -89,6 +113,10 @@ public class DockingStation {
 		}
 	}
 
+	/**
+	 * @param typeOfBicycle
+	 * @return
+	 */
 	public Boolean hasBike(BicycleType typeOfBicycle) {
 		Iterator iterator = SlotHashMap.entrySet().iterator();
 		while (iterator.hasNext()) {
@@ -101,6 +129,9 @@ public class DockingStation {
 		return false;
 	}
 
+	/**
+	 * @return
+	 */
 	public Boolean hasAnyBike() {
 		Iterator iterator = SlotHashMap.entrySet().iterator();
 		while (iterator.hasNext()) {
@@ -112,6 +143,10 @@ public class DockingStation {
 		return false;
 	}
 
+	/**
+	 * @param type
+	 * @return
+	 */
 	public Bicycle getBicycle(BicycleType type) {
 		ParkingSlot slot=getParkingSlotWithBike(type);
 		if (slot!=null) {
@@ -121,6 +156,9 @@ public class DockingStation {
 		}
 	}
 
+	/**
+	 * @return
+	 */
 	public Bicycle getAnyBicycle() {
 		ParkingSlot slot=getParkingSlotWitAnyBike();
 		if (slot!=null) {
@@ -130,6 +168,9 @@ public class DockingStation {
 		}
 	}
 
+	/**
+	 * @return
+	 */
 	public Boolean HasFreeParkingSlot() {
 		Iterator iterator = SlotHashMap.entrySet().iterator();
 		while (iterator.hasNext()) {
@@ -141,10 +182,16 @@ public class DockingStation {
 		return false;
 	}
 
+	/**
+	 * @return
+	 */
 	public int getNumberOfParkingSlots() {
 		return this.SlotHashMap.size();
 	}
 
+	/**
+	 * @return
+	 */
 	public Integer getNumberOfFreeParkingSlot() {
 		Iterator iterator = SlotHashMap.entrySet().iterator();
 		Integer number = 0;
@@ -157,6 +204,10 @@ public class DockingStation {
 		return number;
 	}
 
+	/**
+	 * @param type
+	 * @return
+	 */
 	public Integer getNumberOfBike(BicycleType type) {
 		Iterator iterator = SlotHashMap.entrySet().iterator();
 		Integer number = 0;
@@ -170,6 +221,10 @@ public class DockingStation {
 		return number;
 	}
 
+	/**
+	 * @param type
+	 * @return
+	 */
 	public ParkingSlot getParkingSlotWithBike(BicycleType type) {
 		Iterator iterator = SlotHashMap.entrySet().iterator();
 		while (iterator.hasNext()) {
@@ -198,6 +253,9 @@ public class DockingStation {
 		return null;
 	}
 	
+	/**
+	 * @return
+	 */
 	public ParkingSlot getParkingSlotWitAnyBike() {
 		Iterator iterator = SlotHashMap.entrySet().iterator();
 		while (iterator.hasNext()) {
@@ -209,6 +267,7 @@ public class DockingStation {
 		return null;
 	}
 	
+	//Getters and setters
 	public HashMap<Integer, ParkingSlot>  getAllParking() {
 		return SlotHashMap;
 	}
