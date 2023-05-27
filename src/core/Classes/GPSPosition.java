@@ -4,20 +4,33 @@ public class GPSPosition {
 	protected Double longitude;
 	protected Double latitude;
 
+	/**
+	 * @param longitude
+	 * @param latitue
+	 */
 	public GPSPosition(Double longitude, Double latitue) {
 		super();
 		this.longitude = longitude;
 		this.latitude = latitue;
 	}
 
+	/**
+	 * @return
+	 */
 	public Double getLongitude() {
 		return longitude;
 	}
 
+	/**
+	 * @param longitude
+	 */
 	public void setLongitude(Double longitude) {
 		this.longitude = longitude;
 	}
 
+	/**
+	 * @return
+	 */
 	public Double getLatitude() {
 		return latitude;
 	}
@@ -31,6 +44,10 @@ public class GPSPosition {
 		return "longitude is " + longitude + " and latitude is" + latitude;
 	}
 
+	/**
+	 * @param endPoint
+	 * @return
+	 */
 	public Double getDistance(GPSPosition endPoint) {
 		Double lat_a = this.latitude;
 		Double lng_a = this.longitude;

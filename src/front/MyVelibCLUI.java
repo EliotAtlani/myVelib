@@ -1,24 +1,15 @@
 package front;
 
-import java.util.Scanner;
-
-import Enums.BicycleType;
-import Enums.DockingStationStatus;
-import Enums.DockingStationType;
-import Enums.ParkingSlotStatus;
-
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import front.MyVelibFunctions;
-
-import Classes.*;
+import java.util.Scanner;
 
 public class MyVelibCLUI {
 
+    /** 
+     * @return 
+     */
     public void start() {
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
@@ -95,6 +86,9 @@ public class MyVelibCLUI {
     }
 
     // Implement the logic to handle each command
+    /**
+     * @param arguments
+     */
     private void handleSetupCommand(Object[] arguments) {
         if (arguments.length == 1) {
             String nameStation = (String) arguments[0];
@@ -113,6 +107,9 @@ public class MyVelibCLUI {
 
     }
 
+    /**
+     * @param parts
+     */
     private void handleDisplayHelp(String[] parts) {
         System.out.println(
                 " Here's the list of all the command possible. Your command shoud start like this : 'Command-name <arg1> <arg2> ... <argN>'' \n \n "
@@ -176,14 +173,20 @@ public class MyVelibCLUI {
 
     }
 
-    private void handleAddUserCommand(String[] arguments) {
-        String userName = arguments[0];
-        String registration = arguments[1];
-        String stationName = arguments[2];
+    /**
+     * @param parts
+     */
+    private void handleAddUserCommand(String[] parts) {
+        String userName = parts[0];
+        String registration = parts[1];
+        String stationName = parts[2];
 
         MyVelibFunctions.addUser(userName, registration, stationName);
     }
 
+    /**
+     * @param parts
+     */
     private void handleOfflineCommand(String[] parts) {
         String nameStation = parts[0];
         int stationId = Integer.parseInt(parts[1].toString());
@@ -192,6 +195,9 @@ public class MyVelibCLUI {
 
     }
 
+    /**
+     * @param parts
+     */
     private void handleOnlineCommand(String[] parts) {
         String nameStation = parts[0];
         int stationId = Integer.parseInt(parts[1].toString());
@@ -200,9 +206,16 @@ public class MyVelibCLUI {
 
     }
 
+    /**
+     * @param parts
+     */
     private void handleNetworkCommand(String[] parts) {
         MyVelibFunctions.displayNetworks();
     }
+
+    /**
+     * @param parts
+     */
     private void handleRentBikeCommand(String[] parts) {
         if (parts.length == 4){
             int userId = Integer.parseInt(parts[0].toString());
@@ -226,6 +239,9 @@ public class MyVelibCLUI {
 
     }
 
+    /**
+     * @param parts
+     */
     private void handleReturnBikeCommand(String[] parts) {
          if (parts.length == 4){
             int userId = Integer.parseInt(parts[0].toString());
@@ -246,6 +262,9 @@ public class MyVelibCLUI {
        
     }
 
+    /**
+     * @param parts
+     */
     private void handleDisplayStationCommand(String[] parts) {
         if (parts.length == 2) {
             String velibNetwork = parts[0];
@@ -257,6 +276,9 @@ public class MyVelibCLUI {
         }
     }
 
+    /**
+     * @param parts
+     */
     private void handleDisplayUserCommand(String[] parts) {
         if (parts.length == 2) {
             String velibNetwork = parts[0];
@@ -270,6 +292,9 @@ public class MyVelibCLUI {
      
     }
 
+    /**
+     * @param parts
+     */
     private void handleSortStationCommand(String[] parts) {
         if (parts.length == 2) {
             String velibNetwork = parts[0];
@@ -283,6 +308,9 @@ public class MyVelibCLUI {
       
     }
 
+    /**
+     * @param parts
+     */
     private void handleDisplayCommand(String[] parts) {
         if (parts.length == 1) {
             String velibNetwork = parts[0];
@@ -293,6 +321,9 @@ public class MyVelibCLUI {
         }
     }
     
+    /**
+     * @param parts
+     */
     private void handleAllBikesCommand(String[] parts) {
         if (parts.length == 1) {
             String velibNetwork = parts[0];
@@ -303,6 +334,9 @@ public class MyVelibCLUI {
         
     }
 
+    /**
+     * @param parts
+     */
     private void handleRunTestCommand(String[] parts) {
         if (parts.length == 1) {
             String scenario = parts[0];
@@ -316,6 +350,9 @@ public class MyVelibCLUI {
 
     //To execute file.txt
 
+    /**
+     * @param filename
+     */
     public void executeCommandsFromFile(String filename) {
         try {
             File file = new File("src/front/eval/"+filename);
@@ -336,6 +373,9 @@ public class MyVelibCLUI {
         }
     }
 
+    /**
+     * @param command
+     */
     private void executeCommand(String command) {
         String[] parts = command.split("\\s+"); // Split the command into parts
             String[] arguments = Arrays.copyOfRange(parts, 2, parts.length);
@@ -382,7 +422,6 @@ public class MyVelibCLUI {
                         handleAllBikesCommand(arguments);
                         break;
                     case "exit":
-                        boolean running = false;
                         break;
                     case "help":
                         handleDisplayHelp(parts);

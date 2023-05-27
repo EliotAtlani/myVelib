@@ -28,12 +28,18 @@ public class MyVelibIndex {
 
     }
 
+    /**
+     * 
+     */
     private static void RunCommand() {
 //Launch command CLUI
         MyVelibCLUI myVelibCLUI = new MyVelibCLUI();
         myVelibCLUI.start();
     }
 
+    /**
+     * 
+     */
     private static void InitialConfiguration(){
         try {
             File file = new File("src/front/eval/my_velib.ini");
@@ -62,7 +68,11 @@ public class MyVelibIndex {
         }
     }
     
-private static void processStationData(BufferedReader bufferedReader) throws IOException {
+    /**
+     * @param bufferedReader
+     * @throws IOException
+     */
+    private static void processStationData(BufferedReader bufferedReader) throws IOException {
         String line;
         String name ="";
         int nstations = 0;
@@ -92,7 +102,11 @@ private static void processStationData(BufferedReader bufferedReader) throws IOE
 
 }
 
-private static void processUserData(BufferedReader bufferedReader) throws IOException {
+    /**
+     * @param bufferedReader
+     * @throws IOException
+     */
+    private static void processUserData(BufferedReader bufferedReader) throws IOException {
     String line;
     List<String> names = new ArrayList<>(); 
     List<String> cardTypes = new ArrayList<>(); 

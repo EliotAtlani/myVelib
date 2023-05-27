@@ -20,6 +20,9 @@ public class VelibNetwork {
 
     }
 
+    /**
+     * @param name
+     */
     public VelibNetwork(String name){
         this.name=name;
         this.stationList = new ArrayList<DockingStation>();

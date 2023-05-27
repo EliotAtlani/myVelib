@@ -24,7 +24,6 @@ public class User {
 	protected Bicycle bike;/* The bike of the user */
 	protected LocalDateTime rentDateTime;
 	protected int rentTotalTime;
-
 	protected static HashMap<String, Integer> lastIdsByNetwork = new HashMap<>();
 	double rideDurationInMinutes;
 	BicycleType bicycleType;
@@ -32,6 +31,10 @@ public class User {
 
 
 	
+	/**
+	 * @param network
+	 * @return
+	 */
 	private int generateUniqueId(String network) {
 		int lastId = lastIdsByNetwork.getOrDefault(network, 0);
 		int newId = lastId + 1;
@@ -44,6 +47,13 @@ public class User {
 		return "User id is : " + id + "\n User name is : "+ name;
 
 	}
+	/**
+	 * @param name
+	 * @param position
+	 * @param creditCardNumber
+	 * @param registrationCard
+	 * @param network
+	 */
 	public User(String name, GPSPosition position, String creditCardNumber, RegistrationCard registrationCard,String network) {
 		this.name = name;
 		this.id = generateUniqueId(network);
@@ -58,6 +68,12 @@ public class User {
 		
 	}
 
+	/**
+	 * @param name
+	 * @param position
+	 * @param creditCardNumber
+	 * @param network
+	 */
 	public User(String name, GPSPosition position, String creditCardNumber,String network) {
 		this.name = name;
 		this.id = generateUniqueId(network);
@@ -71,15 +87,23 @@ public class User {
 		this.rentTotalTime = 0;
 	}
 
+
+	/**
+	 * @param charge
+	 */
 	public void addCharge(double charge) {
 		this.setTotalCharges(this.getTotalCharges() + charge);
 	}
 
 
+	/**
+	 * @return
+	 */
 	public boolean hasABike() {
 		return this.bike != null;
 	}
 
+	//Getters and setters;
 	public String getName() {
 		return name;
 	}
@@ -173,17 +197,17 @@ public class User {
 	}
 
 	/**
-	 * Computes the cost of a ride.
+	 * Give the cost of a ride
 	 *
 	 * @param bicycleType    the type of the bicycle rented
 	 * @param rentDateTime   the rent datetime
 	 * @param returnDateTime the return datetime
 	 * @return the ride cost
 	 */
-	public double computeCost(BicycleType bicycleType, LocalDateTime rentDateTime, LocalDateTime returnDateTime,Bicycle bike) {
+	public double giveCost(BicycleType bicycleType, LocalDateTime rentDateTime, LocalDateTime returnDateTime,Bicycle bike) {
 		int rideDurationInMinutes = (int) rentDateTime.until(returnDateTime, ChronoUnit.MINUTES);
 		this.rentTotalTime+= rideDurationInMinutes;
-		double rideCost = this.getRegistrationCard().computeRideCost(rideDurationInMinutes, bicycleType);
+		double rideCost = this.getRegistrationCard().giveRideCost(rideDurationInMinutes, bicycleType);
 		
 
 		//Check for bonus discount
@@ -197,19 +221,18 @@ public class User {
 		return rideCost;
 	}
 /**
-	 * Computes the cost of a ride for a malus.
+	 * Give the cost of a ride for a malus.
 	 *
 	 * @param bicycleType    the type of the bicycle rented
 	 * @param rentDateTime   the rent datetime
 	 * @param returnDateTime the return datetime
 	 * @return the ride cost
 	 */
-	public double computeCostMalus(BicycleType bicycleType, LocalDateTime rentDateTime, LocalDateTime returnDateTime) {
+	public double giveCostMalus(BicycleType bicycleType, LocalDateTime rentDateTime, LocalDateTime returnDateTime) {
 		int rideDurationInMinutes = (int) rentDateTime.until(returnDateTime, ChronoUnit.MINUTES);
 		this.rentTotalTime+= rideDurationInMinutes;
-		double rideCost = this.getRegistrationCard().computeRideCost(rideDurationInMinutes, bicycleType);
+		double rideCost = this.getRegistrationCard().giveRideCost(rideDurationInMinutes, bicycleType);
 		
-
 		//Malus
 		
 		rideCost = 1.1*rideCost;
@@ -218,9 +241,12 @@ public class User {
 
 		return rideCost;
 	}
+
+
+
 	/**
-	 * Function rentBikeUser which allow a user to rent a bike at a date
-	 * We check if the user doesn't have a bike yet and if the parking slot is occupied.
+	 * @param parkingSlot
+	 * @param rentDateTime
 	 */
 	public void rentBikeUser(ParkingSlot parkingSlot, LocalDateTime rentDateTime){
 		//Check if the user has already a bike or not
@@ -238,7 +264,7 @@ public class User {
 				//Set the bicycle of the slot null
 				parkingSlot.setBike(null);
 				this.rentDateTime = rentDateTime;
-				//Print out the log
+			
 
 				System.out.println("User "+ this.id + " rented a bicyle");
 
@@ -251,10 +277,10 @@ public class User {
 		}
 	}
 
+
 	/**
-	 * Function rentBikeOutOfStation which allow a user to rent a bike at a date which is not in a station.
-	 * We check if the user doesn't have a bike yet and if the parking slot is
-	 * occupied.
+	 * @param bike
+	 * @param rentDateTime
 	 */
 	public void rentBikeOutOfStation(Bicycle bike, LocalDateTime rentDateTime) {
 		// Check if the user has already a bike or not
@@ -268,7 +294,7 @@ public class User {
 			bike.setIsFromStreet(true);
 
 
-			// Print out the log
+	
 
 			System.out.println("User " + this.id + " rented a bicyle out of the station");
 
@@ -300,15 +326,14 @@ public class User {
 				this.bike.setFree(true);
 				this.bike.setInStation(true,station);
 
-				double computeCost = computeCost(bike.getType(), this.rentDateTime, returnDateTime,bike);
+				giveCost(bike.getType(), this.rentDateTime, returnDateTime,bike);
 				System.out.println("Bicycle successfully parked.");
-				// update user statistics
-				// time credit and charges are updated when computing cost
+				
 				
 				this.numberOfRides++;
 				this.rentDateTime.until(returnDateTime, ChronoUnit.MINUTES);
 
-				// Reset user's data;
+				// Reset the data of the user
 				this.bike = null;
 				this.rentDateTime = null;
 			} else {
@@ -334,19 +359,12 @@ public class User {
 			bike.setFree(true);
 			bike.setInStation(false, null);
 			bike.setPosition(position);
-
 			MyVelibIndex.myVelibDatabase.setBikeOutOfStation(bike);
-
-
-
-			double computeCost = computeCostMalus(bike.getType(), this.rentDateTime, returnDateTime);
+			giveCostMalus(bike.getType(), this.rentDateTime, returnDateTime);
 			System.out.println("Bicycle successfully parked out of the station.");
-				// update user statistics
-				// time credit and charges are updated when computing cost
 			this.numberOfRides++;
-				// this.+= this.rentDateTime.until(returnDateTime, ChronoUnit.MINUTES);
 
-			// Reset user's data;
+			//Reset the data of the user
 			this.bike = null;
 			this.rentDateTime = null;
 		

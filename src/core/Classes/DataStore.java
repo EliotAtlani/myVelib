@@ -9,26 +9,18 @@ import Enums.*;
  * This class allows to store the list of users, stations and velibNetWork
  */
 public class DataStore {
-    /**
-     * hash map of { user id : user object }
-     */
-    private HashMap<Integer, User> users;
-    /**
-     * hash map of { station id : station object }
-     */
+    
+    private HashMap<Integer, User> users;  
     private HashMap<Integer, DockingStation> stations;
-    /**
-     * Array list of Bikes not in DockingStation
-     */
     private HashMap<Integer, Bicycle> bikeOutOfStation;
-     /**
-      * Hash map of { velibNetwork id : velibNetwork object}
-      */
      private HashMap<String,VelibNetwork> velibNetworks;
 
 
 
 
+    /**
+     * 
+     */
     public DataStore() {
         this.users = new HashMap<>();
         this.stations = new HashMap<>();
@@ -37,7 +29,7 @@ public class DataStore {
     }
 
     /**
-     * Instantiates a new Record with users, stations and events.
+     * Instantiates a new DataStorage with users, stations and velibNetworks.
      *
      * @param users    the users
      * @param stations the stations
@@ -50,7 +42,9 @@ public class DataStore {
        
     }
 
-    // custom methods
+    /**
+     * @param user
+     */
     public void addUser(User user) {
         if (!users.containsValue(user)) {
             users.put(user.getId(), user);
@@ -138,6 +132,10 @@ public class DataStore {
 
    
 
+    /**
+     * @param name
+     * @return
+     */
     public boolean VelibNetworksNamePossible(String name){
         for (VelibNetwork network : velibNetworks.values()) {
             if (network.getNameVelibNetwork().equals(name)) {
@@ -147,6 +145,10 @@ public class DataStore {
         return true;
     }
 
+    /**
+     * @param position
+     * @return
+     */
     public boolean isBikeGPSExist(GPSPosition position){
         for (Bicycle bike : bikeOutOfStation.values()){
          
@@ -157,6 +159,11 @@ public class DataStore {
         return false;
     }
 
+    /**
+     * @param position
+     * @param type
+     * @return
+     */
     public Bicycle getBikeGPS(GPSPosition position,String type){
         for (Bicycle bike : bikeOutOfStation.values()) {
             if (bike.getPosition().toString().equals(position.toString()) && bike.getType().toString().toLowerCase().equals(type.toLowerCase())){
@@ -166,6 +173,9 @@ public class DataStore {
         return null;
     }
 
+    /**
+     * @param bike
+     */
     public void setBikeOutOfStation(Bicycle bike){
         if (!bikeOutOfStation.containsValue(bike)) {
             bikeOutOfStation.put(bike.getId(), bike);
@@ -174,7 +184,7 @@ public class DataStore {
 
     /**
      * stationBalance
-     * Show the statistiques of a station
+     * Show the statistics of a station
      * @param station
      */
     public void stationBalance(DockingStation station){
@@ -204,6 +214,9 @@ public class DataStore {
     }
 
 
+    /**
+     * @param user
+     */
     public void userStatistics(User user){
         int nbRides = user.getNumberOfRides();
         int totalRentTime = user.getRentTotalTime();

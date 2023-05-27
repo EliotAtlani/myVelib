@@ -1,7 +1,5 @@
 package front;
 
-import java.io.File;
-import java.nio.Buffer;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -49,9 +47,7 @@ public class MyVelibFunctions {
      * @param nbOfBikes   the number of bike
      */
 
-    public MyVelibFunctions() {
 
-    }
 
     public static void setup(String nameStation, Integer nbOfStation, Integer nbOfSlots, Double sideLength,
             Integer nbOfBikes) {

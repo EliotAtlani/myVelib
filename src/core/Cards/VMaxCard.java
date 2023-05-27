@@ -4,9 +4,13 @@ public class VMaxCard extends RegistrationCard {
 	
 	public VMaxCard() {
 		super(true,0,1,0,1);
-		// TODO Auto-generated constructor stub
+		
 	}
 
+	
+	/** 
+	 * @return String
+	 */
 	@Override
     public String toString() {
         return "Vmax card";
