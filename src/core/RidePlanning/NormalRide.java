@@ -1,10 +1,9 @@
-package RidePlanning;
+package core.RidePlanning;
 
 import java.util.ArrayList;
-
-import Classes.DockingStation;
-import Classes.GPSPosition;
-import Enums.DockingStationStatus;
+import core.Classes.DockingStation;
+import core.Classes.GPSPosition;
+import core.Enums.DockingStationStatus;
 
 public class NormalRide {
 	protected GPSPosition startPosition;
@@ -16,30 +15,17 @@ public class NormalRide {
 		this.endPosition = endPosition;
 	}
 
-	public Double getDistance(GPSPosition startPoint, GPSPosition endPoint) {
-		Double lat_a = startPoint.getLatitude();
-		Double lng_a = startPoint.getLongitude();
-		Double lat_b = endPoint.getLatitude();
-		Double lng_b = endPoint.getLongitude();
-
-		Double d_lng = lng_b - lng_a;
-
-		Double t1 = Math.sin(lat_a) * Math.sin(lat_b);
-		Double t2 = Math.cos(lat_a) * Math.cos(lat_b) * Math.cos(d_lng);
-		Double t3 = Math.cos(t1 + t2);
-		Double S_start_end = Math.acos(t3);
-		return S_start_end;
-	}
-
 	public DockingStation findStartStation(ArrayList<DockingStation> stations) {
 		DockingStation startingstation = null;
 		Double distance = Double.POSITIVE_INFINITY;
 		for (DockingStation station : stations) {
 			if (station.getStationStatus() == DockingStationStatus.ONLINE) {
 				if (station.HasFreeParkingSlot()) {
-					if (getDistance(startPosition, station.getPosition()) < distance) {
+					Double dist=this.startPosition.getDistance(station.getPosition());
+					System.out.println(dist);
+					if (dist < distance) {
 						startingstation = station;
-						distance = getDistance(startPosition, station.getPosition());
+						distance = dist;
 					}
 				}
 			}
@@ -53,14 +39,30 @@ public class NormalRide {
 		for (DockingStation station : stations) {
 			if (station.getStationStatus() == DockingStationStatus.ONLINE) {
 				if (station.HasFreeParkingSlot()) {
-					if (getDistance(endPosition, station.getPosition()) < distance) {
+					if (this.endPosition.getDistance(station.getPosition()) < distance) {
 						endstation = station;
-						distance = getDistance(endPosition, station.getPosition());
+						distance = this.endPosition.getDistance(station.getPosition());
 					}
 				}
 			}
 		}
 		return endstation;
+	}
+
+	public GPSPosition getStartPosition() {
+		return startPosition;
+	}
+
+	public void setStartPosition(GPSPosition startPosition) {
+		this.startPosition = startPosition;
+	}
+
+	public GPSPosition getEndPosition() {
+		return endPosition;
+	}
+
+	public void setEndPosition(GPSPosition endPosition) {
+		this.endPosition = endPosition;
 	}
 
 }

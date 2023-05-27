@@ -75,12 +75,6 @@ public class User {
 		this.setTotalCharges(this.getTotalCharges() + charge);
 	}
 
-	public double rideCost(BicycleType type, LocalDateTime rentDateTime, LocalDateTime returnDateTime) {
-        int rideDuration = (int) ChronoUnit.MINUTES.between(rentDateTime,returnDateTime);
-        double rideCost = this.getRegistrationCard().computeRideCost(rideDuration, type, this);
-        this.addCharge(rideCost);
-        return rideCost;
-    }
 
 	public boolean hasABike() {
 		return this.bike != null;
@@ -186,14 +180,44 @@ public class User {
 	 * @param returnDateTime the return datetime
 	 * @return the ride cost
 	 */
-	public double computeCost(BicycleType bicycleType, LocalDateTime rentDateTime, LocalDateTime returnDateTime) {
+	public double computeCost(BicycleType bicycleType, LocalDateTime rentDateTime, LocalDateTime returnDateTime,Bicycle bike) {
 		int rideDurationInMinutes = (int) rentDateTime.until(returnDateTime, ChronoUnit.MINUTES);
 		this.rentTotalTime+= rideDurationInMinutes;
-		double rideCost = this.getRegistrationCard().computeRideCost(rideDurationInMinutes, bicycleType, this);
+		double rideCost = this.getRegistrationCard().computeRideCost(rideDurationInMinutes, bicycleType);
+		
+
+		//Check for bonus discount
+		if (bike.IsFromStreet()){
+			rideCost = 0.9*rideCost;
+			bike.setIsFromStreet(false);
+		}
+
 		this.addCharge(rideCost);
+
 		return rideCost;
 	}
+/**
+	 * Computes the cost of a ride for a malus.
+	 *
+	 * @param bicycleType    the type of the bicycle rented
+	 * @param rentDateTime   the rent datetime
+	 * @param returnDateTime the return datetime
+	 * @return the ride cost
+	 */
+	public double computeCostMalus(BicycleType bicycleType, LocalDateTime rentDateTime, LocalDateTime returnDateTime) {
+		int rideDurationInMinutes = (int) rentDateTime.until(returnDateTime, ChronoUnit.MINUTES);
+		this.rentTotalTime+= rideDurationInMinutes;
+		double rideCost = this.getRegistrationCard().computeRideCost(rideDurationInMinutes, bicycleType);
+		
 
+		//Malus
+		
+		rideCost = 1.1*rideCost;
+
+		this.addCharge(rideCost);
+
+		return rideCost;
+	}
 	/**
 	 * Function rentBikeUser which allow a user to rent a bike at a date
 	 * We check if the user doesn't have a bike yet and if the parking slot is occupied.
@@ -241,6 +265,8 @@ public class User {
 			this.rentDateTime = rentDateTime;
 			bike.setFree(false);
 			bike.setInStation(false, null);
+			bike.setIsFromStreet(true);
+
 
 			// Print out the log
 
@@ -274,7 +300,7 @@ public class User {
 				this.bike.setFree(true);
 				this.bike.setInStation(true,station);
 
-				double computeCost = computeCost(bike.getType(), this.rentDateTime, returnDateTime);
+				double computeCost = computeCost(bike.getType(), this.rentDateTime, returnDateTime,bike);
 				System.out.println("Bicycle successfully parked.");
 				// update user statistics
 				// time credit and charges are updated when computing cost
@@ -313,7 +339,7 @@ public class User {
 
 
 
-			double computeCost = computeCost(bike.getType(), this.rentDateTime, returnDateTime);
+			double computeCost = computeCostMalus(bike.getType(), this.rentDateTime, returnDateTime);
 			System.out.println("Bicycle successfully parked out of the station.");
 				// update user statistics
 				// time credit and charges are updated when computing cost

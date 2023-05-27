@@ -187,6 +187,20 @@ public class DataStore {
         "\n\t number of return: " + nbOfReturn+
         "\n\t number of rent: "+nbOfRent+
         "\n \t status: "+ station.getStationStatus().toString()) ;
+        System.out.println("---------------------");
+        System.out.println("Number slot OCCUPIED: "+(station.getNbOfSlots()- station.getNumberOfFreeParkingSlot()));
+        System.out.println("Number slot FREE: "+station.getNumberOfFreeParkingSlot());
+        float averageOccupation = (float) (station.getNbOfSlots() - station.getNumberOfFreeParkingSlot())
+                / station.getNbOfSlots();
+        System.out.println("Average occupation: " + averageOccupation+"%");
+        System.out.println("---------------------");
+        HashMap<Integer, ParkingSlot> parkingSlots= station.getAllParking();
+        for (int key: parkingSlots.keySet() ){
+            ParkingSlot parkingSlot = parkingSlots.get(key);
+            System.out.println(parkingSlot.toString());
+
+        }
+
     }
 
 
@@ -210,10 +224,7 @@ public class DataStore {
         );
     }
 
-    public void sortStationAsc(){
-        HashMap<Integer, DockingStation> stations;
-    }
-    
+ 
     
 
 }

@@ -1,11 +1,11 @@
-package RidePlanning;
+package core.RidePlanning;
 
 import java.util.ArrayList;
 
-import Classes.DockingStation;
-import Classes.GPSPosition;
-import Enums.BicycleType;
-import Enums.DockingStationStatus;
+import core.Classes.DockingStation;
+import core.Classes.GPSPosition;
+import core.Enums.BicycleType;
+import core.Enums.DockingStationStatus;
 
 
 public class RidePreserveUniformityBikes extends NormalRide {
@@ -19,11 +19,11 @@ public class RidePreserveUniformityBikes extends NormalRide {
         DockingStation startStation = null;
         Double minDistance = Double.POSITIVE_INFINITY;
         DockingStation startStationWithMoreBicycle = stations.get(0);
-        Double minDistanceWithMoreBicycle = getDistance(super.startPosition, stations.get(0).getPosition());
+        Double minDistanceWithMoreBicycle = super.startPosition.getDistance(stations.get(0).getPosition());
         for (DockingStation station : stations) {
             if (station.getStationStatus() == DockingStationStatus.ONLINE) {
                 if (station.hasBike(typeOfBicycle)) {
-                    Double distance = getDistance(super.startPosition, station.getPosition());
+                    Double distance = super.startPosition.getDistance(station.getPosition());
                     if (distance < minDistance) {
                         startStation = station;
                         minDistance = distance;
@@ -46,11 +46,11 @@ public class RidePreserveUniformityBikes extends NormalRide {
         DockingStation destinationStation = null;
         Double minDistance = Double.POSITIVE_INFINITY;
         DockingStation destinationStationWithMoreBicycle = stations.get(0);
-        Double minDistanceWithMoreBicycle = getDistance(super.endPosition, stations.get(0).getPosition());
+        Double minDistanceWithMoreBicycle = super.endPosition.getDistance(stations.get(0).getPosition());
         for (DockingStation station : stations) { // Parsing through the stations
             if (station.getStationStatus() == DockingStationStatus.ONLINE) { // If the station is on service
                 if (station.HasFreeParkingSlot()) { // If the station has at least one free parking slot
-                    Double distance = getDistance(super.endPosition, station.getPosition());
+                    Double distance = super.endPosition.getDistance(station.getPosition());
                     if (distance <= minDistance) { // To find the closest station
                         destinationStation = station;
                         minDistance = distance;

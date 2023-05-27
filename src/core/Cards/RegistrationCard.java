@@ -42,7 +42,7 @@ public class RegistrationCard {
 
 		
 
-	public double computeRideCost(double duration,BicycleType type, User user) {
+	public double computeRideCost(double duration,BicycleType type) {
 		if (duration == 0) {
 			return 0;
 		}

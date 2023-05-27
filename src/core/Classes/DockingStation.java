@@ -20,6 +20,7 @@ public class DockingStation {
 	protected int initialNumberOfBikes;
 	protected int numberOfRent;
 	protected int numberOfReturn;
+	protected int nbOfSlots;
 
 	// ToString
 	public String displayHashMap(HashMap<Integer, ParkingSlot> SlotHashMap) {
@@ -48,13 +49,14 @@ public class DockingStation {
 	}
 
 	public DockingStation(GPSPosition position, DockingStationStatus stationStatus,
-			DockingStationType stationType,String network) {
+			DockingStationType stationType,String network,int nbOfSlots) {
 		this.id = generateUniqueId(network);
 
 		this.position = position;
 		this.stationStatus = stationStatus;
 		this.stationType = stationType;
 		this.SlotHashMap = new HashMap<Integer, ParkingSlot>();
+		this.nbOfSlots=nbOfSlots;
 	}
 
 	public void addParkingSlot(ParkingSlot parkingSlot) {
@@ -243,9 +245,7 @@ public class DockingStation {
 		this.stationType = stationType;
 	}
 
-	public HashMap<Integer, ParkingSlot> getSlotHashMap() {
-		return SlotHashMap;
-	}
+
 
 	public void setSlotHashMap(HashMap<Integer, ParkingSlot> slotHashMap) {
 		this.SlotHashMap = slotHashMap;
@@ -269,6 +269,10 @@ public class DockingStation {
 	
 	public int getNumberOfReturn() {
 		return this.numberOfReturn;
+	}
+
+	public int getNbOfSlots(){
+		return this.nbOfSlots;
 	}
 
 }
