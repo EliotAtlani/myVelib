@@ -6,14 +6,14 @@ import java.util.ArrayList;
  * This class contains the VelibNetwork
  */
 public class VelibNetwork {
-    private String name;
-    public static ArrayList<DockingStation> stationList = new ArrayList<>();
-    public static ArrayList<User> userList= new ArrayList<>();
+    private  String name;
+    protected ArrayList<DockingStation> stationList;
+    protected ArrayList<User> userList;
 
     @Override
     public String toString() {
-        int numberStation = stationList.size();
-        int numberUsers = userList.size();
+        int numberStation = this.stationList.size();
+        int numberUsers = this.userList.size();
      
         return "Velibnetwork name is : " + name + "\n \t Number of stations in the network : " + numberStation 
         +"\n\t Number of user in the network "+numberUsers;
@@ -22,6 +22,8 @@ public class VelibNetwork {
 
     public VelibNetwork(String name){
         this.name=name;
+        this.stationList = new ArrayList<DockingStation>();
+        this.userList= new ArrayList<User>();
     }
     
     //Getters and setters
@@ -32,27 +34,27 @@ public class VelibNetwork {
     }
 
     public String getNameVelibNetwork(){
-        return name;
+        return this.name;
     }
 
     public void setStationToMyVelibNetwork(DockingStation station){
-        stationList.add(station);
+        this.stationList.add(station);
     }
 
     public void setUserToMyVelibNetwork(User user){
-        userList.add(user);
+        this.userList.add(user);
     }
 
     public ArrayList<DockingStation> getStations(){
-        return stationList;
+        return this.stationList;
     }
 
     public ArrayList<User> getUsers() {
-        return userList;
+        return this.userList;
     }
 
     public  DockingStation getStation(int stationId){
-        return stationList.get(stationId);
+        return this.stationList.get(stationId);
     }
 
 }
