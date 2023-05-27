@@ -140,10 +140,10 @@ public class DataStore {
     public boolean VelibNetworksNamePossible(String name){
         for (VelibNetwork network : velibNetworks.values()) {
             if (network.getNameVelibNetwork().equals(name)) {
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     public boolean isBikeGPSExist(GPSPosition position){
@@ -204,6 +204,10 @@ public class DataStore {
                      "\n--------------------------------"+
                      "Time credit: "+timeCredit
         );
+    }
+
+    public void sortStationAsc(){
+        HashMap<Integer, DockingStation> stations;
     }
     
     

@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
@@ -55,7 +56,7 @@ public class MyVelibFunctions {
 
         // On vérifie que le nom du network n'existe pas déjà.
         boolean existed =  MyVelibIndex.myVelibDatabase.VelibNetworksNamePossible(nameStation);
-        if (!existed){
+        if (existed){
             VelibNetwork network = new VelibNetwork(nameStation);
             ArrayList<ParkingSlot> parkingSlots = new ArrayList<>();
             for (int i = 0; i < nbOfStation; i++) {
@@ -238,6 +239,8 @@ public class MyVelibFunctions {
                 System.out.println("There is no mechanical bike available ");
             } else if (!station.hasBike(BicycleType.ELECTRIC) && type.toLowerCase().equals("electric")) {
                 System.out.println("There is no electric bike available ");
+            }else if (!type.toLowerCase().equals("mechanical") && !type.toLowerCase().equals("electric")){
+                System.out.println("Wrong type marked");
             }
 
 
@@ -387,5 +390,51 @@ public class MyVelibFunctions {
             System.out.println("---------------------------------------");
         }
 
+    }
+
+    public static void sortStation(String nameStation,String sortPolicy){
+        if (sortPolicy.toLowerCase().equals("mos")){
+            HashMap<Integer, DockingStation> stations = MyVelibIndex.myVelibDatabase.getStations();
+            List<DockingStation> sortedStations = new ArrayList<>(stations.values());
+          
+            Collections.sort(sortedStations, new Comparator<DockingStation>() {
+                @Override
+                public int compare(DockingStation station1, DockingStation station2) {
+                    int sum1 = station1.getNumberOfReturn() + station1.getNumberOfRent();
+                    int sum2 = station2.getNumberOfReturn() + station2.getNumberOfRent();
+                    return Integer.compare(sum2, sum1); // Tri décroissant
+                }
+            });
+            for (DockingStation station : sortedStations) {
+                int sum = station.getNumberOfReturn() + station.getNumberOfRent();
+                System.out.println("Station: " + station.getId() + ", Score: " + sum);
+            }
+
+        }else if (sortPolicy.toLowerCase().equals("los")){
+            HashMap<Integer, DockingStation> stations = MyVelibIndex.myVelibDatabase.getStations();
+            List<DockingStation> sortedStations = new ArrayList<>(stations.values());
+
+            Collections.sort(sortedStations, new Comparator<DockingStation>() {
+                @Override
+                public int compare(DockingStation station1, DockingStation station2) {
+                    int sum1 = station1.getNumberOfRent() - station1.getNumberOfReturn();
+                    int sum2 = station2.getNumberOfRent() - station2.getNumberOfReturn();
+                    if (sum1 < sum2) {
+                        return 1; // Tri décroissant pour les scores négatifs
+                    } else if (sum1 > sum2) {
+                        return -1; // Tri décroissant pour les scores positifs
+                    } else {
+                        return 0;
+                    }
+                }
+            });
+            for (DockingStation station : sortedStations) {
+                int sum = station.getNumberOfRent() - station.getNumberOfReturn();
+                System.out.println("Station: " + station.getId() + ", Score: " + sum);
+            }
+
+        }else{
+            System.out.println("The sortPolicy entered doesn't exist, type 'help' for more informations");
+        }
     }
 }

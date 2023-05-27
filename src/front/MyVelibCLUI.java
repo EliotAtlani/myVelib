@@ -262,12 +262,26 @@ public class MyVelibCLUI {
     }
 
     private void handleSortStationCommand(String[] parts) {
-       
+        if (parts.length == 2) {
+            String velibNetwork = parts[0];
+            String sortPolicy = parts[1];
+
+            MyVelibFunctions.sortStation(velibNetwork, sortPolicy);
+
+        } else {
+            System.out.println("Wrong number of arguments");
+        }
       
     }
 
     private void handleDisplayCommand(String[] parts) {
+        if (parts.length == 1) {
+            String velibNetwork = parts[0];
 
+
+        } else {
+            System.out.println("Wrong number of arguments");
+        }
     }
     
     private void handleAllBikesCommand(String[] parts) {
