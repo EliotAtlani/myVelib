@@ -3,6 +3,7 @@ package Classes;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import Cards.NoRegistrationCard;
 import Cards.RegistrationCard;
@@ -11,30 +12,31 @@ import Enums.ParkingSlotStatus;
 import front.MyVelibIndex;
 
 public class User {
-	private String name;
-	private int id;
-	private GPSPosition position;
-	private String creditCardNumber;
-	private RegistrationCard registrationCard;
-	private double totalCharges;
-	private int numberOfRides;
-	private int timeSpent;
-	private double timeCredit;
-	private Bicycle bike;/* The bike of the user */
-	private LocalDateTime rentDateTime;
-	private int rentTotalTime;
-	private static ArrayList<Integer> takenIds = new ArrayList<>();
+	protected String name;
+	protected int id;
+	protected GPSPosition position;
+	protected String creditCardNumber;
+	protected RegistrationCard registrationCard;
+	protected double totalCharges;
+	protected int numberOfRides;
+	protected int timeSpent;
+	protected double timeCredit;
+	protected Bicycle bike;/* The bike of the user */
+	protected LocalDateTime rentDateTime;
+	protected int rentTotalTime;
+
+	protected static HashMap<String, Integer> lastIdsByNetwork = new HashMap<>();
 	double rideDurationInMinutes;
 	BicycleType bicycleType;
 	public static ArrayList<User> userList = new ArrayList<>();
 
-	private static int getValidId() {
-		int tempId = 1;
-		while (takenIds.contains(tempId)) {
-			tempId++;
-		}
-		takenIds.add(tempId);
-		return tempId;
+
+	
+	private int generateUniqueId(String network) {
+		int lastId = lastIdsByNetwork.getOrDefault(network, 0);
+		int newId = lastId + 1;
+		lastIdsByNetwork.put(network, newId);
+		return newId;
 	}
 
 	@Override
@@ -42,9 +44,9 @@ public class User {
 		return "User id is : " + id + "\n User name is : "+ name;
 
 	}
-	public User(String name, GPSPosition position, String creditCardNumber, RegistrationCard registrationCard) {
+	public User(String name, GPSPosition position, String creditCardNumber, RegistrationCard registrationCard,String network) {
 		this.name = name;
-		this.id = getValidId();
+		this.id = generateUniqueId(network);
 		this.position = position;
 		this.creditCardNumber = creditCardNumber;
 		this.registrationCard = registrationCard;
@@ -53,11 +55,12 @@ public class User {
 		this.timeSpent = 0;
 		this.bike = null;
 		this.rentTotalTime = 0;
+		
 	}
 
-	public User(String name, GPSPosition position, String creditCardNumber) {
+	public User(String name, GPSPosition position, String creditCardNumber,String network) {
 		this.name = name;
-		this.id = getValidId();
+		this.id = generateUniqueId(network);
 		this.position = position;
 		this.creditCardNumber = creditCardNumber;
 		this.registrationCard = new NoRegistrationCard();

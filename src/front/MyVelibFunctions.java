@@ -65,7 +65,7 @@ public class MyVelibFunctions {
                 GPSPosition position = new GPSPosition(Math.random() * sideLength, Math.random() * sideLength);
                 // Create the station
                 DockingStation station = new DockingStation(position, DockingStationStatus.ONLINE,
-                        DockingStationType.STANDARD);
+                        DockingStationType.STANDARD,nameStation);
                 // stations.add(station);
 
                 // Store the station in memory
@@ -122,20 +122,20 @@ public class MyVelibFunctions {
 
             if (registration.toLowerCase().equals("vlibre")) {
                 VLibreCard card = new VLibreCard();
-                userAdd = new User(userName, null, null, card);
+                userAdd = new User(userName, null, null, card,nameStation);
              
                 userAdd.addUserToList(userAdd);
                 System.out.println(
                         "Added user " + userAdd.getName() + " with id " + userAdd.getId() + " and card Vlibre");
             } else if (registration.toLowerCase().equals("vmax")) {
                 VMaxCard card = new VMaxCard();
-                userAdd = new User(userName, null, null, card);
+                userAdd = new User(userName, null, null, card,nameStation);
                 userAdd.addUserToList(userAdd);
 
                 System.out.println("Added user " + userAdd.getName() + " with id " + userAdd.getId() + " and card Max");
 
             } else {
-                userAdd = new User(userName, null, null);
+                userAdd = new User(userName, null, null,nameStation);
                 userAdd.addUserToList(userAdd);
 
                 System.out
@@ -207,145 +207,190 @@ public class MyVelibFunctions {
         }
     }
 
-    public static void rentbike(int userId,int stationId,String type){
-        if (MyVelibIndex.myVelibDatabase.getUsers().get(userId) == null){
-            System.out.println("User doesn't exist");
-        } else if (MyVelibIndex.myVelibDatabase.getStations().get(stationId) == null ){
-            System.out.println("Station doesn't exist");
-        }else{
-            User user = MyVelibIndex.myVelibDatabase.getUsers().get(userId); // Different from null
+    public static void rentbike(int userId,int stationId,String type,String nameStation){
 
-            DockingStation station = MyVelibIndex.myVelibDatabase.getStations().get(stationId); //Different from null
+        VelibNetwork velibNetwork = MyVelibIndex.myVelibDatabase.getVelibNetworks().get(nameStation);
 
+         if (velibNetwork == null) {
+            System.out.println("The name of the velibNetwork doesn't exist");
 
-            //We check if there is a bike available and that the station is ONLINE
-            if ( station.hasBike(BicycleType.MECHANICAL) && type.toLowerCase().equals("mechanical") && station.getStationStatus() == DockingStationStatus.ONLINE){
+        } else {
+            if (velibNetwork.getUsers().get(userId) == null) {
+                System.out.println("User doesn't exist");
+            } else if (velibNetwork.getStations().get(stationId) == null) {
+                System.out.println("Station doesn't exist");
+            } else {
+                User user = velibNetwork.getUsers().get(userId); // Different from null
+                DockingStation station = velibNetwork.getStations().get(stationId); // Different from
 
-                ParkingSlot parkingSlot = station.getParkingSlotWithBike(BicycleType.MECHANICAL);
-                user.rentBikeUser(parkingSlot,LocalDateTime.now());
-                // Add stats
-                station.addNumberOfRent();
-                
-            } else if (station.hasBike(BicycleType.ELECTRIC) && type.toLowerCase().equals("electric")
-                    && station.getStationStatus() == DockingStationStatus.ONLINE) {
-                ParkingSlot parkingSlot = station.getParkingSlotWithBike(BicycleType.ELECTRIC);
-                user.rentBikeUser(parkingSlot, LocalDateTime.now());
-                // Add stats
-                station.addNumberOfRent();
-            } 
-            else if (station.getStationStatus() == DockingStationStatus.OFFLINE){
-                System.out.println("The station is OFFLINE");
-            } else if (!station.hasBike(BicycleType.MECHANICAL) && type.toLowerCase().equals("mechanical")){
-                System.out.println("There is no mechanical bike available ");
-            } else if (!station.hasBike(BicycleType.ELECTRIC) && type.toLowerCase().equals("electric")) {
-                System.out.println("There is no electric bike available ");
-            }else if (!type.toLowerCase().equals("mechanical") && !type.toLowerCase().equals("electric")){
-                System.out.println("Wrong type marked");
-            }
+                // Check if the station is online
+                if (station.getStationStatus() == DockingStationStatus.ONLINE) {
+                    // We check if there is a bike available
+                    if (station.hasBike(BicycleType.MECHANICAL) && type.toLowerCase().equals("mechanical")) {
 
+                        ParkingSlot parkingSlot = station.getParkingSlotWithBike(BicycleType.MECHANICAL);
+                        user.rentBikeUser(parkingSlot, LocalDateTime.now());
+                        // Add stats
+                        station.addNumberOfRent();
 
+                    } else if (station.hasBike(BicycleType.ELECTRIC) && type.toLowerCase().equals("electric")
+                            && station.getStationStatus() == DockingStationStatus.ONLINE) {
+                        ParkingSlot parkingSlot = station.getParkingSlotWithBike(BicycleType.ELECTRIC);
+                        user.rentBikeUser(parkingSlot, LocalDateTime.now());
+                        // Add stats
+                        station.addNumberOfRent();
+                    } else if (!station.hasBike(BicycleType.MECHANICAL) && type.toLowerCase().equals("mechanical")) {
+                        System.out.println("There is no mechanical bike available ");
+                    } else if (!station.hasBike(BicycleType.ELECTRIC) && type.toLowerCase().equals("electric")) {
+                        System.out.println("There is no electric bike available ");
+                    } else if (!type.toLowerCase().equals("mechanical") && !type.toLowerCase().equals("electric")) {
+                        System.out.println("Wrong type marked");
+                    }
+                } else {
+                    System.out.println("The station is offline");
+                }
 
         }
-    }
-    
-    public static void rentbikeGPS(int userId, double latitude,double longitude , String type) {
-
-        GPSPosition position = new GPSPosition(longitude,latitude);
-        if (MyVelibIndex.myVelibDatabase.getUsers().get(userId) == null) {
-            System.out.println("User doesn't exist");
-        } else if (!MyVelibIndex.myVelibDatabase.isBikeGPSExist(position)) {
-            System.out.println("Bike at this position doesn't exist");
-        } else {
-            User user = MyVelibIndex.myVelibDatabase.getUsers().get(userId); // Different from null
-            Bicycle bike = MyVelibIndex.myVelibDatabase.getBikeGPS(position,type); //Get the bike
         
-            user.rentBikeOutOfStation(bike,LocalDateTime.now());
-            
-
-        }
-    }
-
-    public static void returnbike(int userId, int stationId,int duration) {
-
-        if (MyVelibIndex.myVelibDatabase.getUsers().get(userId) == null) {
-            System.out.println("User doesn't exist");
-        } else if (MyVelibIndex.myVelibDatabase.getStations().get(stationId) == null) {
-            System.out.println("Station doesn't exist");
-        } else {
-            User user = MyVelibIndex.myVelibDatabase.getUsers().get(userId); // Different from null
-
-            DockingStation station = MyVelibIndex.myVelibDatabase.getStations().get(stationId); // Different from null
-
-            // We check if the user has a bike
-            if (user.getBike() == null){
-                System.out.println("The user given has no bike rented");
-
-            } else if (station.HasFreeParkingSlot() && station.getStationStatus() == DockingStationStatus.ONLINE){
-                //Take a free parking slot
-                ParkingSlot parkingSlot = station.getFreeParkingSlot();
-
-                //
-                double beforeCharges = user.getTotalCharges();
-                user.returnBike(parkingSlot, LocalDateTime.now().plus(Duration.ofMinutes(duration)),station);
-                double afterCharges = user.getTotalCharges();
-
-                double finalCost = afterCharges - beforeCharges;
-
-                //Add stats
-                station.addNumberOfReturn();
-
-                System.out.println(MyVelibIndex.myVelibDatabase.getUsers().get(userId).getName() + " has dropped his bike in station "+stationId+ " in parking slot n°"+parkingSlot.getId()+
-                "\n\t Cost of the ride: "+finalCost
-                );
-
-
-            } else{
-                System.out.println("No parking place available in the station" + stationId);
-            }
            
+
+
+
         }
     }
+    
+    public static void rentbikeGPS(int userId, double latitude,double longitude , String type, String nameStation) {
 
-    public static void returnbikeGPS(int userId, double latitude, double longitude,int duration) {
+          VelibNetwork velibNetwork = MyVelibIndex.myVelibDatabase.getVelibNetworks().get(nameStation);
 
-        GPSPosition position = new GPSPosition(longitude, latitude);
-        if (MyVelibIndex.myVelibDatabase.getUsers().get(userId) == null) {
-            System.out.println("User doesn't exist");
+         if (velibNetwork == null) {
+            System.out.println("The name of the velibNetwork doesn't exist");
+
         } else {
-
-            User user = MyVelibIndex.myVelibDatabase.getUsers().get(userId); // Different from null
-
-            if (user.getBike() == null){
-                System.out.println("The user doesn't have a bike yet");
-            }else{
-                       
-                double beforeCharges = user.getTotalCharges();
-                user.returnBikeOutOfStation(position, LocalDateTime.now().plus(Duration.ofMinutes(duration)));
-                double afterCharges = user.getTotalCharges();
-
-                double finalCost = afterCharges - beforeCharges;
-
-                System.out.println(MyVelibIndex.myVelibDatabase.getUsers().get(userId).getName()
-                        + " has dropped his bike out of station " + position.toString() +
-                        "\n\t Cost of the ride: " + finalCost);
+            GPSPosition position = new GPSPosition(longitude,latitude);
+            if (velibNetwork.getUsers().get(userId) == null) {
+                System.out.println("User doesn't exist");
+            } else if (!MyVelibIndex.myVelibDatabase.isBikeGPSExist(position)) {
+                System.out.println("Bike at this position doesn't exist");
+            } else {
+                User user = velibNetwork.getUsers().get(userId); // Different from null
+                Bicycle bike = MyVelibIndex.myVelibDatabase.getBikeGPS(position,type); //Get the bike
+            
+                user.rentBikeOutOfStation(bike,LocalDateTime.now());
+                
 
             }
-
-
-
         }
+    }
+
+    public static void returnbike(int userId, int stationId,int duration,String nameStation) {
+        VelibNetwork velibNetwork = MyVelibIndex.myVelibDatabase.getVelibNetworks().get(nameStation);
+
+         if (velibNetwork == null) {
+            System.out.println("The name of the velibNetwork doesn't exist");
+
+        } else {
+            if (velibNetwork.getUsers().get(userId) == null) {
+                System.out.println("User doesn't exist");
+            } else if (velibNetwork.getStations().get(stationId) == null) {
+                System.out.println("Station doesn't exist");
+            } else {
+                User user = velibNetwork.getUsers().get(userId); // Different from null
+
+                DockingStation station = velibNetwork.getStations().get(stationId); // Different from null
+
+                //Check if the station is ONLINE
+                if (station.getStationStatus() == DockingStationStatus.ONLINE){
+                    // We check if the user has a bike
+                    if (user.getBike() == null) {
+                        System.out.println("The user given has no bike rented");
+
+                    } else if (station.HasFreeParkingSlot()
+                            && station.getStationStatus() == DockingStationStatus.ONLINE) {
+                        // Take a free parking slot
+                        ParkingSlot parkingSlot = station.getFreeParkingSlot();
+
+                        //
+                        double beforeCharges = user.getTotalCharges();
+                        user.returnBike(parkingSlot, LocalDateTime.now().plus(Duration.ofMinutes(duration)), station);
+                        double afterCharges = user.getTotalCharges();
+
+                        double finalCost = afterCharges - beforeCharges;
+
+                        // Add stats
+                        station.addNumberOfReturn();
+
+                        System.out.println(velibNetwork.getUsers().get(userId).getName()
+                                + " has dropped his bike in station " + stationId + " in parking slot n°"
+                                + parkingSlot.getId() +
+                                "\n\t Cost of the ride: " + finalCost);
+
+                    } else {
+                        System.out.println("No parking place available in the station" + stationId);
+                    }
+                }else{
+                    System.out.println("The station is OFFLINE");
+                }
+
+            
+            
+            }
+    }
+    }
+
+    public static void returnbikeGPS(int userId, double latitude, double longitude,int duration,String nameStation) {
+
+          VelibNetwork velibNetwork = MyVelibIndex.myVelibDatabase.getVelibNetworks().get(nameStation);
+
+         if (velibNetwork == null) {
+            System.out.println("The name of the velibNetwork doesn't exist");
+
+        } else {
+            GPSPosition position = new GPSPosition(longitude, latitude);
+            if (velibNetwork.getUsers().get(userId) == null) {
+                System.out.println("User doesn't exist");
+            } else {
+
+                User user = velibNetwork.getUsers().get(userId); // Different from null
+
+                if (user.getBike() == null){
+                    System.out.println("The user doesn't have a bike yet");
+                }else{
+                        
+                    double beforeCharges = user.getTotalCharges();
+                    user.returnBikeOutOfStation(position, LocalDateTime.now().plus(Duration.ofMinutes(duration)));
+                    double afterCharges = user.getTotalCharges();
+
+                    double finalCost = afterCharges - beforeCharges;
+
+                    System.out.println(velibNetwork.getUsers().get(userId).getName()
+                            + " has dropped his bike out of station " + position.toString() +
+                            "\n\t Cost of the ride: " + finalCost);
+
+                }
+
+
+
+            }
+    }
     }
     
     
-    public static void displayUser(String stationName, int userId)  {
-        if (MyVelibIndex.myVelibDatabase.getUsers().get(userId) == null){
-            System.out.println("The user doesn't exist");
-        }else{
-            User user = MyVelibIndex.myVelibDatabase.getUsers().get(userId);
-            MyVelibIndex.myVelibDatabase.userStatistics(user);
+    public static void displayUser(String nameStation, int userId)  {
+         VelibNetwork velibNetwork = MyVelibIndex.myVelibDatabase.getVelibNetworks().get(nameStation);
 
+         if (velibNetwork == null) {
+            System.out.println("The name of the velibNetwork doesn't exist");
+
+        } else {
+            if (velibNetwork.getUsers().get(userId) == null){
+                System.out.println("The user doesn't exist");
+            }else{
+                User user = velibNetwork.getUsers().get(userId);
+                MyVelibIndex.myVelibDatabase.userStatistics(user);
+
+            }
         }
-       
 
       
        
@@ -353,29 +398,44 @@ public class MyVelibFunctions {
     }
 
     public static void displayStation(String nameStation, Integer stationId){
-        if( MyVelibIndex.myVelibDatabase.getStations().get(stationId) == null){
-            System.out.println("The station doesn't exist");
-        }else{
-            DockingStation station = MyVelibIndex.myVelibDatabase.getStations().get(stationId);
-            MyVelibIndex.myVelibDatabase.stationBalance(station);
-        }
+         VelibNetwork velibNetwork = MyVelibIndex.myVelibDatabase.getVelibNetworks().get(nameStation);
+
+         if (velibNetwork == null) {
+            System.out.println("The name of the velibNetwork doesn't exist");
+
+        } else {
+            if( velibNetwork.getStations().get(stationId) == null){
+                System.out.println("The station doesn't exist");
+            }else{
+                DockingStation station = velibNetwork.getStations().get(stationId);
+                MyVelibIndex.myVelibDatabase.stationBalance(station);
+            }
+    }
        
     
     }
 
-    public static void displayAllBikes(){
-        //Get all the station
-        HashMap<Integer, DockingStation> stations = MyVelibIndex.myVelibDatabase.getStations();
+    public static void displayAllBikes(String nameStation){
+         VelibNetwork velibNetwork = MyVelibIndex.myVelibDatabase.getVelibNetworks().get(nameStation);
 
-        for (int key: stations.keySet()){
-            DockingStation station = stations.get(key);
-            HashMap<Integer, ParkingSlot>  parkingSlots = station.getAllParking();
-            for (int key2: parkingSlots.keySet()){
-                ParkingSlot parkingSlot = parkingSlots.get(key2);
-                System.out.println(parkingSlot.toString());
-            }
+         if (velibNetwork == null) {
+            System.out.println("The name of the velibNetwork doesn't exist");
 
-        }
+        } else {
+            //Get all the station
+             ArrayList<DockingStation> stations = velibNetwork.getStations();
+             for (int i =0;i<stations.size();i++){
+                 DockingStation station = stations.get(i);
+                 HashMap<Integer, ParkingSlot> parkingSlots = station.getAllParking();
+                 for (int key2 : parkingSlots.keySet()) {
+                     ParkingSlot parkingSlot = parkingSlots.get(key2);
+                     System.out.println(parkingSlot.toString());
+                 }
+
+             }
+
+           
+    }
     }
 
     public static void displayNetworks(){
@@ -393,48 +453,96 @@ public class MyVelibFunctions {
     }
 
     public static void sortStation(String nameStation,String sortPolicy){
-        if (sortPolicy.toLowerCase().equals("mos")){
-            HashMap<Integer, DockingStation> stations = MyVelibIndex.myVelibDatabase.getStations();
-            List<DockingStation> sortedStations = new ArrayList<>(stations.values());
-          
-            Collections.sort(sortedStations, new Comparator<DockingStation>() {
-                @Override
-                public int compare(DockingStation station1, DockingStation station2) {
-                    int sum1 = station1.getNumberOfReturn() + station1.getNumberOfRent();
-                    int sum2 = station2.getNumberOfReturn() + station2.getNumberOfRent();
-                    return Integer.compare(sum2, sum1); // Tri décroissant
-                }
-            });
-            for (DockingStation station : sortedStations) {
-                int sum = station.getNumberOfReturn() + station.getNumberOfRent();
-                System.out.println("Station: " + station.getId() + ", Score: " + sum);
-            }
+          VelibNetwork velibNetwork = MyVelibIndex.myVelibDatabase.getVelibNetworks().get(nameStation);
 
-        }else if (sortPolicy.toLowerCase().equals("los")){
-            HashMap<Integer, DockingStation> stations = MyVelibIndex.myVelibDatabase.getStations();
-            List<DockingStation> sortedStations = new ArrayList<>(stations.values());
+         if (velibNetwork == null) {
+            System.out.println("The name of the velibNetwork doesn't exist");
 
-            Collections.sort(sortedStations, new Comparator<DockingStation>() {
-                @Override
-                public int compare(DockingStation station1, DockingStation station2) {
-                    int sum1 = station1.getNumberOfRent() - station1.getNumberOfReturn();
-                    int sum2 = station2.getNumberOfRent() - station2.getNumberOfReturn();
-                    if (sum1 < sum2) {
-                        return 1; // Tri décroissant pour les scores négatifs
-                    } else if (sum1 > sum2) {
-                        return -1; // Tri décroissant pour les scores positifs
-                    } else {
-                        return 0;
+        } else {
+            if (sortPolicy.toLowerCase().equals("mos")){
+                ArrayList<DockingStation> stations = velibNetwork.getStations();
+                List<DockingStation> sortedStations = new ArrayList<>(stations);
+            
+                Collections.sort(sortedStations, new Comparator<DockingStation>() {
+                    @Override
+                    public int compare(DockingStation station1, DockingStation station2) {
+                        int sum1 = station1.getNumberOfReturn() + station1.getNumberOfRent();
+                        int sum2 = station2.getNumberOfReturn() + station2.getNumberOfRent();
+                        return Integer.compare(sum2, sum1); // Tri décroissant
                     }
+                });
+                for (DockingStation station : sortedStations) {
+                    int sum = station.getNumberOfReturn() + station.getNumberOfRent();
+                    System.out.println("Station: " + station.getId() + ", Score: " + sum);
                 }
-            });
-            for (DockingStation station : sortedStations) {
-                int sum = station.getNumberOfRent() - station.getNumberOfReturn();
-                System.out.println("Station: " + station.getId() + ", Score: " + sum);
-            }
 
-        }else{
-            System.out.println("The sortPolicy entered doesn't exist, type 'help' for more informations");
+            }else if (sortPolicy.toLowerCase().equals("los")){
+                ArrayList<DockingStation> stations = velibNetwork.getStations();
+                List<DockingStation> sortedStations = new ArrayList<>(stations);
+
+                Collections.sort(sortedStations, new Comparator<DockingStation>() {
+                    @Override
+                    public int compare(DockingStation station1, DockingStation station2) {
+                        int sum1 = station1.getNumberOfRent() - station1.getNumberOfReturn();
+                        int sum2 = station2.getNumberOfRent() - station2.getNumberOfReturn();
+                        if (sum1 < sum2) {
+                            return 1; // Tri décroissant pour les scores négatifs
+                        } else if (sum1 > sum2) {
+                            return -1; // Tri décroissant pour les scores positifs
+                        } else {
+                            return 0;
+                        }
+                    }
+                });
+                for (DockingStation station : sortedStations) {
+                    int sum = station.getNumberOfRent() - station.getNumberOfReturn();
+                    System.out.println("Station: " + station.getId() + ", Score: " + sum);
+                }
+
+            }else{
+                System.out.println("The sortPolicy entered doesn't exist, type 'help' for more informations");
+            }
         }
     }
+
+    public static void displayVelib(String nameStation) {
+        VelibNetwork velibNetwork = MyVelibIndex.myVelibDatabase.getVelibNetworks().get(nameStation);
+        if (velibNetwork == null) {
+            System.out.println("The name of the velibNetwork doesn't exist");
+
+        } else {
+            ArrayList<User> users = velibNetwork.getUsers();
+
+            ArrayList<DockingStation> stations = velibNetwork.getStations();
+
+            System.out.println("Statistics of the velibNetwork "+nameStation );
+            System.out.println("--------------------------");
+            System.out.println("Number of users: "+users.size());
+            System.out.println("Number of stations: "+stations.size());
+            System.out.println("--------------------------");
+            System.out.println("id n°" + " | "+" name  "+" | "+" Card type ");
+
+            for (int i =0;i<users.size();i++){
+                User user = users.get(i);
+                
+                System.out.println(user.getId() + " | " + user.getName()+ " | "+ user.getRegistrationCard());
+            }
+
+            System.out.println("--------------------------");
+            System.out.println("id n°" + " | " + " Status  " + " | " + " Number of Free Parking Slot ");
+            for (int i = 0; i < stations.size(); i++) {
+                DockingStation station = stations.get(i);
+                
+
+                System.out.println(station.getId()+" | "+ station.getStationStatus()+" | "+station.getNumberOfFreeParkingSlot());
+            }
+
+        }
+    
+    }
+
+
+
+
+
 }

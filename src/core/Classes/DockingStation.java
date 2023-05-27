@@ -11,14 +11,15 @@ import Enums.ParkingSlotStatus;
 
 public class DockingStation {
 	protected Integer id;
-	private static Integer uniqueId = 1;
+	protected static Integer uniqueId = 1;
 	protected GPSPosition position;
 	protected DockingStationStatus stationStatus;
 	protected DockingStationType stationType;
 	protected HashMap<Integer, ParkingSlot> SlotHashMap;
-	private int initialNumberOfBikes;
-	private int numberOfRent;
-	private int numberOfReturn;
+	protected static HashMap<String, Integer> lastIdsByNetwork = new HashMap<>();
+	protected int initialNumberOfBikes;
+	protected int numberOfRent;
+	protected int numberOfReturn;
 
 	// ToString
 	public String displayHashMap(HashMap<Integer, ParkingSlot> SlotHashMap) {
@@ -27,6 +28,13 @@ public class DockingStation {
 			string += "\n" + SlotHashMap.get(keys);
 		}
 		return string;
+	}
+
+	private int generateUniqueId(String network) {
+		int lastId = lastIdsByNetwork.getOrDefault(network, 0);
+		int newId = lastId + 1;
+		lastIdsByNetwork.put(network, newId);
+		return newId;
 	}
 
 	@Override
@@ -40,9 +48,8 @@ public class DockingStation {
 	}
 
 	public DockingStation(GPSPosition position, DockingStationStatus stationStatus,
-			DockingStationType stationType) {
-		id = uniqueId;
-		uniqueId++;
+			DockingStationType stationType,String network) {
+		this.id = generateUniqueId(network);
 
 		this.position = position;
 		this.stationStatus = stationStatus;
