@@ -9,6 +9,7 @@ public class Bicycle {
 	protected boolean inStation;
 	protected GPSPosition position;
 	protected boolean isFree;
+	protected boolean fromStreet;
 
 	public Bicycle(BicycleType type, GPSPosition position) {
 		this.id = uniqueId;
@@ -17,6 +18,7 @@ public class Bicycle {
 		this.position = position;
 		this.inStation = true;
 		this.isFree = true;
+		this.fromStreet=false;
 	}
 
 	private static synchronized Integer getNextUniqueId() {
@@ -52,10 +54,8 @@ public class Bicycle {
 		if (station != null){
 			this.position = station.getPosition();
 
-		}else{
-			this.position = null;
 		}
-		this.isFree = inStation;
+	
 	}
 
 	public boolean isInStation() {
@@ -74,5 +74,14 @@ public class Bicycle {
 	@Override
 	public String toString() {
 		return "Bicycle d'id : " + id + " and Type " + this.type.name();
+	}
+
+
+	public boolean IsFromStreet() {
+		return this.fromStreet;
+	}
+
+	public void setIsFromStreet(boolean state) {
+		this.fromStreet = state;
 	}
 }

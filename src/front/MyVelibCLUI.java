@@ -7,6 +7,8 @@ import Enums.DockingStationStatus;
 import Enums.DockingStationType;
 import Enums.ParkingSlotStatus;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -71,6 +73,9 @@ public class MyVelibCLUI {
                         break;
                     case "displayAllBikes":
                         handleAllBikesCommand(arguments);
+                        break;
+                    case "runTest":
+                        handleRunTestCommand(arguments);
                         break;
                     case "exit":
                         running = false;
@@ -183,7 +188,7 @@ public class MyVelibCLUI {
         String nameStation = parts[0];
         int stationId = Integer.parseInt(parts[1].toString());
 
-        MyVelibFunctions.offline(nameStation, stationId);
+        MyVelibFunctions.offline(nameStation, stationId-1);
 
     }
 
@@ -191,7 +196,7 @@ public class MyVelibCLUI {
         String nameStation = parts[0];
         int stationId = Integer.parseInt(parts[1].toString());
 
-        MyVelibFunctions.online(nameStation, stationId);
+        MyVelibFunctions.online(nameStation, stationId-1);
 
     }
 
@@ -296,6 +301,97 @@ public class MyVelibCLUI {
             System.out.println("Wrong number of arguments");
         }
         
+    }
+
+    private void handleRunTestCommand(String[] parts) {
+        if (parts.length == 1) {
+            String scenario = parts[0];
+            MyVelibFunctions.runtTest(scenario);
+        } else {
+            System.out.println("Wrong number of arguments");
+        }
+
+    }
+
+
+    //To execute file.txt
+
+    public void executeCommandsFromFile(String filename) {
+        try {
+            File file = new File("src/front/eval/"+filename);
+            Scanner scanner = new Scanner(file);
+
+            while (scanner.hasNextLine()) {
+                String command = scanner.nextLine();
+                String[] parts = command.split("\\s+");
+                if(parts[0].equals("-")){
+                executeCommand(command);
+
+                }
+            }
+
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: " + filename);
+        }
+    }
+
+    private void executeCommand(String command) {
+        String[] parts = command.split("\\s+"); // Split the command into parts
+            String[] arguments = Arrays.copyOfRange(parts, 2, parts.length);
+
+            if (parts.length > 0) {
+                String commandName = parts[1];
+
+                // Handle different commands
+                switch (commandName) {
+                    case "setup":
+                        handleSetupCommand(arguments);
+                        break;
+                    case "addUser":
+                        handleAddUserCommand(arguments);
+                        break;
+                    case "offline":
+                        handleOfflineCommand(arguments);
+                        break;
+                    case "online":
+                        handleOnlineCommand(arguments);
+                        break;
+                    case "rentBike":
+                        handleRentBikeCommand(arguments);
+                        break;
+                    case "returnBike":
+                        handleReturnBikeCommand(arguments);
+                        break;
+                    case "displayStation":
+                        handleDisplayStationCommand(arguments);
+                        break;
+                    case "displayUser":
+                        handleDisplayUserCommand(arguments);
+                        break;
+                    case "sortStation":
+                        handleSortStationCommand(arguments);
+                        break;
+                    case "display":
+                        handleDisplayCommand(arguments);
+                        break;
+                    case "displayVelibnetworks":
+                        handleNetworkCommand(arguments);
+                        break;
+                    case "displayAllBikes":
+                        handleAllBikesCommand(arguments);
+                        break;
+                    case "exit":
+                        boolean running = false;
+                        break;
+                    case "help":
+                        handleDisplayHelp(parts);
+                        break;
+
+                    default:
+                        System.out.println("Invalid command. Type 'help' for a list of available commands.");
+                }
+    }
     }
 
   

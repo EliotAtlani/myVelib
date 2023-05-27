@@ -36,19 +36,19 @@ public class MyVelibIndex {
 
     private static void InitialConfiguration(){
         try {
-            File file = new File("src/front/my_velib.ini");
+            File file = new File("src/front/eval/my_velib.ini");
             FileReader fileReader = new FileReader(file);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String line;
             // Process the file line by line
             while ((line = bufferedReader.readLine()) != null) {
                 
-                if (line.startsWith("[stations]")) {
+                if (line.startsWith("{stations}")) {
                     
                     // Process station-related data
 
                     processStationData(bufferedReader);
-                } else if (line.startsWith("[users]")) {
+                } else if (line.startsWith("{users}")) {
 
                     // Process user-related data
                     processUserData(bufferedReader);
@@ -94,17 +94,17 @@ private static void processStationData(BufferedReader bufferedReader) throws IOE
 
 private static void processUserData(BufferedReader bufferedReader) throws IOException {
     String line;
-    List<String> names = new ArrayList<>(); // Initialize the names list
-    List<String> cardTypes = new ArrayList<>(); // Initialize the cardType list
+    List<String> names = new ArrayList<>(); 
+    List<String> cardTypes = new ArrayList<>(); 
 
     // Read and process each line until reaching the next section
     while ((line = bufferedReader.readLine()) != null && !line.startsWith("-")) {
         if (line.startsWith("names=")) {
             String[] nameArray = line.substring(line.indexOf("=") + 1).split(",");
-            names.addAll(Arrays.asList(nameArray)); // Use addAll() to add elements to the existing list
+            names.addAll(Arrays.asList(nameArray)); 
         } else if (line.startsWith("cardtype=")) {
             String[] cardTypeArray = line.substring(line.indexOf("=") + 1).split(",");
-            cardTypes.addAll(Arrays.asList(cardTypeArray)); // Use addAll() to add elements to the existing list
+            cardTypes.addAll(Arrays.asList(cardTypeArray)); 
         }
     }
 

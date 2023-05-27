@@ -1,11 +1,11 @@
-package RidePlanning;
+package core.RidePlanning;
 
 import java.util.ArrayList;
 
-import Classes.DockingStation;
-import Classes.GPSPosition;
-import Enums.DockingStationStatus;
-import Enums.DockingStationType;
+import core.Classes.DockingStation;
+import core.Classes.GPSPosition;
+import core.Enums.DockingStationStatus;
+import core.Enums.DockingStationType;
 
 public class RidePreferPlusStation extends NormalRide {
 
@@ -21,9 +21,9 @@ public class RidePreferPlusStation extends NormalRide {
 		for (DockingStation station : stations) {
 			if (station.getStationStatus() == DockingStationStatus.ONLINE) {
 				if (station.HasFreeParkingSlot() & station.getStationType() == DockingStationType.PLUS) {
-					if (getDistance(super.endPosition, station.getPosition()) < distance) {
+					if (super.endPosition.getDistance(station.getPosition()) < distance) {
 						endstation = station;
-						distance = getDistance(super.endPosition, station.getPosition());
+						distance = super.endPosition.getDistance(station.getPosition());
 					}
 				}
 			}
@@ -32,9 +32,9 @@ public class RidePreferPlusStation extends NormalRide {
 			for (DockingStation station : stations) {
 				if (station.getStationStatus() == DockingStationStatus.ONLINE) {
 					if (station.HasFreeParkingSlot()) {
-						if (getDistance(super.endPosition, station.getPosition()) < distance) {
+						if (super.endPosition.getDistance(station.getPosition()) < distance) {
 							endstation = station;
-							distance = getDistance(super.endPosition, station.getPosition());
+							distance = super.endPosition.getDistance(station.getPosition());
 						}
 					}
 				}

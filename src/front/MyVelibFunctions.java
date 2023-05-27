@@ -1,5 +1,7 @@
 package front;
 
+import java.io.File;
+import java.nio.Buffer;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -28,7 +30,8 @@ public class MyVelibFunctions {
      * @return the random type of bicycle
      */
     public static BicycleType getRandomBicycleType() {
-        if (Math.random() < 0.5) {
+        //Allows to have 70% of mechanical
+        if (Math.random() < 0.7) {
             return BicycleType.MECHANICAL;
         } else {
             return BicycleType.ELECTRIC;
@@ -65,7 +68,7 @@ public class MyVelibFunctions {
                 GPSPosition position = new GPSPosition(Math.random() * sideLength, Math.random() * sideLength);
                 // Create the station
                 DockingStation station = new DockingStation(position, DockingStationStatus.ONLINE,
-                        DockingStationType.STANDARD,nameStation);
+                        DockingStationType.STANDARD,nameStation,nbOfSlots);
                 // stations.add(station);
 
                 // Store the station in memory
@@ -170,7 +173,7 @@ public class MyVelibFunctions {
                  if (station.getStationStatus() == DockingStationStatus.ONLINE){
                      station.setStationStatus(DockingStationStatus.OFFLINE);
 
-                     System.out.println("The station n°" + stationId + " from the velibNetwork " + nameStation + " is now offline");
+                     System.out.println("The station n°" + (stationId+1) + " from the velibNetwork " + nameStation + " is now offline");
                  }
                  else{
                     System.out.println("The station was already offline");
@@ -198,7 +201,7 @@ public class MyVelibFunctions {
                     station.setStationStatus(DockingStationStatus.ONLINE);
 
                     System.out.println(
-                            "The station n°" + stationId + " from the velibNetwork " + nameStation + " is now online");
+                            "The station n°" + (stationId+1) + " from the velibNetwork " + nameStation + " is now online");
                 } else {
                     System.out.println("The station was already online");
                 }
@@ -317,6 +320,8 @@ public class MyVelibFunctions {
 
                         double finalCost = afterCharges - beforeCharges;
 
+                      
+
                         // Add stats
                         station.addNumberOfReturn();
 
@@ -362,6 +367,8 @@ public class MyVelibFunctions {
                     double afterCharges = user.getTotalCharges();
 
                     double finalCost = afterCharges - beforeCharges;
+
+                
 
                     System.out.println(velibNetwork.getUsers().get(userId).getName()
                             + " has dropped his bike out of station " + position.toString() +
@@ -542,7 +549,12 @@ public class MyVelibFunctions {
     }
 
 
+    public static void runtTest(String scenario) {
+        MyVelibCLUI myVelibCLUI = new MyVelibCLUI();
+        myVelibCLUI.executeCommandsFromFile(scenario);
 
+    }
 
 
 }
+

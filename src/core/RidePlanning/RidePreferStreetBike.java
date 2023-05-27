@@ -1,25 +1,25 @@
-package RidePlanning;
+package core.RidePlanning;
 
 import java.util.ArrayList;
 
-import Classes.Bicycle;
-import Classes.GPSPosition;
+import core.Classes.Bicycle;
+import core.Classes.GPSPosition;
 
 public class RidePreferStreetBike extends NormalRide {
 
 	public RidePreferStreetBike(GPSPosition startPosition, GPSPosition endPosition) {
 		super(startPosition, endPosition);
-		// TODO Auto-generated constructor stub
 	}
 
 	public Bicycle findStartBike(ArrayList<Bicycle> bikes) {
 		Bicycle startingbike = null;
 		Double distance = Double.POSITIVE_INFINITY;
 		for (Bicycle bike : bikes) {
-			if (bike.isInStation() == false & bike.isFree()) {
-				if (getDistance(super.startPosition, bike.getPosition()) < distance) {
+			if (bike.isInStation() == false && bike.isFree()) {
+				System.out.println("Bike " + bike.getId() + " is not in station");
+				if (super.startPosition.getDistance(bike.getPosition()) < distance) {
 					startingbike = bike;
-					distance = getDistance(startPosition, bike.getPosition());
+					distance = super.startPosition.getDistance(bike.getPosition());
 				}
 			}
 		}
