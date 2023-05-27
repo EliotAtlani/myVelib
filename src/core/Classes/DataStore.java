@@ -27,7 +27,6 @@ public class DataStore {
      private HashMap<String,VelibNetwork> velibNetworks;
 
 
- 
 
 
     public DataStore() {
@@ -137,6 +136,8 @@ public class DataStore {
         
     }
 
+   
+
     public boolean VelibNetworksNamePossible(String name){
         for (VelibNetwork network : velibNetworks.values()) {
             if (network.getNameVelibNetwork().equals(name)) {
@@ -180,9 +181,12 @@ public class DataStore {
         int nbOfRent = station.getNumberOfRent();
         int nbOfReturn = station.getNumberOfReturn();
         int balance = nbOfReturn - nbOfRent;
-        System.out.println(" Station balance: "+ balance +
+        System.out.println(
+        "Statistics of station n°"+station.getId()+    
+        "\n\t Station balance: "+ balance +
         "\n\t number of return: " + nbOfReturn+
-        "\n\t number of rent: "+nbOfRent);
+        "\n\t number of rent: "+nbOfRent+
+        "\n \t status: "+ station.getStationStatus().toString()) ;
     }
 
 
@@ -195,14 +199,14 @@ public class DataStore {
 
         System.out.println(
             "Statistics of the user" + userId + ":"+
-            "\n--------------------------------"+
-            "Number of rides: "+nbRides +
-               "\n--------------------------------"+
-               "Total Rent Time: "+ totalRentTime+ "min"+
-                  "\n--------------------------------"+
-                  "Total charges: "+totalCharges+
-                     "\n--------------------------------"+
-                     "Time credit: "+timeCredit
+            "\n\t--------------------------------"+
+            "\n\tNumber of rides: "+nbRides +
+               "\n\t--------------------------------"+
+               "\n\tTotal Rent Time: "+ totalRentTime+ "min"+
+                  "\n\t--------------------------------"+
+                  "\n\tTotal charges: "+totalCharges+
+                     "\n\t--------------------------------"+
+                     "\n\tTime credit: "+timeCredit
         );
     }
 

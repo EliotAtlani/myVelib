@@ -199,19 +199,21 @@ public class MyVelibCLUI {
         MyVelibFunctions.displayNetworks();
     }
     private void handleRentBikeCommand(String[] parts) {
-        if (parts.length == 3){
+        if (parts.length == 4){
             int userId = Integer.parseInt(parts[0].toString());
             int stationId = Integer.parseInt(parts[1].toString());
             String type = parts[2];
-
-            MyVelibFunctions.rentbike(userId, stationId, type);
-        } else if (parts.length==4){
+            String nameStation = parts[3];
+            //-1 because it's an array
+            MyVelibFunctions.rentbike(userId-1, stationId-1, type,nameStation);
+        } else if (parts.length==5){
             int userId = Integer.parseInt(parts[0].toString());
             double latitude = Double.parseDouble(parts[1].toString());
             double longitude = Double.parseDouble(parts[2].toString());
             String type = parts[3];
+            String nameStation = parts[4];
 
-            MyVelibFunctions.rentbikeGPS(userId,latitude,longitude, type);
+            MyVelibFunctions.rentbikeGPS(userId-1,latitude,longitude, type,nameStation);
         }else{
             System.out.println("-> Wrong arugments given");
         }
@@ -220,19 +222,21 @@ public class MyVelibCLUI {
     }
 
     private void handleReturnBikeCommand(String[] parts) {
-         if (parts.length == 3){
+         if (parts.length == 4){
             int userId = Integer.parseInt(parts[0].toString());
             int stationId = Integer.parseInt(parts[1].toString());
             int duration = Integer.parseInt(parts[2].toString());
-
-            MyVelibFunctions.returnbike(userId, stationId, duration);
-        } else if (parts.length==4){
+            String nameStation = parts[3];
+            MyVelibFunctions.returnbike(userId-1, stationId-1, duration,nameStation);
+        } else if (parts.length==5){
+            //5 = GPS
             int userId = Integer.parseInt(parts[0].toString());
             double latitude = Double.parseDouble(parts[1].toString());
             double longitude = Double.parseDouble(parts[2].toString());
             int duration = Integer.parseInt(parts[3].toString());
+            String nameStation = parts[4];
 
-            MyVelibFunctions.returnbikeGPS(userId, latitude, longitude, duration);
+            MyVelibFunctions.returnbikeGPS(userId-1, latitude, longitude, duration,nameStation);
         }
        
     }
@@ -242,7 +246,7 @@ public class MyVelibCLUI {
             String velibNetwork = parts[0];
             Integer stationId = Integer.parseInt(parts[1].toString());
 
-            MyVelibFunctions.displayStation(velibNetwork, stationId);
+            MyVelibFunctions.displayStation(velibNetwork, stationId-1);
         } else {
             System.out.println("Wrong number of arguments");
         }
@@ -253,7 +257,7 @@ public class MyVelibCLUI {
             String velibNetwork = parts[0];
             Integer userId = Integer.parseInt(parts[1].toString());
 
-            MyVelibFunctions.displayUser(velibNetwork, userId);
+            MyVelibFunctions.displayUser(velibNetwork, userId-1);
         } else {
             System.out.println("Wrong number of arguments");
         }
@@ -278,14 +282,20 @@ public class MyVelibCLUI {
         if (parts.length == 1) {
             String velibNetwork = parts[0];
 
-
+            MyVelibFunctions.displayVelib(velibNetwork);
         } else {
             System.out.println("Wrong number of arguments");
         }
     }
     
     private void handleAllBikesCommand(String[] parts) {
-        MyVelibFunctions.displayAllBikes();
+        if (parts.length == 1) {
+            String velibNetwork = parts[0];
+            MyVelibFunctions.displayAllBikes(velibNetwork);
+        } else {
+            System.out.println("Wrong number of arguments");
+        }
+        
     }
 
   
