@@ -20,9 +20,9 @@ public class UserTest {
     public void testUniqueID() {
 
         // Two users and one user
-        User user1 = new User("Jean", new GPSPosition(0.0, 0.0), "123456789");
-        User user2 = new User("Paul", new GPSPosition(1.0, 0.0), "987654321");
-        User user3 = new User("Jacques", new GPSPosition(2.0, 0.0), "123456789");
+        User user1 = new User("Jean", new GPSPosition(0.0, 0.0), "123456789","Paris");
+        User user2 = new User("Paul", new GPSPosition(1.0, 0.0), "987654321","Paris");
+        User user3 = new User("Jacques", new GPSPosition(2.0, 0.0), "123456789","Paris");
 
         assertAll("Assert all ID are unique",
                 () -> assertTrue(user1.getId() != user2.getId()),
@@ -36,10 +36,10 @@ public class UserTest {
     @DisplayName("Test of ride cost")
     public void testRideCost() {
 
-        User user1 = new User("Jean", new GPSPosition(0.0, 0.0), "123456789");
-        User user2 = new User("Paul", new GPSPosition(1.0, 0.0), "987654321");
-        User user3 = new User("Jacques", new GPSPosition(2.0, 0.0), "123456789");
-        User user4 = new User("Jacques", new GPSPosition(2.0, 0.0), "123456789");
+        User user1 = new User("Jean", new GPSPosition(0.0, 0.0), "123456789","Paris");
+        User user2 = new User("Paul", new GPSPosition(1.0, 0.0), "987654321","Paris");
+        User user3 = new User("Jacques", new GPSPosition(2.0, 0.0), "123456789","Paris");
+        User user4 = new User("Jacques", new GPSPosition(2.0, 0.0), "123456789","Paris");
 
         Bicycle mechaBicycle = new Bicycle(BicycleType.MECHANICAL, new GPSPosition(0.0, 0.0));
         Bicycle elecBicycle = new Bicycle(BicycleType.ELECTRIC, new GPSPosition(0.0, 0.0));
@@ -62,7 +62,7 @@ public class UserTest {
     public void testPositionUser() {
 
         GPSPosition position = new GPSPosition(0.0, 0.0);
-        User user = new User("Jean", position, "123456789");
+        User user = new User("Jean", position, "123456789","Paris");
 
         assertAll(" All positions are correct",
                 () -> assertTrue(user.getPosition() == position)
@@ -76,11 +76,11 @@ public class UserTest {
         VLibreCard vLibreCard = new VLibreCard();
         VMaxCard vMaxCard = new VMaxCard();
 
-        User user1 = new User("Jean", new GPSPosition(0.0, 0.0), "123456789");
-        User user2 = new User("Paul", new GPSPosition(1.0, 0.0), "987654321", vLibreCard);
-        User user3 = new User("Jacques", new GPSPosition(2.0, 0.0), "123456789", vLibreCard);
-        User user4 = new User("Jacques", new GPSPosition(2.0, 0.0), "123456789", vMaxCard);
-        User user5 = new User("Jacques", new GPSPosition(2.0, 0.0), "123456789", vMaxCard);
+        User user1 = new User("Jean", new GPSPosition(0.0, 0.0), "123456789","Paris");
+        User user2 = new User("Paul", new GPSPosition(1.0, 0.0), "987654321", vLibreCard,"Paris");
+        User user3 = new User("Jacques", new GPSPosition(2.0, 0.0), "123456789", vLibreCard,"Paris");
+        User user4 = new User("Jacques", new GPSPosition(2.0, 0.0), "123456789", vMaxCard,"Paris");
+        User user5 = new User("Jacques", new GPSPosition(2.0, 0.0), "123456789", vMaxCard,"Paris");
 
         Bicycle mechaBicycle = new Bicycle(BicycleType.MECHANICAL, new GPSPosition(0.0, 0.0));
         Bicycle elecBicycle = new Bicycle(BicycleType.ELECTRIC, new GPSPosition(0.0, 0.0));
@@ -107,11 +107,11 @@ public class UserTest {
         VLibreCard vLibreCard = new VLibreCard();
         VMaxCard vMaxCard = new VMaxCard();
 
-        User user1 = new User("Jean", new GPSPosition(0.0, 0.0), "123456789");
-        User user2 = new User("Paul", new GPSPosition(1.0, 0.0), "987654321", vLibreCard);
-        User user3 = new User("Jacques", new GPSPosition(2.0, 0.0), "123456789", vLibreCard);
-        User user4 = new User("Jacques", new GPSPosition(2.0, 0.0), "123456789", vMaxCard);
-        User user5 = new User("Jacques", new GPSPosition(2.0, 0.0), "123456789", vMaxCard);
+        User user1 = new User("Jean", new GPSPosition(0.0, 0.0), "123456789","Paris");
+        User user2 = new User("Paul", new GPSPosition(1.0, 0.0), "987654321", vLibreCard,"Paris");
+        User user3 = new User("Jacques", new GPSPosition(2.0, 0.0), "123456789", vLibreCard,"Paris");
+        User user4 = new User("Jacques", new GPSPosition(2.0, 0.0), "123456789", vMaxCard,"Paris");
+        User user5 = new User("Jacques", new GPSPosition(2.0, 0.0), "123456789", vMaxCard,"Paris");
 
         Bicycle mechaBicycle = new Bicycle(BicycleType.MECHANICAL, new GPSPosition(0.0, 0.0));
         Bicycle elecBicycle = new Bicycle(BicycleType.ELECTRIC, new GPSPosition(0.0, 0.0));
@@ -134,8 +134,8 @@ public class UserTest {
     @Test
     @DisplayName("test of adding charges to users")
     public void tesAddingCharges(){
-        User user1 = new User("Jean", new GPSPosition(0.0, 0.0), "123456789");
-        User user2 = new User("Paul", new GPSPosition(1.0, 0.0), "987654321");
+        User user1 = new User("Jean", new GPSPosition(0.0, 0.0), "123456789","Paris");
+        User user2 = new User("Paul", new GPSPosition(1.0, 0.0), "987654321","Paris");
 
         user1.addCharge(10.0);
 

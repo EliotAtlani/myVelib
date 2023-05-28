@@ -1,14 +1,13 @@
-package Test;
+package core.Test;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 
-import Classes.Bicycle;
-import Classes.DockingStation;
-import Classes.GPSPosition;
-import Enums.BicycleType;
-import Enums.DockingStationStatus;
-import Enums.DockingStationType;
+import org.junit.jupiter.api.*;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import core.Classes.*;
+import core.Enums.*;
+
 
 public class BicycleTest {
     @Test
@@ -20,7 +19,7 @@ public class BicycleTest {
 
         assertAll(" All types are correct",
                 () -> assertTrue(mechaBicycle.getType() == BicycleType.MECHANICAL),
-                () -> asserletTrue(elecBicycle.getType() == BicycleType.ELECTRIC)
+                () -> assertTrue(elecBicycle.getType() == BicycleType.ELECTRIC)
         );
     }
 
@@ -64,8 +63,10 @@ public class BicycleTest {
 
         Bicycle mechaBicycle = new Bicycle(BicycleType.MECHANICAL, position);
         Bicycle elecBicycle = new Bicycle(BicycleType.ELECTRIC, position);
-        DockingStation station = new DockingStation(position1,DockingStationStatus.ONLINE,DockingStationType.STANDARD);
+        DockingStation station = new DockingStation(position1,DockingStationStatus.ONLINE,DockingStationType.STANDARD,"Paris");
         elecBicycle.setInStation(true,station);
+        mechaBicycle.setInStation(false,null);
+        mechaBicycle.setFree(true);
 
         assertAll(" All positions are correct",
                 () -> assertTrue(mechaBicycle.getPosition() == position),

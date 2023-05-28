@@ -1,14 +1,11 @@
 package core.Test;
 
 import core.Classes.*;
-import core.Cards.*;
 import core.Enums.*;
-import javafx.fxml.LoadException;
+
 
 import org.junit.jupiter.api.*;
 
-import java.beans.Transient;
-import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,10 +18,10 @@ public class VelibNetworkTest {
 
         VelibNetwork velibNetwork = new VelibNetwork("Paris");
 
-        DockingStation station1 = new DockingStation(new GPSPosition(0.0, 0.0), DockingStationStatus.ONLINE, DockingStationType.STANDARD);
-        DockingStation station2 = new DockingStation(new GPSPosition(1.0, 0.0), DockingStationStatus.ONLINE, DockingStationType.STANDARD);
-        DockingStation station3 = new DockingStation(new GPSPosition(2.0, 0.0), DockingStationStatus.ONLINE, DockingStationType.STANDARD);
-        DockingStation station4 = new DockingStation(new GPSPosition(3.0, 0.0), DockingStationStatus.ONLINE, DockingStationType.STANDARD);
+        DockingStation station1 = new DockingStation(new GPSPosition(0.0, 0.0), DockingStationStatus.ONLINE, DockingStationType.STANDARD,"Paris");
+        DockingStation station2 = new DockingStation(new GPSPosition(1.0, 0.0), DockingStationStatus.ONLINE, DockingStationType.STANDARD,"Paris");
+        DockingStation station3 = new DockingStation(new GPSPosition(2.0, 0.0), DockingStationStatus.ONLINE, DockingStationType.STANDARD,"Paris");
+        DockingStation station4 = new DockingStation(new GPSPosition(3.0, 0.0), DockingStationStatus.ONLINE, DockingStationType.STANDARD,"Paris");
 
         velibNetwork.setStationToMyVelibNetwork(station1);
         velibNetwork.setStationToMyVelibNetwork(station2);
@@ -45,9 +42,9 @@ public class VelibNetworkTest {
 
         VelibNetwork velibNetwork = new VelibNetwork("Paris");
 
-        User user1=new User("Jean", new GPSPosition(0.0, 0.0), "123456789");
-        User user2=new User("Paul", new GPSPosition(1.0, 0.0), "987654321");
-        User user3=new User("Jacques", new GPSPosition(2.0, 0.0), "123456789");
+        User user1=new User("Jean", new GPSPosition(0.0, 0.0), "123456789","Paris");
+        User user2=new User("Paul", new GPSPosition(1.0, 0.0), "987654321","Paris");
+        User user3=new User("Jacques", new GPSPosition(2.0, 0.0), "123456789","Paris");
 
         velibNetwork.setUserToMyVelibNetwork(user1);
         velibNetwork.setUserToMyVelibNetwork(user2);
