@@ -18,10 +18,10 @@ public class VelibNetworkTest {
 
         VelibNetwork velibNetwork = new VelibNetwork("Paris");
 
-        DockingStation station1 = new DockingStation(new GPSPosition(0.0, 0.0), DockingStationStatus.ONLINE, DockingStationType.STANDARD,"Paris");
-        DockingStation station2 = new DockingStation(new GPSPosition(1.0, 0.0), DockingStationStatus.ONLINE, DockingStationType.STANDARD,"Paris");
-        DockingStation station3 = new DockingStation(new GPSPosition(2.0, 0.0), DockingStationStatus.ONLINE, DockingStationType.STANDARD,"Paris");
-        DockingStation station4 = new DockingStation(new GPSPosition(3.0, 0.0), DockingStationStatus.ONLINE, DockingStationType.STANDARD,"Paris");
+        DockingStation station1 = new DockingStation(new GPSPosition(0.0, 0.0), DockingStationStatus.ONLINE, DockingStationType.STANDARD,"Paris",3);
+        DockingStation station2 = new DockingStation(new GPSPosition(1.0, 0.0), DockingStationStatus.ONLINE, DockingStationType.STANDARD,"Paris",3);
+        DockingStation station3 = new DockingStation(new GPSPosition(2.0, 0.0), DockingStationStatus.ONLINE, DockingStationType.STANDARD,"Paris",3);
+        DockingStation station4 = new DockingStation(new GPSPosition(3.0, 0.0), DockingStationStatus.ONLINE, DockingStationType.STANDARD,"Paris",3);
 
         velibNetwork.setStationToMyVelibNetwork(station1);
         velibNetwork.setStationToMyVelibNetwork(station2);

@@ -44,10 +44,10 @@ public class UserTest {
         Bicycle mechaBicycle = new Bicycle(BicycleType.MECHANICAL, new GPSPosition(0.0, 0.0));
         Bicycle elecBicycle = new Bicycle(BicycleType.ELECTRIC, new GPSPosition(0.0, 0.0));
 
-        Double r1=user1.rideCost(mechaBicycle.getType(), LocalDateTime .of(2019, 1, 1, 1, 0, 0), LocalDateTime .of(2019, 1, 1, 1, 59, 0));
-        Double r2=user2.rideCost(elecBicycle.getType(), LocalDateTime .of(2019, 1, 1, 1, 0, 0), LocalDateTime .of(2019, 1, 1, 1, 59, 0));
-        Double r3=user3.rideCost(mechaBicycle.getType(), LocalDateTime .of(2019, 1, 1, 1, 0, 0), LocalDateTime .of(2019, 1, 1, 3, 39, 0));
-        Double r4=user4.rideCost(elecBicycle.getType(), LocalDateTime .of(2019, 1, 1, 1, 0, 0), LocalDateTime .of(2019, 1, 1, 3, 59, 0));
+        Double r1=user1.giveCost(mechaBicycle.getType(), LocalDateTime .of(2019, 1, 1, 1, 0, 0), LocalDateTime .of(2019, 1, 1, 1, 59, 0),mechaBicycle);
+        Double r2=user2.giveCost(elecBicycle.getType(), LocalDateTime .of(2019, 1, 1, 1, 0, 0), LocalDateTime .of(2019, 1, 1, 1, 59, 0),elecBicycle);
+        Double r3=user3.giveCost(mechaBicycle.getType(), LocalDateTime .of(2019, 1, 1, 1, 0, 0), LocalDateTime .of(2019, 1, 1, 3, 39, 0),mechaBicycle);
+        Double r4=user4.giveCost(elecBicycle.getType(), LocalDateTime .of(2019, 1, 1, 1, 0, 0), LocalDateTime .of(2019, 1, 1, 3, 59, 0),elecBicycle);
 
         assertAll("Assert all ride cost are correct",
                 () -> assertTrue(r1==1.0),
@@ -85,11 +85,11 @@ public class UserTest {
         Bicycle mechaBicycle = new Bicycle(BicycleType.MECHANICAL, new GPSPosition(0.0, 0.0));
         Bicycle elecBicycle = new Bicycle(BicycleType.ELECTRIC, new GPSPosition(0.0, 0.0));
 
-        Double r1=user1.rideCost(mechaBicycle.getType(), LocalDateTime .of(2019, 1, 1, 1, 0, 0), LocalDateTime .of(2019, 1, 1, 1, 59, 0));
-        Double r2=user2.rideCost(elecBicycle.getType(), LocalDateTime .of(2019, 1, 1, 1, 0, 0), LocalDateTime .of(2019, 1, 1, 1, 59, 0));
-        Double r3=user3.rideCost(mechaBicycle.getType(), LocalDateTime .of(2019, 1, 1, 1, 0, 0), LocalDateTime .of(2019, 1, 1, 1, 39, 0));
-        Double r4=user4.rideCost(elecBicycle.getType(), LocalDateTime .of(2019, 1, 1, 1, 0, 0), LocalDateTime .of(2019, 1, 1, 1, 59, 0));
-        Double r5=user5.rideCost(elecBicycle.getType(), LocalDateTime .of(2019, 1, 1, 1, 0, 0), LocalDateTime .of(2019, 1, 1, 1, 59, 0));
+        Double r1=user1.giveCost(mechaBicycle.getType(), LocalDateTime .of(2019, 1, 1, 1, 0, 0), LocalDateTime .of(2019, 1, 1, 1, 59, 0),mechaBicycle);
+        Double r2=user2.giveCost(elecBicycle.getType(), LocalDateTime .of(2019, 1, 1, 1, 0, 0), LocalDateTime .of(2019, 1, 1, 1, 59, 0),elecBicycle);
+        Double r3=user3.giveCost(mechaBicycle.getType(), LocalDateTime .of(2019, 1, 1, 1, 0, 0), LocalDateTime .of(2019, 1, 1, 1, 39, 0),mechaBicycle);
+        Double r4=user4.giveCost(elecBicycle.getType(), LocalDateTime .of(2019, 1, 1, 1, 0, 0), LocalDateTime .of(2019, 1, 1, 1, 59, 0),elecBicycle);
+        Double r5=user5.giveCost(elecBicycle.getType(), LocalDateTime .of(2019, 1, 1, 1, 0, 0), LocalDateTime .of(2019, 1, 1, 1, 59, 0),elecBicycle);
 
         assertAll("Assert all ride cost are correct",
                 () -> assertTrue(r1==1.0),
@@ -116,11 +116,11 @@ public class UserTest {
         Bicycle mechaBicycle = new Bicycle(BicycleType.MECHANICAL, new GPSPosition(0.0, 0.0));
         Bicycle elecBicycle = new Bicycle(BicycleType.ELECTRIC, new GPSPosition(0.0, 0.0));
 
-        Double r1=user1.rideCost(mechaBicycle.getType(), LocalDateTime .of(2019, 1, 1, 1, 0, 0), LocalDateTime .of(2019, 1, 1, 3, 59, 0));
-        Double r2=user2.rideCost(elecBicycle.getType(), LocalDateTime .of(2019, 1, 1, 1, 0, 0), LocalDateTime .of(2019, 1, 1, 3, 59, 0));
-        Double r3=user3.rideCost(mechaBicycle.getType(), LocalDateTime .of(2019, 1, 1, 1, 0, 0), LocalDateTime .of(2019, 1, 1, 3, 59, 0));
-        Double r4=user4.rideCost(elecBicycle.getType(), LocalDateTime .of(2019, 1, 1, 1, 0, 0), LocalDateTime .of(2019, 1, 1, 3, 59, 0));
-        Double r5=user5.rideCost(mechaBicycle.getType(), LocalDateTime .of(2019, 1, 1, 1, 0, 0), LocalDateTime .of(2019, 1, 1, 3, 59, 0));
+        Double r1=user1.giveCost(mechaBicycle.getType(), LocalDateTime .of(2019, 1, 1, 1, 0, 0), LocalDateTime .of(2019, 1, 1, 3, 59, 0),mechaBicycle);
+        Double r2=user2.giveCost(elecBicycle.getType(), LocalDateTime .of(2019, 1, 1, 1, 0, 0), LocalDateTime .of(2019, 1, 1, 3, 59, 0),elecBicycle);
+        Double r3=user3.giveCost(mechaBicycle.getType(), LocalDateTime .of(2019, 1, 1, 1, 0, 0), LocalDateTime .of(2019, 1, 1, 3, 59, 0),mechaBicycle);
+        Double r4=user4.giveCost(elecBicycle.getType(), LocalDateTime .of(2019, 1, 1, 1, 0, 0), LocalDateTime .of(2019, 1, 1, 3, 59, 0),elecBicycle);
+        Double r5=user5.giveCost(mechaBicycle.getType(), LocalDateTime .of(2019, 1, 1, 1, 0, 0), LocalDateTime .of(2019, 1, 1, 3, 59, 0),mechaBicycle);
 
         assertAll("Assert all ride cost are correct",
                 () -> assertTrue(r1==3.0),

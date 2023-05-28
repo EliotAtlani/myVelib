@@ -37,7 +37,7 @@ public class DataStoreTest {
     @DisplayName("Test to add a Station to the DataStore")
     public void testAddStation() {
         DataStore dataStore = new DataStore();
-        DockingStation station = new DockingStation(new GPSPosition(0.0, 0.0),DockingStationStatus.ONLINE,DockingStationType.STANDARD,"Paris");
+        DockingStation station = new DockingStation(new GPSPosition(0.0, 0.0),DockingStationStatus.ONLINE,DockingStationType.STANDARD,"Paris",10);
 
         dataStore.addStation(station);
 

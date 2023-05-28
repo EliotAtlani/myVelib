@@ -16,7 +16,7 @@ public class DockingStationTest {
     public void testPositionDockingStation() {
 
         GPSPosition position = new GPSPosition(0.0, 0.0);
-        DockingStation station = new DockingStation(position,DockingStationStatus.ONLINE,DockingStationType.STANDARD,"Paris");
+        DockingStation station = new DockingStation(position,DockingStationStatus.ONLINE,DockingStationType.STANDARD,"Paris",3);
 
         assertAll(" All positions are correct",
                 () -> assertTrue(station.getPosition() == position)
@@ -28,8 +28,8 @@ public class DockingStationTest {
     public void testTypeDockingStation() {
 
         GPSPosition position = new GPSPosition(0.0, 0.0);
-        DockingStation station1 = new DockingStation(position,DockingStationStatus.ONLINE,DockingStationType.STANDARD,"Paris");
-        DockingStation station2 = new DockingStation(position,DockingStationStatus.OFFLINE,DockingStationType.PLUS,"Paris");
+        DockingStation station1 = new DockingStation(position,DockingStationStatus.ONLINE,DockingStationType.STANDARD,"Paris",3);
+        DockingStation station2 = new DockingStation(position,DockingStationStatus.OFFLINE,DockingStationType.PLUS,"Paris",3);
 
 
         assertAll(" All types are correct",
@@ -44,8 +44,8 @@ public class DockingStationTest {
     public void testStatusDockingStation() {
 
         GPSPosition position = new GPSPosition(0.0, 0.0);
-        DockingStation station1 = new DockingStation(position,DockingStationStatus.ONLINE,DockingStationType.STANDARD,"Paris");
-        DockingStation station2 = new DockingStation(position,DockingStationStatus.OFFLINE,DockingStationType.PLUS,"Paris");
+        DockingStation station1 = new DockingStation(position,DockingStationStatus.ONLINE,DockingStationType.STANDARD,"Paris",3);
+        DockingStation station2 = new DockingStation(position,DockingStationStatus.OFFLINE,DockingStationType.PLUS,"Paris",3);
 
         assertAll(" All status are correct",
                 () -> assertTrue(station1.getStationStatus() == DockingStationStatus.ONLINE),
@@ -58,7 +58,7 @@ public class DockingStationTest {
     public void testNumberBicycleDockingStation() {
 
         GPSPosition position = new GPSPosition(0.0, 0.0);
-        DockingStation station = new DockingStation(position,DockingStationStatus.ONLINE,DockingStationType.STANDARD,"Paris");
+        DockingStation station = new DockingStation(position,DockingStationStatus.ONLINE,DockingStationType.STANDARD,"Paris",3);
 
         Bicycle mechaBicycle1 = new Bicycle(BicycleType.MECHANICAL,position);
         Bicycle mechaBicycle2 = new Bicycle(BicycleType.MECHANICAL,position);
@@ -90,7 +90,7 @@ public class DockingStationTest {
     public void testAddBicycleDockingStation() {
 
         GPSPosition position = new GPSPosition(0.0, 0.0);
-        DockingStation station = new DockingStation(position,DockingStationStatus.ONLINE,DockingStationType.STANDARD,"Paris");
+        DockingStation station = new DockingStation(position,DockingStationStatus.ONLINE,DockingStationType.STANDARD,"Paris",3);
 
         Bicycle mechaBicycle1 = new Bicycle(BicycleType.MECHANICAL,position);
         Bicycle mechaBicycle2 = new Bicycle(BicycleType.MECHANICAL,position);
@@ -123,7 +123,7 @@ public class DockingStationTest {
     public void testRemoveBicycleDockingStation() {
 
         GPSPosition position = new GPSPosition(0.0, 0.0);
-        DockingStation station = new DockingStation(position,DockingStationStatus.ONLINE,DockingStationType.STANDARD,"Paris");
+        DockingStation station = new DockingStation(position,DockingStationStatus.ONLINE,DockingStationType.STANDARD,"Paris",3);
 
         Bicycle mechaBicycle1 = new Bicycle(BicycleType.MECHANICAL,position);
         Bicycle mechaBicycle2 = new Bicycle(BicycleType.MECHANICAL,position);

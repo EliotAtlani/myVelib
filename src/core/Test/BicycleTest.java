@@ -24,6 +24,34 @@ public class BicycleTest {
     }
 
     @Test
+    @DisplayName("Test of the state of bicycles")
+    public void testStateBicycle() {
+
+        Bicycle mechaBicycle = new Bicycle(BicycleType.MECHANICAL, new GPSPosition(0.0, 0.0));
+        Bicycle elecBicycle = new Bicycle(BicycleType.ELECTRIC, new GPSPosition(0.0, 0.0));
+
+        assertAll(" All states are correct",
+                () -> assertTrue(mechaBicycle.isFree()),
+                () -> assertTrue(elecBicycle.isFree())
+        );
+    }
+
+    @Test
+    @DisplayName("Test of inStation of bicycles")
+    public void testInStationBicycle() {
+
+        Bicycle mechaBicycle = new Bicycle(BicycleType.MECHANICAL, new GPSPosition(0.0, 0.0));
+        Bicycle elecBicycle = new Bicycle(BicycleType.ELECTRIC, new GPSPosition(0.0, 0.0));
+
+        mechaBicycle.setInStation(true,new DockingStation(new GPSPosition(0.0, 0.0),DockingStationStatus.ONLINE,DockingStationType.STANDARD,"Paris",3));
+
+        assertAll(" All inStation are correct",
+                () -> assertTrue(mechaBicycle.isInStation()),
+                () -> assertTrue(elecBicycle.isInStation())
+        );
+    }
+
+    @Test
     @DisplayName("Test unique ID for bicycles")
     public void testUniqueID() {
 
@@ -63,7 +91,7 @@ public class BicycleTest {
 
         Bicycle mechaBicycle = new Bicycle(BicycleType.MECHANICAL, position);
         Bicycle elecBicycle = new Bicycle(BicycleType.ELECTRIC, position);
-        DockingStation station = new DockingStation(position1,DockingStationStatus.ONLINE,DockingStationType.STANDARD,"Paris");
+        DockingStation station = new DockingStation(position1,DockingStationStatus.ONLINE,DockingStationType.STANDARD,"Paris",3);
         elecBicycle.setInStation(true,station);
         mechaBicycle.setInStation(false,null);
         mechaBicycle.setFree(true);

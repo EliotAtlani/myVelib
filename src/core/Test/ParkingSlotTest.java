@@ -17,7 +17,7 @@ public class ParkingSlotTest {
     public void testStatusParkingSlot() {
 
         Bicycle mechaBicycle = new Bicycle(BicycleType.MECHANICAL, new GPSPosition(0.0, 0.0));
-        DockingStation station = new DockingStation(new GPSPosition(0.0, 0.0),DockingStationStatus.ONLINE,DockingStationType.STANDARD,"Paris");
+        DockingStation station = new DockingStation(new GPSPosition(0.0, 0.0),DockingStationStatus.ONLINE,DockingStationType.STANDARD,"Paris",3);
         ParkingSlot slot1 = new ParkingSlot(station,mechaBicycle);
         ParkingSlot slot2 = new ParkingSlot(station);
 
@@ -33,7 +33,7 @@ public class ParkingSlotTest {
 
         // Two parking slots and one parking slot
         Bicycle mechaBicycle = new Bicycle(BicycleType.MECHANICAL, new GPSPosition(0.0, 0.0));
-        DockingStation station = new DockingStation(new GPSPosition(0.0, 0.0),DockingStationStatus.ONLINE,DockingStationType.STANDARD,"Paris");
+        DockingStation station = new DockingStation(new GPSPosition(0.0, 0.0),DockingStationStatus.ONLINE,DockingStationType.STANDARD,"Paris",3);
         ParkingSlot slot1 = new ParkingSlot(station,mechaBicycle);
         ParkingSlot slot2 = new ParkingSlot(station);
 
@@ -47,7 +47,7 @@ public class ParkingSlotTest {
     public void testBicycleParkingSlot() {
 
         Bicycle mechaBicycle = new Bicycle(BicycleType.MECHANICAL, new GPSPosition(0.0, 0.0));
-        DockingStation station = new DockingStation(new GPSPosition(0.0, 0.0),DockingStationStatus.ONLINE,DockingStationType.STANDARD,"Paris");
+        DockingStation station = new DockingStation(new GPSPosition(0.0, 0.0),DockingStationStatus.ONLINE,DockingStationType.STANDARD,"Paris",3);
         ParkingSlot slot1 = new ParkingSlot(station,mechaBicycle);
         ParkingSlot slot2 = new ParkingSlot(station);
 
