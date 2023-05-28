@@ -71,7 +71,7 @@ public class Bicycle {
 	 * @param inStation
 	 * @param station
 	 */
-	public void setInStation(Boolean inStation, DockingStation station) {
+	public void setInStation(boolean inStation, DockingStation station) {
 		this.inStation = inStation;
 		if (station != null){
 			this.position = station.getPosition();
