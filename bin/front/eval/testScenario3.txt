@@ -1,0 +1,23 @@
+This file test the rent and return of bike from and in the street. We display the statisic at the same time. The velibNetWork is already configured my the my_velib.ini
+
+User 1 doesn't registrationCard
+- rentBike 1 1 mechanical network1
+User 2 has Vlibre card
+- rentBike 2 1 electric network1
+
+Here the user 1 drop his bike at the GPS Position
+- returnBike 1 10.53428283 22.348392 90 network1
+The user3, with vmax card, take it from the street (same GPS Position)
+- rentBike 3 10.53428283 22.348392 mechanical network1
+
+- returnBike 2 2 90 network1
+- returnBike 3 2 90 network1
+
+We show stats
+- sortStation network1 mos
+- sortStation network1 los
+- displayStation network1 2
+- displayUser network1 1
+- displayUser network1 2
+- displayUser network1 3
+- display network1

@@ -1,13 +1,13 @@
-package Classes;
+package core.Classes;
 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import Enums.BicycleType;
-import Enums.DockingStationStatus;
-import Enums.DockingStationType;
-import Enums.ParkingSlotStatus;
+import core.Enums.BicycleType;
+import core.Enums.DockingStationStatus;
+import core.Enums.DockingStationType;
+import core.Enums.ParkingSlotStatus;
 
 public class DockingStation {
 	protected Integer id;

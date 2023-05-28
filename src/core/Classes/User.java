@@ -1,14 +1,15 @@
-package Classes;
+package core.Classes;
 
 import java.time.LocalDateTime;
+
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import Cards.NoRegistrationCard;
-import Cards.RegistrationCard;
-import Enums.BicycleType;
-import Enums.ParkingSlotStatus;
+import core.Cards.NoRegistrationCard;
+import core.Cards.RegistrationCard;
+import core.Enums.BicycleType;
+import core.Enums.ParkingSlotStatus;
 import front.MyVelibIndex;
 
 public class User {
