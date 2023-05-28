@@ -8,18 +8,10 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
-import Cards.VLibreCard;
-import Cards.VMaxCard;
-import Classes.Bicycle;
-import Classes.DockingStation;
-import Classes.GPSPosition;
-import Classes.ParkingSlot;
-import Classes.User;
-import Classes.VelibNetwork;
-import Enums.BicycleType;
-import Enums.DockingStationStatus;
-import Enums.DockingStationType;
-import Enums.ParkingSlotStatus;
+import core.Cards.VLibreCard;
+import core.Cards.VMaxCard;
+import core.Classes.*;
+import core.Enums.*;
 
 public class MyVelibFunctions {
     /**

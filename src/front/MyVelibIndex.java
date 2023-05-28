@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
-import Classes.DataStore;
+import core.Classes.DataStore;
 /**
  * This class contains the main void and allows to launch the initialisation and the command system 
  * 

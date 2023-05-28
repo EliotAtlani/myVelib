@@ -1,6 +1,6 @@
-package Classes;
+package core.Classes;
 
-import Enums.*;
+import core.Enums.*;
 
 public class Bicycle {
 	private static Integer uniqueId = 1;
