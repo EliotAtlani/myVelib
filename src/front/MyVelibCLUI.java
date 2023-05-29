@@ -5,6 +5,9 @@ import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * This script create the CLUI in the terminal by launching start and handle all the commands.
+ */
 public class MyVelibCLUI {
 
     /** 
@@ -137,18 +140,18 @@ public class MyVelibCLUI {
                         + "online <velibnetworkName, stationID>:" +
                         "\n \t to put online the station stationID of the myVelib network velibnetworkName\n\n"
 
-                        + "rentBike <userID, stationID> :" +
+                        + "rentBike <userID, stationID,velibnetworkName > :" +
                         "\n \tto let the user userID renting a bike from station stationID (if no bikes are available should behave accordingly)\n\n"
 
-                        + "rentBike <userID, GPS_Position> :" +
+                        + "rentBike <userID, latitude,longitude, velibnetworkName> :" +
                         "\n \t to let the user userID renting a bike parked at a given GPS_Position\n\n"
 
-                        + "returnBike <userID, stationID, duration> : :" +
+                        + "returnBike <userID, stationID, duration,velibnetworkName> : :" +
                         "\n \t to let the user userID returning a bike to station stationID for a given duration (if no parking bay is available should \n\n"
                         +
                         "\t behave accordingly). This command should display the cost of the rent\n\n"
 
-                        + "returnBike <userID, GPS_Position, duration> :" +
+                        + "returnBike <userID, latitude,longitude, duration,velibnetworkName> :" +
                         "\n \t to let the user userID returning a bike in a given GPS_position for a given duration (if no parking bay is available should \n\n"
                         +
                         "\t behave accordingly). This command should display the cost of the rent\n\n"
@@ -160,11 +163,13 @@ public class MyVelibCLUI {
                         "\n \t to display the statistics of user userID of a myVelib network velibnetwork.\n \n"
 
                         + "sortStation <velibnetworkName, sortpolicy> :" +
-                        "\n \t to display the stations in increasing order w.r.t. to the sorting policy of user sortpolicy. \n \n"
+                        "\n \t to display the stations in increasing order w.r.t. to the sorting policy of user sortpolicy. Use 'mos' or 'los' for policy \n \n"
 
                         + "display  <velibnetworkName>:" +
                         "\n \t  to display the entire status (stations, parking bays, users) of an a myVelib network velibnetworkName\n\n"
 
+                        + "displayAllBikes <velibnetworkName>:"+
+                        "\n\t to display all the bikes in station from a velibNetWork"
                         + "exit :" +
                         "\n \t to exit the system. \n \n"
 

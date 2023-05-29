@@ -15,7 +15,8 @@ The user3, with vmax card, take it from the street (same GPS Position)
 
 We show stats
 - sortStation network1 mos
-- sortStation network1 los
+- sortStation network1 los1
+- sortStation network1 los2
 - displayStation network1 2
 - displayUser network1 1
 - displayUser network1 2

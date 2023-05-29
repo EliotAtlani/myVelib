@@ -2,6 +2,10 @@ package core.Cards;
 
 import core.Enums.*;
 
+/**
+ * Handle the creation on registration Card
+*/
+
 public class RegistrationCard {
 	private boolean canHandleTimeCredit;
 	private double timeCreditBalance;

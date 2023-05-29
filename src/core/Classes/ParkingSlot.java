@@ -2,6 +2,9 @@ package core.Classes;
 
 import core.Enums.*;
 
+/**
+ * Create a parkingslot in a DockingStation
+ */
 public class ParkingSlot {
     private static Integer uniqueId = 1;
     protected Integer id;

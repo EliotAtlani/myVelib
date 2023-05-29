@@ -9,7 +9,7 @@ import core.Classes.DataStore;
 /**
  * This class contains the main void and allows to launch the initialisation and the command system 
  * 
- *
+ * It's the script you have to launch to get the CLUI
  * */
 public class MyVelibIndex {
 

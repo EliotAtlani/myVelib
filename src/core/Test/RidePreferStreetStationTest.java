@@ -26,11 +26,11 @@ public class RidePreferStreetStationTest {
         GPSPosition position5 = new GPSPosition(0.0, 4.0);
         GPSPosition position6 = new GPSPosition(0.0, 5.0);
 
-        DockingStation station1 = new DockingStation(position1, DockingStationStatus.ONLINE, DockingStationType.STANDARD,"Paris");
+        DockingStation station1 = new DockingStation(position1, DockingStationStatus.ONLINE, DockingStationType.STANDARD,"Paris",10);
         station1.addParkingSlot(new ParkingSlot(station1));
-        DockingStation station2 = new DockingStation(position2, DockingStationStatus.ONLINE, DockingStationType.STANDARD,"Paris");
+        DockingStation station2 = new DockingStation(position2, DockingStationStatus.ONLINE, DockingStationType.STANDARD,"Paris",10);
         station2.addParkingSlot(new ParkingSlot(station2));
-        DockingStation station3 = new DockingStation(position3, DockingStationStatus.ONLINE, DockingStationType.STANDARD,"Paris");
+        DockingStation station3 = new DockingStation(position3, DockingStationStatus.ONLINE, DockingStationType.STANDARD,"Paris",10);
         station3.addParkingSlot(new ParkingSlot(station3));
     
 

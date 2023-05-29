@@ -1,9 +1,6 @@
 package core.Classes;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-
-import core.Enums.*;
 
 /**
  * This class allows to store the list of users, stations and velibNetWork
@@ -52,7 +49,7 @@ public class DataStore {
     }
     
     /**
-     * Adds the station to the stations HashMap if it isn't already added.
+     * Adds the station to the stations HashMap
      *
      * @param station the station
      */
@@ -121,9 +118,9 @@ public class DataStore {
 
     
     /**
-     * Gets the users hashmap.
+     * Gets the velibNetwork hashmap.
      *
-     * @return the users hashmap
+     * @return the velibNetwork hashmap
      */
     public HashMap<String,VelibNetwork> getVelibNetworks() {
         return velibNetworks;
