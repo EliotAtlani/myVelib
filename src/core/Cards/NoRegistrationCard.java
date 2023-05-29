@@ -1,5 +1,8 @@
 package core.Cards;
 
+/**
+ * Give no registration card to user
+ */
 public class NoRegistrationCard extends RegistrationCard{
 
     public NoRegistrationCard() {

@@ -1,5 +1,8 @@
 package core.Cards;
 
+/**
+ * Create VLibreCard for a user
+ */
 public class VLibreCard extends RegistrationCard{
 	
 	public VLibreCard(){

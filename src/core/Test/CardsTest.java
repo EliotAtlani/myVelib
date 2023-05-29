@@ -24,12 +24,12 @@ public class CardsTest {
         User user2= new User("user",new GPSPosition(0., 0.),"123456","Paris");
         User user3= new User("user",new GPSPosition(0., 0.),"123456","Paris");
 
-        Double ride1=card1.computeRideCost(duration,BicycleType.MECHANICAL,user1);
-        Double ride2=card1.computeRideCost(duration,BicycleType.ELECTRIC,user1);
-        Double ride3=card2.computeRideCost(duration,BicycleType.MECHANICAL,user2);
-        Double ride4=card2.computeRideCost(duration,BicycleType.ELECTRIC,user2);
-        Double ride5=card3.computeRideCost(duration,BicycleType.MECHANICAL,user3);
-        Double ride6=card3.computeRideCost(duration,BicycleType.ELECTRIC,user3);
+        Double ride1=card1.giveRideCost(duration,BicycleType.MECHANICAL);
+        Double ride2=card1.giveRideCost(duration,BicycleType.ELECTRIC);
+        Double ride3=card2.giveRideCost(duration,BicycleType.MECHANICAL);
+        Double ride4=card2.giveRideCost(duration,BicycleType.ELECTRIC);
+        Double ride5=card3.giveRideCost(duration,BicycleType.MECHANICAL);
+        Double ride6=card3.giveRideCost(duration,BicycleType.ELECTRIC);
 
 
         assertAll(

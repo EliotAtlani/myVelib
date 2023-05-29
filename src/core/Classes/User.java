@@ -12,6 +12,9 @@ import core.Enums.BicycleType;
 import core.Enums.ParkingSlotStatus;
 import front.MyVelibIndex;
 
+/**
+ * Create a User in a VelibNetwork
+ */
 public class User {
 	protected String name;
 	protected int id;

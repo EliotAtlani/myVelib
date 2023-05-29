@@ -13,6 +13,9 @@ import core.Cards.VMaxCard;
 import core.Classes.*;
 import core.Enums.*;
 
+/**
+ * This script contains all the function of the CLUI.
+ */
 public class MyVelibFunctions {
     /**
      * Get random type of bicycle.
@@ -45,7 +48,7 @@ public class MyVelibFunctions {
             Integer nbOfBikes) {
 
 
-        // On vérifie que le nom du network n'existe pas déjà.
+        // We check if the velib name is valid and doesn't exist yet
         boolean existed =  MyVelibIndex.myVelibDatabase.VelibNetworksNamePossible(nameStation);
         if (existed){
             VelibNetwork network = new VelibNetwork(nameStation);
@@ -59,8 +62,8 @@ public class MyVelibFunctions {
                         DockingStationType.STANDARD,nameStation,nbOfSlots);
                 // stations.add(station);
 
-                // Store the station in memory
-                MyVelibIndex.myVelibDatabase.addStation(station);
+                // Store the station in the velib network
+      
                 network.setStationToMyVelibNetwork(station);
 
                 // Create nbOfSlots in this station
@@ -135,7 +138,7 @@ public class MyVelibFunctions {
             }
             velibNetwork.setUserToMyVelibNetwork(userAdd);
 
-            MyVelibIndex.myVelibDatabase.addUser(userAdd);
+        
         }
 
 
@@ -471,7 +474,7 @@ public class MyVelibFunctions {
                     System.out.println("Station: " + station.getId() + ", Score: " + sum);
                 }
 
-            }else if (sortPolicy.toLowerCase().equals("los")){
+            }else if (sortPolicy.toLowerCase().equals("los1")){
                 ArrayList<DockingStation> stations = velibNetwork.getStations();
                 List<DockingStation> sortedStations = new ArrayList<>(stations);
 
@@ -494,7 +497,30 @@ public class MyVelibFunctions {
                     System.out.println("Station: " + station.getId() + ", Score: " + sum);
                 }
 
-            }else{
+            }else if (sortPolicy.toLowerCase().equals("los2")){
+                ArrayList<DockingStation> stations = velibNetwork.getStations();
+                List<DockingStation> sortedStations = new ArrayList<>(stations);
+
+                Collections.sort(sortedStations, new Comparator<DockingStation>() {
+                    @Override
+                    public int compare(DockingStation station1, DockingStation station2) {
+                    	  float averageOccupation1 = (float) (station1.getNbOfSlots() - station1.getNumberOfFreeParkingSlot())
+                                  / station1.getNbOfSlots();
+                    	  float averageOccupation2 = (float) (station2.getNbOfSlots() - station2.getNumberOfFreeParkingSlot())
+                                  / station2.getNbOfSlots();
+                    	  return Float.compare(averageOccupation1, averageOccupation2); // Tri croissant
+
+                       
+                    }
+                });
+                for (DockingStation station : sortedStations) {
+                    float averageOccupation = (float) (station.getNbOfSlots() - station.getNumberOfFreeParkingSlot())
+                            / station.getNbOfSlots();
+                    System.out.println("Station: " + station.getId() + ", Score: " + averageOccupation);
+                }
+
+            }
+            else{
                 System.out.println("The sortPolicy entered doesn't exist, type 'help' for more informations");
             }
         }
