@@ -42,7 +42,7 @@ public class MyVelibIndex {
      */
     private static void InitialConfiguration(){
         try {
-            File file = new File("src/front/eval/my_velib.ini");
+            File file = new File("./eval/my_velib.ini");
             FileReader fileReader = new FileReader(file);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String line;

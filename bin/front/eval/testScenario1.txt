@@ -1,7 +1,0 @@
-This file test the rental of a bike by a user according to the section 2.5. The velibNetWork is already configured my the my_velib.ini
-
-The user 1 rent a bike in station 1 of velibNetwork network1 (It is possible that there is no electric bike available, just start again to make it work)
-- rentBike 1 1 mechanical network1
-- returnBike 1 2 100 network1
-- displayUser network1 1
-- displayStation network1 2

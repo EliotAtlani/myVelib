@@ -90,19 +90,19 @@ public class MyVelibCLUI {
 
     // Implement the logic to handle each command
     /**
-     * @param arguments
+     * @param parts
      */
-    private void handleSetupCommand(Object[] arguments) {
-        if (arguments.length == 1) {
-            String nameStation = (String) arguments[0];
+    private void handleSetupCommand(Object[] parts) {
+        if (parts.length == 1) {
+            String nameStation = (String) parts[0];
 
             MyVelibFunctions.setup(nameStation, 10, 10, 4000.0, 75);
-        } else if (arguments.length == 5) {
-            String nameStation = (String) arguments[0];
-            Integer nbStations = Integer.parseInt(arguments[1].toString());
-            Integer nbSlots = Integer.parseInt(arguments[2].toString());
-            Double s = Double.parseDouble(arguments[3].toString());
-            Integer nbBikes = Integer.parseInt(arguments[4].toString());
+        } else if (parts.length == 5) {
+            String nameStation = (String) parts[0];
+            Integer nbStations = Integer.parseInt(parts[1].toString());
+            Integer nbSlots = Integer.parseInt(parts[2].toString());
+            Double s = Double.parseDouble(parts[3].toString());
+            Integer nbBikes = Integer.parseInt(parts[4].toString());
             MyVelibFunctions.setup(nameStation, nbStations, nbSlots, s, nbBikes);
         } else {
             System.out.println("You must enter the correct number of arguments. Type 'help' for more information");
@@ -170,11 +170,12 @@ public class MyVelibCLUI {
 
                         + "displayAllBikes <velibnetworkName>:"+
                         "\n\t to display all the bikes in station from a velibNetWork"
-                        + "exit :" +
-                        "\n \t to exit the system. \n \n"
 
-                        + "runTest <testScenarioFile.txt> :" +
-                        "\n \t to run the test scenario described in testScenarioFile.txt\n \n");
+                          + "runTest <testScenarioFile.txt> :" +
+                        "\n \t to run the test scenario described in testScenarioFile.txt\n \n"
+                        + "exit :" +
+                        "\n \t to exit the system. \n \n");
+
 
     }
 
@@ -195,7 +196,7 @@ public class MyVelibCLUI {
     private void handleOfflineCommand(String[] parts) {
         String nameStation = parts[0];
         int stationId = Integer.parseInt(parts[1].toString());
-
+        // -1 to retrieve to correct DockingStation
         MyVelibFunctions.offline(nameStation, stationId-1);
 
     }
@@ -255,7 +256,7 @@ public class MyVelibCLUI {
             String nameStation = parts[3];
             MyVelibFunctions.returnbike(userId-1, stationId-1, duration,nameStation);
         } else if (parts.length==5){
-            //5 = GPS
+            //5 arguments = GPSPosition arguments
             int userId = Integer.parseInt(parts[0].toString());
             double latitude = Double.parseDouble(parts[1].toString());
             double longitude = Double.parseDouble(parts[2].toString());
@@ -360,7 +361,7 @@ public class MyVelibCLUI {
      */
     public void executeCommandsFromFile(String filename) {
         try {
-            File file = new File("src/front/eval/"+filename);
+            File file = new File("./eval/"+filename);
             Scanner scanner = new Scanner(file);
 
             while (scanner.hasNextLine()) {
