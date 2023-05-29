@@ -1,5 +1,8 @@
 package core.Cards;
 
+/**
+ * Create VMaxCard for a user
+ */
 public class VMaxCard extends RegistrationCard {
 	
 	public VMaxCard() {

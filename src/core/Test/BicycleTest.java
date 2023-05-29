@@ -5,6 +5,8 @@ import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.Test;
+
 import core.Classes.*;
 import core.Enums.*;
 

@@ -2,6 +2,9 @@ package core.Classes;
 
 import core.Enums.*;
 
+/**
+ * Create a bike 
+ */
 public class Bicycle {
 	private static Integer uniqueId = 1;
 	protected Integer id;
@@ -25,16 +28,26 @@ public class Bicycle {
 		this.fromStreet=false;
 	}
 
+	//Getters & Setters
 
+	/**
+	 * @return Integer
+	 */
 	private static synchronized Integer getNextUniqueId() {
 		return uniqueId++;
 	}
 
 	
+	/**
+	 * @return Integer
+	 */
 	public Integer getId() {
 		return id;
 	}
 
+	/**
+	 * @return GPSPosition
+	 */
 	public GPSPosition getPosition() {
 		return position;
 	}
